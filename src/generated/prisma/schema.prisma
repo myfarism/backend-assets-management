@@ -1,0 +1,148 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum MaintenanceRequestStatus {
+  ontime    @map("On Time")
+  overdue   @map("Overdue")
+  onprocess @map("On Process")
+}
+
+enum AsetStatus {
+  aktif       @map("Aktif")
+  nonaktif    @map("Non Aktif")
+  maintenance @map("Maintenance")
+}
+
+enum AsetKondisi {
+  baik   @map("Baik")
+  normal @map("Normal")
+  buruk  @map("Buruk")
+}
+
+enum AsetKategori {
+  asetFisik   @map("Aset Fisik")
+  asetDigital @map("Aset Digital")
+}
+
+enum HakMilik {
+  pribadi @map("Pribadi")
+  kantor  @map("Kantor")
+}
+
+enum UserStatus {
+  aktif    @map("Aktif")
+  nonaktif @map("Non Aktif")
+}
+
+model User {
+  id        String     @id @default(uuid())
+  email     String     @unique
+  name      String
+  role      UserRole   @relation("UserToRole", fields: [roleId], references: [userRoleId])
+  roleId    String
+  password  String
+  lastLogin DateTime?
+  createdAt DateTime   @default(now())
+  status    UserStatus @default(nonaktif)
+}
+
+model Aset {
+  asetId            String           @id @default(uuid())
+  lokasiId          String?
+  lokasi            Lokasi?          @relation(fields: [lokasiId], references: [idLokasi])
+  subKategoriAsetId String?
+  subKategoriAset   SubAsetKategori? @relation("AsetToSubKategori", fields: [subKategoriAsetId], references: [subAsetId])
+  kategoriAset      AsetKategori
+  merkDanTipe       String
+  tahun             Int?
+  kondisiAset       AsetKondisi?
+  statusAset        AsetStatus
+  nomorSeri         String?
+  masaBerlaku       DateTime?
+  statusKepemilikan String
+  urlFoto           String[]
+  urlQR             String?
+  createdAt         DateTime         @default(now())
+  pic               String?
+
+  maintenances Maintenance[]
+  perpindahan  Perpindahan[]
+}
+
+model Maintenance {
+  maintenanceId     String                   @id @default(uuid())
+  deskripsi         String?
+  idAset            String
+  aset              Aset                     @relation(fields: [idAset], references: [asetId])
+  tanggalMulai      DateTime
+  perkiraanSelesai  DateTime
+  tanggalSelesai    DateTime?
+  statusMaintenance MaintenanceRequestStatus
+  createdAt         DateTime                 @default(now())
+}
+
+model Lokasi {
+  idLokasi        String            @id @default(uuid())
+  lokasi          String            @unique
+  subKategoriAset SubAsetKategori[] @relation("KategoriToLokasi")
+  kategoriAset    AsetKategori
+  aset            Aset[]
+  createdAt       DateTime          @default(now())
+
+  perpindahan Perpindahan[]
+  pengadaan   Pengadaan[]
+}
+
+model Perpindahan {
+  idPindahan    String   @id @default(uuid())
+  lokasiId      String
+  lokasi        Lokasi   @relation(fields: [lokasiId], references: [idLokasi])
+  idAset        String
+  aset          Aset     @relation(fields: [idAset], references: [asetId])
+  tempatLama    String
+  tempatBaru    String
+  tanggalPindah DateTime
+  createdAt     DateTime @default(now())
+}
+
+model Pengadaan {
+  pengadaanId  String       @id @default(uuid())
+  tanggalBeli  DateTime
+  lokasiId     String
+  lokasi       Lokasi       @relation(fields: [lokasiId], references: [idLokasi])
+  kategoriAset AsetKategori
+  namaAset     String
+  jumlahAset   Int
+  hargaSatuan  BigInt
+  totalHarga   BigInt
+  vendor       String
+  createdAt    DateTime     @default(now())
+}
+
+model Notifikasi {
+  notifId Int @id
+}
+
+model SubAsetKategori {
+  subAsetId   String   @id @default(uuid())
+  nameSubAset String
+  createdAt   DateTime @default(now())
+
+  asets  Aset[]   @relation("AsetToSubKategori")
+  lokasi Lokasi[] @relation("KategoriToLokasi")
+}
+
+model UserRole {
+  userRoleId String   @id @default(uuid())
+  nameRole   String
+  createdAt  DateTime @default(now())
+
+  users User[] @relation("UserToRole")
+}
