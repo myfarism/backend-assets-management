@@ -78,77 +78,22 @@ class PerpindahanController {
 
     static async getDataPindah(req, res) {
         try {
-            let { 
-                page = 1, 
-                limit = 10, 
-                recent = "desc", 
-                thisWeek, 
-                search 
-            } = req.query;
-
-            console.log(req.query);
-
-            // Convert ke integer & validasi
-            page = parseInt(page);
-            limit = parseInt(limit);
-            if (isNaN(page) || page < 1) page = 1;
-            if (isNaN(limit) || limit < 1) limit = 10;
-
-            const skip = (page - 1) * limit;
-
-            // Filter awal
-            const filter = {};
-
-            // Filter minggu ini
-            if (thisWeek === "true") {
-                const startOfWeek = new Date();
-                startOfWeek.setHours(0, 0, 0, 0);
-                startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay()); // Minggu awal
-
-                const endOfWeek = new Date(startOfWeek);
-                endOfWeek.setDate(endOfWeek.getDate() + 6); // Sabtu akhir
-
-                filter.tanggalPindah = {
-                    gte: startOfWeek,
-                    lte: endOfWeek
-                };
-            }
-
-            // Filter pencarian aset
-            if (search) {
-                filter.OR = [
-                    { aset: { merkDanTipe: { contains: search, mode: "insensitive" } } },
-                    { aset: { asetId: { contains: search, mode: "insensitive" } } }
-                ];
-            }
-
             // Hitung total data sesuai filter
-            const totalCount = await prisma.perpindahan.count({
-                where: filter
-            });
+            const totalCount = await prisma.perpindahan.count();
 
             // Ambil data perpindahan dengan filter & pagination
             const perpindahanList = await prisma.perpindahan.findMany({
-                where: filter,
-                skip,
-                take: limit,
                 include: {
                     aset: true,
                     lokasi: true
                 },
-                orderBy: { createdAt: recent.toLowerCase() === "asc" ? "asc" : "desc" }
+                orderBy: { createdAt: 'desc' }
             });
 
             res.status(200).json({
                 success: true,
                 message: "Data perpindahan berhasil diambil",
                 totalData: totalCount,
-                pagination: {
-                    totalItems: totalCount,
-                    totalPages: Math.ceil(totalCount / limit),
-                    currentPage: page,
-                    pageSize: limit
-                },
                 data: perpindahanList
             });
 

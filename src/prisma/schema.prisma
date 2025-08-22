@@ -8,142 +8,137 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum MaintenanceRequestStatus {
-  ontime      @map("On Time")
-  overdue     @map("Overdue")
-  onprocess   @map("On Process")
-}
-
-enum AsetStatus {
-  aktif         @map("Aktif")
-  nonaktif      @map("Non Aktif")
-  maintenance   @map("Maintenance")
-}
-
-enum AsetKondisi {
-  baik      @map("Baik")
-  normal    @map("Normal")
-  buruk     @map("Buruk")
-}
-
-enum AsetKategori {
-  asetFisik @map("Aset Fisik")
-  asetDigital @map("Aset Digital")
-}
-
-enum HakMilik {
-  pribadi     @map("Pribadi")
-  kantor      @map("Kantor")
-}
-
-enum UserStatus {
-  aktif       @map("Aktif")
-  nonaktif    @map("Non Aktif")
-}
-
 model User {
-  id         String   @id @default(uuid())
-  email      String   @unique
-  name       String
-  role       UserRole @relation("UserToRole", fields: [roleId], references: [userRoleId])
-  roleId     String
-  password   String
-  lastLogin  DateTime?
-  createdAt  DateTime @default(now())
-  status     UserStatus @default(nonaktif)
+  id        String     @id @default(uuid())
+  email     String     @unique
+  name      String
+  password  String
+  lastLogin DateTime?
+  createdAt DateTime   @default(now())
+  status    UserStatus @default(nonaktif)
+  roleId    String
+  role      UserRole   @relation("UserToRole", fields: [roleId], references: [userRoleId])
 }
 
 model Aset {
-  asetId            String        @id @default(uuid())
-  lokasiId          String?
-  lokasi            Lokasi?        @relation(fields: [lokasiId], references: [idLokasi])
-  subKategoriAsetId String?
-  subKategoriAset   SubAsetKategori? @relation("AsetToSubKategori", fields: [subKategoriAsetId], references: [subAsetId])
-  kategoriAset      AsetKategori
+  asetId            String           @id @default(uuid())
   merkDanTipe       String
   tahun             Int?
   kondisiAset       AsetKondisi?
-  statusAset        AsetStatus
-  nomorSeri         String?
   masaBerlaku       DateTime?
+  nomorSeri         String?
+  statusAset        AsetStatus
   statusKepemilikan String
-  urlFoto           String[]
+  lokasiId          String?
   urlQR             String?
-  createdAt  DateTime @default(now())
+  urlFoto           String[]
+  createdAt         DateTime         @default(now())
   pic               String?
-
+  kategoriAset      AsetKategori
+  subKategoriAsetId String?
+  lokasi            Lokasi?          @relation(fields: [lokasiId], references: [idLokasi])
+  subKategoriAset   SubAsetKategori? @relation("AsetToSubKategori", fields: [subKategoriAsetId], references: [subAsetId])
   maintenances      Maintenance[]
   perpindahan       Perpindahan[]
 }
 
 model Maintenance {
-  maintenanceId     String  @id   @default(uuid())
-  deskripsi         String?
+  maintenanceId     String                   @id @default(uuid())
   idAset            String
-  aset              Aset    @relation(fields: [idAset], references: [asetId])
   tanggalMulai      DateTime
   perkiraanSelesai  DateTime
   tanggalSelesai    DateTime?
   statusMaintenance MaintenanceRequestStatus
-  createdAt         DateTime @default(now())
+  createdAt         DateTime                 @default(now())
+  deskripsi         String?
+  aset              Aset                     @relation(fields: [idAset], references: [asetId])
 }
 
-
 model Lokasi {
-  idLokasi     String @id @default(uuid())
-  lokasi       String @unique
+  idLokasi        String            @id @default(uuid())
+  lokasi          String            @unique
+  createdAt       DateTime          @default(now())
+  kategoriAset    AsetKategori
+  aset            Aset[]
+  pengadaan       Pengadaan[]
+  perpindahan     Perpindahan[]
   subKategoriAset SubAsetKategori[] @relation("KategoriToLokasi")
-  kategoriAset  AsetKategori
-  aset         Aset[]
-  createdAt  DateTime @default(now())
-
-  perpindahan   Perpindahan[]
-  pengadaan     Pengadaan[]
 }
 
 model Perpindahan {
-  idPindahan    String @id  @default(uuid())
+  idPindahan    String   @id @default(uuid())
   lokasiId      String
-  lokasi        Lokasi        @relation(fields: [lokasiId], references: [idLokasi])
   idAset        String
-  aset          Aset    @relation(fields: [idAset], references: [asetId])
-  tempatLama    String
   tempatBaru    String
   tanggalPindah DateTime
   createdAt     DateTime @default(now())
+  tempatLama    String
+  aset          Aset     @relation(fields: [idAset], references: [asetId])
+  lokasi        Lokasi   @relation(fields: [lokasiId], references: [idLokasi])
 }
 
 model Pengadaan {
-  pengadaanId   String @id @default(uuid())
-  tanggalBeli   DateTime
-  lokasiId      String
-  lokasi        Lokasi @relation(fields: [lokasiId], references: [idLokasi])
-  kategoriAset  AsetKategori
-  namaAset      String
-  jumlahAset    Int
-  hargaSatuan   BigInt
-  totalHarga    BigInt
-  vendor        String
-  createdAt     DateTime @default(now())
+  pengadaanId  String       @id @default(uuid())
+  tanggalBeli  DateTime
+  lokasiId     String
+  kategoriAset AsetKategori
+  namaAset     String
+  jumlahAset   Int
+  hargaSatuan  BigInt
+  totalHarga   BigInt
+  vendor       String
+  createdAt    DateTime     @default(now())
+  lokasi       Lokasi       @relation(fields: [lokasiId], references: [idLokasi])
 }
 
 model Notifikasi {
-  notifId     Int @id
+  notifId Int @id
 }
 
 model SubAsetKategori {
-  subAsetId   String  @id   @default(uuid())
+  subAsetId   String   @id @default(uuid())
   nameSubAset String
   createdAt   DateTime @default(now())
-
-  asets       Aset[]  @relation("AsetToSubKategori")
+  asets       Aset[]   @relation("AsetToSubKategori")
   lokasi      Lokasi[] @relation("KategoriToLokasi")
 }
 
 model UserRole {
-  userRoleId  String  @id   @default(uuid())
-  nameRole    String
-  createdAt   DateTime  @default(now())
+  userRoleId String   @id @default(uuid())
+  nameRole   String
+  createdAt  DateTime @default(now())
+  users      User[]   @relation("UserToRole")
+}
 
-  users       User[]    @relation("UserToRole")
+enum MaintenanceRequestStatus {
+  ontime    @map("On Time")
+  overdue   @map("Overdue")
+  onprocess @map("On Process")
+}
+
+enum AsetStatus {
+  aktif       @map("Aktif")
+  nonaktif    @map("Non Aktif")
+  maintenance @map("Maintenance")
+}
+
+enum AsetKondisi {
+  baik   @map("Baik")
+  normal @map("Normal")
+  buruk  @map("Buruk")
+}
+
+enum AsetKategori {
+  asetFisik   @map("Aset Fisik")
+  asetDigital @map("Aset Digital")
+}
+
+enum HakMilik {
+  pribadi @map("Pribadi")
+  kantor  @map("Kantor")
+}
+
+enum UserStatus {
+  aktif    @map("Aktif")
+  nonaktif @map("Non Aktif")
 }

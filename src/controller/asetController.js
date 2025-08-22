@@ -626,10 +626,25 @@ class AsetController {
                 });
             }
 
+            const idAset = asetId;
+            const historyPindahan = await prisma.perpindahan.findMany({
+                where: { idAset },
+                select: {
+                    tempatLama: true,
+                    tempatBaru: true,
+                    tanggalPindah: true
+                },
+                take: 3,
+                orderBy: {
+                    tanggalPindah: 'desc'
+                }
+            });
+
             return res.status(200).json({
                 success: true,
                 message: 'Data detail Aset berhasil diambil',
-                data: aset
+                data: aset,
+                historyPindahan
             });
         } catch(error) {
             console.error('Error saat mengambil detail aset: ', error);

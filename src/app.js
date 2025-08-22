@@ -12,6 +12,7 @@ const asetRoutes = require('./routes/aset');
 const perpindahanRoutes = require('./routes/perpindahan');
 const pengadaanRoutes = require('./routes/pengadaan');
 const dashboardRoutes = require('./routes/dashboard');
+const notifRoutes = require('./routes/notif');
 
 // Initialize Express app
 const app = express();
@@ -29,6 +30,7 @@ app.use('/api/aset', asetRoutes);
 app.use('/api/perpindahan', perpindahanRoutes);
 app.use('/api/pengadaan', pengadaanRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/notif', notifRoutes);
 
 
 

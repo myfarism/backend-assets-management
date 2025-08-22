@@ -89,15 +89,14 @@ function generatePengadaanId(length = 4) {
   return pengadaanId;
 }
 
-function generateMaintenanceId(kategori) {
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, '0'); // Menambahkan leading zero
-  const day = String(today.getDate()).padStart(2, '0'); // Menambahkan leading zero
+function generateMaintenanceId(length = 5) {
+  let result = '';
+  const digits = '0123456789';
+  for (let i = 0; i < length; i++) {
+    result += digits.charAt(Math.floor(Math.random() * digits.length));
+  }
 
-  const formattedDate = `${year}${month}${day}`; // Format YYYYMMDD
-
-  const maintenanceId = `MAINTENANCE-${kategori}-${formattedDate}`;
+  const maintenanceId = `MNT-${result}`;
 
   return maintenanceId;
 }
