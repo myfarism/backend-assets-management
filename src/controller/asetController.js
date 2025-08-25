@@ -611,7 +611,12 @@ class AsetController {
                     nomorSeri: true,
                     kondisiAset: true,
                     statusAset: true,
-                    lokasiId: true,
+                    lokasi: {
+                        select: {
+                            idLokasi: true,
+                            lokasi: true
+                        }
+                    },
                     statusKepemilikan: true,
                     masaBerlaku: true,
                     urlQR: true,
@@ -640,11 +645,21 @@ class AsetController {
                 }
             });
 
+            const historyMaintain = await prisma.maintenance.findMany({
+                where: { idAset },
+                select: {
+                    statusMaintenance: true,
+                    tanggalMulai: true,
+                    tanggalSelesai: true
+                }
+            });
+
             return res.status(200).json({
                 success: true,
                 message: 'Data detail Aset berhasil diambil',
                 data: aset,
-                historyPindahan
+                historyPindahan,
+                historyMaintain
             });
         } catch(error) {
             console.error('Error saat mengambil detail aset: ', error);

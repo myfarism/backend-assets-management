@@ -97,7 +97,7 @@ model Notifikasi {
 
 model SubAsetKategori {
   subAsetId   String   @id @default(uuid())
-  nameSubAset String
+  nameSubAset String   @unique
   createdAt   DateTime @default(now())
   asets       Aset[]   @relation("AsetToSubKategori")
   lokasi      Lokasi[] @relation("KategoriToLokasi")
@@ -114,6 +114,7 @@ enum MaintenanceRequestStatus {
   ontime    @map("On Time")
   overdue   @map("Overdue")
   onprocess @map("On Process")
+  done      @map("Done")
 }
 
 enum AsetStatus {

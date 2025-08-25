@@ -124,57 +124,57 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   name: 'name',
-  roleId: 'roleId',
   password: 'password',
   lastLogin: 'lastLogin',
   createdAt: 'createdAt',
-  status: 'status'
+  status: 'status',
+  roleId: 'roleId'
 };
 
 exports.Prisma.AsetScalarFieldEnum = {
   asetId: 'asetId',
-  lokasiId: 'lokasiId',
-  subKategoriAsetId: 'subKategoriAsetId',
-  kategoriAset: 'kategoriAset',
   merkDanTipe: 'merkDanTipe',
   tahun: 'tahun',
   kondisiAset: 'kondisiAset',
-  statusAset: 'statusAset',
-  nomorSeri: 'nomorSeri',
   masaBerlaku: 'masaBerlaku',
+  nomorSeri: 'nomorSeri',
+  statusAset: 'statusAset',
   statusKepemilikan: 'statusKepemilikan',
-  urlFoto: 'urlFoto',
+  lokasiId: 'lokasiId',
   urlQR: 'urlQR',
+  urlFoto: 'urlFoto',
   createdAt: 'createdAt',
-  pic: 'pic'
+  pic: 'pic',
+  kategoriAset: 'kategoriAset',
+  subKategoriAsetId: 'subKategoriAsetId'
 };
 
 exports.Prisma.MaintenanceScalarFieldEnum = {
   maintenanceId: 'maintenanceId',
-  deskripsi: 'deskripsi',
   idAset: 'idAset',
   tanggalMulai: 'tanggalMulai',
   perkiraanSelesai: 'perkiraanSelesai',
   tanggalSelesai: 'tanggalSelesai',
   statusMaintenance: 'statusMaintenance',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  deskripsi: 'deskripsi'
 };
 
 exports.Prisma.LokasiScalarFieldEnum = {
   idLokasi: 'idLokasi',
   lokasi: 'lokasi',
-  kategoriAset: 'kategoriAset',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  kategoriAset: 'kategoriAset'
 };
 
 exports.Prisma.PerpindahanScalarFieldEnum = {
   idPindahan: 'idPindahan',
   lokasiId: 'lokasiId',
   idAset: 'idAset',
-  tempatLama: 'tempatLama',
   tempatBaru: 'tempatBaru',
   tanggalPindah: 'tanggalPindah',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  tempatLama: 'tempatLama'
 };
 
 exports.Prisma.PengadaanScalarFieldEnum = {
@@ -225,11 +225,6 @@ exports.UserStatus = exports.$Enums.UserStatus = {
   nonaktif: 'nonaktif'
 };
 
-exports.AsetKategori = exports.$Enums.AsetKategori = {
-  asetFisik: 'asetFisik',
-  asetDigital: 'asetDigital'
-};
-
 exports.AsetKondisi = exports.$Enums.AsetKondisi = {
   baik: 'baik',
   normal: 'normal',
@@ -242,10 +237,16 @@ exports.AsetStatus = exports.$Enums.AsetStatus = {
   maintenance: 'maintenance'
 };
 
+exports.AsetKategori = exports.$Enums.AsetKategori = {
+  asetFisik: 'asetFisik',
+  asetDigital: 'asetDigital'
+};
+
 exports.MaintenanceRequestStatus = exports.$Enums.MaintenanceRequestStatus = {
   ontime: 'ontime',
   overdue: 'overdue',
-  onprocess: 'onprocess'
+  onprocess: 'onprocess',
+  done: 'done'
 };
 
 exports.Prisma.ModelName = {

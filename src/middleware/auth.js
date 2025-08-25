@@ -8,6 +8,8 @@ const SECRET_KEY = process.env.JWT_SECRET;
 const verifyToken = async (req, res, next) => {
     const authHeader = req.headers.authorization;
 
+    console.log(authHeader);
+
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return res.status(401).json({ success: false, message: 'Token tidak ditemukan' });
     }
@@ -35,7 +37,7 @@ const verifyToken = async (req, res, next) => {
         }
         return res.status(401).json({ 
             success: false, 
-            message: 'Token tidak valid' 
+            message: 'Token tidak valid: ' + error.message
         });
     }
 };

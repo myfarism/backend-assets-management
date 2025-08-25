@@ -13,6 +13,8 @@ const perpindahanRoutes = require('./routes/perpindahan');
 const pengadaanRoutes = require('./routes/pengadaan');
 const dashboardRoutes = require('./routes/dashboard');
 const notifRoutes = require('./routes/notif');
+const maintenanceRoutes = require('./routes/maintenance');
+const subKategoriRoutes = require('./routes/subAset');
 
 // Initialize Express app
 const app = express();
@@ -31,6 +33,8 @@ app.use('/api/perpindahan', perpindahanRoutes);
 app.use('/api/pengadaan', pengadaanRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/notif', notifRoutes);
+app.use('/api/maintenance', maintenanceRoutes);
+app.use('/api/subkategori', subKategoriRoutes);
 
 
 

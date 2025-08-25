@@ -66,7 +66,8 @@ export namespace $Enums {
   export const MaintenanceRequestStatus: {
   ontime: 'ontime',
   overdue: 'overdue',
-  onprocess: 'onprocess'
+  onprocess: 'onprocess',
+  done: 'done'
 };
 
 export type MaintenanceRequestStatus = (typeof MaintenanceRequestStatus)[keyof typeof MaintenanceRequestStatus]
@@ -1730,17 +1731,17 @@ export namespace Prisma {
    */
 
   export type LokasiCountOutputType = {
-    subKategoriAset: number
     aset: number
-    perpindahan: number
     pengadaan: number
+    perpindahan: number
+    subKategoriAset: number
   }
 
   export type LokasiCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    subKategoriAset?: boolean | LokasiCountOutputTypeCountSubKategoriAsetArgs
     aset?: boolean | LokasiCountOutputTypeCountAsetArgs
-    perpindahan?: boolean | LokasiCountOutputTypeCountPerpindahanArgs
     pengadaan?: boolean | LokasiCountOutputTypeCountPengadaanArgs
+    perpindahan?: boolean | LokasiCountOutputTypeCountPerpindahanArgs
+    subKategoriAset?: boolean | LokasiCountOutputTypeCountSubKategoriAsetArgs
   }
 
   // Custom InputTypes
@@ -1757,15 +1758,15 @@ export namespace Prisma {
   /**
    * LokasiCountOutputType without action
    */
-  export type LokasiCountOutputTypeCountSubKategoriAsetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SubAsetKategoriWhereInput
+  export type LokasiCountOutputTypeCountAsetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AsetWhereInput
   }
 
   /**
    * LokasiCountOutputType without action
    */
-  export type LokasiCountOutputTypeCountAsetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AsetWhereInput
+  export type LokasiCountOutputTypeCountPengadaanArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PengadaanWhereInput
   }
 
   /**
@@ -1778,8 +1779,8 @@ export namespace Prisma {
   /**
    * LokasiCountOutputType without action
    */
-  export type LokasiCountOutputTypeCountPengadaanArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PengadaanWhereInput
+  export type LokasiCountOutputTypeCountSubKategoriAsetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SubAsetKategoriWhereInput
   }
 
 
@@ -1872,33 +1873,33 @@ export namespace Prisma {
     id: string | null
     email: string | null
     name: string | null
-    roleId: string | null
     password: string | null
     lastLogin: Date | null
     createdAt: Date | null
     status: $Enums.UserStatus | null
+    roleId: string | null
   }
 
   export type UserMaxAggregateOutputType = {
     id: string | null
     email: string | null
     name: string | null
-    roleId: string | null
     password: string | null
     lastLogin: Date | null
     createdAt: Date | null
     status: $Enums.UserStatus | null
+    roleId: string | null
   }
 
   export type UserCountAggregateOutputType = {
     id: number
     email: number
     name: number
-    roleId: number
     password: number
     lastLogin: number
     createdAt: number
     status: number
+    roleId: number
     _all: number
   }
 
@@ -1907,33 +1908,33 @@ export namespace Prisma {
     id?: true
     email?: true
     name?: true
-    roleId?: true
     password?: true
     lastLogin?: true
     createdAt?: true
     status?: true
+    roleId?: true
   }
 
   export type UserMaxAggregateInputType = {
     id?: true
     email?: true
     name?: true
-    roleId?: true
     password?: true
     lastLogin?: true
     createdAt?: true
     status?: true
+    roleId?: true
   }
 
   export type UserCountAggregateInputType = {
     id?: true
     email?: true
     name?: true
-    roleId?: true
     password?: true
     lastLogin?: true
     createdAt?: true
     status?: true
+    roleId?: true
     _all?: true
   }
 
@@ -2013,11 +2014,11 @@ export namespace Prisma {
     id: string
     email: string
     name: string
-    roleId: string
     password: string
     lastLogin: Date | null
     createdAt: Date
     status: $Enums.UserStatus
+    roleId: string
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -2041,11 +2042,11 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     name?: boolean
-    roleId?: boolean
     password?: boolean
     lastLogin?: boolean
     createdAt?: boolean
     status?: boolean
+    roleId?: boolean
     role?: boolean | UserRoleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2053,11 +2054,11 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     name?: boolean
-    roleId?: boolean
     password?: boolean
     lastLogin?: boolean
     createdAt?: boolean
     status?: boolean
+    roleId?: boolean
     role?: boolean | UserRoleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2065,11 +2066,11 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     name?: boolean
-    roleId?: boolean
     password?: boolean
     lastLogin?: boolean
     createdAt?: boolean
     status?: boolean
+    roleId?: boolean
     role?: boolean | UserRoleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2077,14 +2078,14 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     name?: boolean
-    roleId?: boolean
     password?: boolean
     lastLogin?: boolean
     createdAt?: boolean
     status?: boolean
+    roleId?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "roleId" | "password" | "lastLogin" | "createdAt" | "status", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "password" | "lastLogin" | "createdAt" | "status" | "roleId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     role?: boolean | UserRoleDefaultArgs<ExtArgs>
   }
@@ -2104,11 +2105,11 @@ export namespace Prisma {
       id: string
       email: string
       name: string
-      roleId: string
       password: string
       lastLogin: Date | null
       createdAt: Date
       status: $Enums.UserStatus
+      roleId: string
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2536,11 +2537,11 @@ export namespace Prisma {
     readonly id: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
-    readonly roleId: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly lastLogin: FieldRef<"User", 'DateTime'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly status: FieldRef<"User", 'UserStatus'>
+    readonly roleId: FieldRef<"User", 'String'>
   }
     
 
@@ -2977,54 +2978,54 @@ export namespace Prisma {
 
   export type AsetMinAggregateOutputType = {
     asetId: string | null
-    lokasiId: string | null
-    subKategoriAsetId: string | null
-    kategoriAset: $Enums.AsetKategori | null
     merkDanTipe: string | null
     tahun: number | null
     kondisiAset: $Enums.AsetKondisi | null
-    statusAset: $Enums.AsetStatus | null
-    nomorSeri: string | null
     masaBerlaku: Date | null
+    nomorSeri: string | null
+    statusAset: $Enums.AsetStatus | null
     statusKepemilikan: string | null
+    lokasiId: string | null
     urlQR: string | null
     createdAt: Date | null
     pic: string | null
+    kategoriAset: $Enums.AsetKategori | null
+    subKategoriAsetId: string | null
   }
 
   export type AsetMaxAggregateOutputType = {
     asetId: string | null
-    lokasiId: string | null
-    subKategoriAsetId: string | null
-    kategoriAset: $Enums.AsetKategori | null
     merkDanTipe: string | null
     tahun: number | null
     kondisiAset: $Enums.AsetKondisi | null
-    statusAset: $Enums.AsetStatus | null
-    nomorSeri: string | null
     masaBerlaku: Date | null
+    nomorSeri: string | null
+    statusAset: $Enums.AsetStatus | null
     statusKepemilikan: string | null
+    lokasiId: string | null
     urlQR: string | null
     createdAt: Date | null
     pic: string | null
+    kategoriAset: $Enums.AsetKategori | null
+    subKategoriAsetId: string | null
   }
 
   export type AsetCountAggregateOutputType = {
     asetId: number
-    lokasiId: number
-    subKategoriAsetId: number
-    kategoriAset: number
     merkDanTipe: number
     tahun: number
     kondisiAset: number
-    statusAset: number
-    nomorSeri: number
     masaBerlaku: number
+    nomorSeri: number
+    statusAset: number
     statusKepemilikan: number
-    urlFoto: number
+    lokasiId: number
     urlQR: number
+    urlFoto: number
     createdAt: number
     pic: number
+    kategoriAset: number
+    subKategoriAsetId: number
     _all: number
   }
 
@@ -3039,54 +3040,54 @@ export namespace Prisma {
 
   export type AsetMinAggregateInputType = {
     asetId?: true
-    lokasiId?: true
-    subKategoriAsetId?: true
-    kategoriAset?: true
     merkDanTipe?: true
     tahun?: true
     kondisiAset?: true
-    statusAset?: true
-    nomorSeri?: true
     masaBerlaku?: true
+    nomorSeri?: true
+    statusAset?: true
     statusKepemilikan?: true
+    lokasiId?: true
     urlQR?: true
     createdAt?: true
     pic?: true
+    kategoriAset?: true
+    subKategoriAsetId?: true
   }
 
   export type AsetMaxAggregateInputType = {
     asetId?: true
-    lokasiId?: true
-    subKategoriAsetId?: true
-    kategoriAset?: true
     merkDanTipe?: true
     tahun?: true
     kondisiAset?: true
-    statusAset?: true
-    nomorSeri?: true
     masaBerlaku?: true
+    nomorSeri?: true
+    statusAset?: true
     statusKepemilikan?: true
+    lokasiId?: true
     urlQR?: true
     createdAt?: true
     pic?: true
+    kategoriAset?: true
+    subKategoriAsetId?: true
   }
 
   export type AsetCountAggregateInputType = {
     asetId?: true
-    lokasiId?: true
-    subKategoriAsetId?: true
-    kategoriAset?: true
     merkDanTipe?: true
     tahun?: true
     kondisiAset?: true
-    statusAset?: true
-    nomorSeri?: true
     masaBerlaku?: true
+    nomorSeri?: true
+    statusAset?: true
     statusKepemilikan?: true
-    urlFoto?: true
+    lokasiId?: true
     urlQR?: true
+    urlFoto?: true
     createdAt?: true
     pic?: true
+    kategoriAset?: true
+    subKategoriAsetId?: true
     _all?: true
   }
 
@@ -3178,20 +3179,20 @@ export namespace Prisma {
 
   export type AsetGroupByOutputType = {
     asetId: string
-    lokasiId: string | null
-    subKategoriAsetId: string | null
-    kategoriAset: $Enums.AsetKategori
     merkDanTipe: string
     tahun: number | null
     kondisiAset: $Enums.AsetKondisi | null
-    statusAset: $Enums.AsetStatus
-    nomorSeri: string | null
     masaBerlaku: Date | null
+    nomorSeri: string | null
+    statusAset: $Enums.AsetStatus
     statusKepemilikan: string
-    urlFoto: string[]
+    lokasiId: string | null
     urlQR: string | null
+    urlFoto: string[]
     createdAt: Date
     pic: string | null
+    kategoriAset: $Enums.AsetKategori
+    subKategoriAsetId: string | null
     _count: AsetCountAggregateOutputType | null
     _avg: AsetAvgAggregateOutputType | null
     _sum: AsetSumAggregateOutputType | null
@@ -3215,20 +3216,20 @@ export namespace Prisma {
 
   export type AsetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     asetId?: boolean
-    lokasiId?: boolean
-    subKategoriAsetId?: boolean
-    kategoriAset?: boolean
     merkDanTipe?: boolean
     tahun?: boolean
     kondisiAset?: boolean
-    statusAset?: boolean
-    nomorSeri?: boolean
     masaBerlaku?: boolean
+    nomorSeri?: boolean
+    statusAset?: boolean
     statusKepemilikan?: boolean
-    urlFoto?: boolean
+    lokasiId?: boolean
     urlQR?: boolean
+    urlFoto?: boolean
     createdAt?: boolean
     pic?: boolean
+    kategoriAset?: boolean
+    subKategoriAsetId?: boolean
     lokasi?: boolean | Aset$lokasiArgs<ExtArgs>
     subKategoriAset?: boolean | Aset$subKategoriAsetArgs<ExtArgs>
     maintenances?: boolean | Aset$maintenancesArgs<ExtArgs>
@@ -3238,63 +3239,63 @@ export namespace Prisma {
 
   export type AsetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     asetId?: boolean
-    lokasiId?: boolean
-    subKategoriAsetId?: boolean
-    kategoriAset?: boolean
     merkDanTipe?: boolean
     tahun?: boolean
     kondisiAset?: boolean
-    statusAset?: boolean
-    nomorSeri?: boolean
     masaBerlaku?: boolean
+    nomorSeri?: boolean
+    statusAset?: boolean
     statusKepemilikan?: boolean
-    urlFoto?: boolean
+    lokasiId?: boolean
     urlQR?: boolean
+    urlFoto?: boolean
     createdAt?: boolean
     pic?: boolean
+    kategoriAset?: boolean
+    subKategoriAsetId?: boolean
     lokasi?: boolean | Aset$lokasiArgs<ExtArgs>
     subKategoriAset?: boolean | Aset$subKategoriAsetArgs<ExtArgs>
   }, ExtArgs["result"]["aset"]>
 
   export type AsetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     asetId?: boolean
-    lokasiId?: boolean
-    subKategoriAsetId?: boolean
-    kategoriAset?: boolean
     merkDanTipe?: boolean
     tahun?: boolean
     kondisiAset?: boolean
-    statusAset?: boolean
-    nomorSeri?: boolean
     masaBerlaku?: boolean
+    nomorSeri?: boolean
+    statusAset?: boolean
     statusKepemilikan?: boolean
-    urlFoto?: boolean
+    lokasiId?: boolean
     urlQR?: boolean
+    urlFoto?: boolean
     createdAt?: boolean
     pic?: boolean
+    kategoriAset?: boolean
+    subKategoriAsetId?: boolean
     lokasi?: boolean | Aset$lokasiArgs<ExtArgs>
     subKategoriAset?: boolean | Aset$subKategoriAsetArgs<ExtArgs>
   }, ExtArgs["result"]["aset"]>
 
   export type AsetSelectScalar = {
     asetId?: boolean
-    lokasiId?: boolean
-    subKategoriAsetId?: boolean
-    kategoriAset?: boolean
     merkDanTipe?: boolean
     tahun?: boolean
     kondisiAset?: boolean
-    statusAset?: boolean
-    nomorSeri?: boolean
     masaBerlaku?: boolean
+    nomorSeri?: boolean
+    statusAset?: boolean
     statusKepemilikan?: boolean
-    urlFoto?: boolean
+    lokasiId?: boolean
     urlQR?: boolean
+    urlFoto?: boolean
     createdAt?: boolean
     pic?: boolean
+    kategoriAset?: boolean
+    subKategoriAsetId?: boolean
   }
 
-  export type AsetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"asetId" | "lokasiId" | "subKategoriAsetId" | "kategoriAset" | "merkDanTipe" | "tahun" | "kondisiAset" | "statusAset" | "nomorSeri" | "masaBerlaku" | "statusKepemilikan" | "urlFoto" | "urlQR" | "createdAt" | "pic", ExtArgs["result"]["aset"]>
+  export type AsetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"asetId" | "merkDanTipe" | "tahun" | "kondisiAset" | "masaBerlaku" | "nomorSeri" | "statusAset" | "statusKepemilikan" | "lokasiId" | "urlQR" | "urlFoto" | "createdAt" | "pic" | "kategoriAset" | "subKategoriAsetId", ExtArgs["result"]["aset"]>
   export type AsetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     lokasi?: boolean | Aset$lokasiArgs<ExtArgs>
     subKategoriAset?: boolean | Aset$subKategoriAsetArgs<ExtArgs>
@@ -3321,20 +3322,20 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       asetId: string
-      lokasiId: string | null
-      subKategoriAsetId: string | null
-      kategoriAset: $Enums.AsetKategori
       merkDanTipe: string
       tahun: number | null
       kondisiAset: $Enums.AsetKondisi | null
-      statusAset: $Enums.AsetStatus
-      nomorSeri: string | null
       masaBerlaku: Date | null
+      nomorSeri: string | null
+      statusAset: $Enums.AsetStatus
       statusKepemilikan: string
-      urlFoto: string[]
+      lokasiId: string | null
       urlQR: string | null
+      urlFoto: string[]
       createdAt: Date
       pic: string | null
+      kategoriAset: $Enums.AsetKategori
+      subKategoriAsetId: string | null
     }, ExtArgs["result"]["aset"]>
     composites: {}
   }
@@ -3763,20 +3764,20 @@ export namespace Prisma {
    */
   interface AsetFieldRefs {
     readonly asetId: FieldRef<"Aset", 'String'>
-    readonly lokasiId: FieldRef<"Aset", 'String'>
-    readonly subKategoriAsetId: FieldRef<"Aset", 'String'>
-    readonly kategoriAset: FieldRef<"Aset", 'AsetKategori'>
     readonly merkDanTipe: FieldRef<"Aset", 'String'>
     readonly tahun: FieldRef<"Aset", 'Int'>
     readonly kondisiAset: FieldRef<"Aset", 'AsetKondisi'>
-    readonly statusAset: FieldRef<"Aset", 'AsetStatus'>
-    readonly nomorSeri: FieldRef<"Aset", 'String'>
     readonly masaBerlaku: FieldRef<"Aset", 'DateTime'>
+    readonly nomorSeri: FieldRef<"Aset", 'String'>
+    readonly statusAset: FieldRef<"Aset", 'AsetStatus'>
     readonly statusKepemilikan: FieldRef<"Aset", 'String'>
-    readonly urlFoto: FieldRef<"Aset", 'String[]'>
+    readonly lokasiId: FieldRef<"Aset", 'String'>
     readonly urlQR: FieldRef<"Aset", 'String'>
+    readonly urlFoto: FieldRef<"Aset", 'String[]'>
     readonly createdAt: FieldRef<"Aset", 'DateTime'>
     readonly pic: FieldRef<"Aset", 'String'>
+    readonly kategoriAset: FieldRef<"Aset", 'AsetKategori'>
+    readonly subKategoriAsetId: FieldRef<"Aset", 'String'>
   }
     
 
@@ -4289,70 +4290,70 @@ export namespace Prisma {
 
   export type MaintenanceMinAggregateOutputType = {
     maintenanceId: string | null
-    deskripsi: string | null
     idAset: string | null
     tanggalMulai: Date | null
     perkiraanSelesai: Date | null
     tanggalSelesai: Date | null
     statusMaintenance: $Enums.MaintenanceRequestStatus | null
     createdAt: Date | null
+    deskripsi: string | null
   }
 
   export type MaintenanceMaxAggregateOutputType = {
     maintenanceId: string | null
-    deskripsi: string | null
     idAset: string | null
     tanggalMulai: Date | null
     perkiraanSelesai: Date | null
     tanggalSelesai: Date | null
     statusMaintenance: $Enums.MaintenanceRequestStatus | null
     createdAt: Date | null
+    deskripsi: string | null
   }
 
   export type MaintenanceCountAggregateOutputType = {
     maintenanceId: number
-    deskripsi: number
     idAset: number
     tanggalMulai: number
     perkiraanSelesai: number
     tanggalSelesai: number
     statusMaintenance: number
     createdAt: number
+    deskripsi: number
     _all: number
   }
 
 
   export type MaintenanceMinAggregateInputType = {
     maintenanceId?: true
-    deskripsi?: true
     idAset?: true
     tanggalMulai?: true
     perkiraanSelesai?: true
     tanggalSelesai?: true
     statusMaintenance?: true
     createdAt?: true
+    deskripsi?: true
   }
 
   export type MaintenanceMaxAggregateInputType = {
     maintenanceId?: true
-    deskripsi?: true
     idAset?: true
     tanggalMulai?: true
     perkiraanSelesai?: true
     tanggalSelesai?: true
     statusMaintenance?: true
     createdAt?: true
+    deskripsi?: true
   }
 
   export type MaintenanceCountAggregateInputType = {
     maintenanceId?: true
-    deskripsi?: true
     idAset?: true
     tanggalMulai?: true
     perkiraanSelesai?: true
     tanggalSelesai?: true
     statusMaintenance?: true
     createdAt?: true
+    deskripsi?: true
     _all?: true
   }
 
@@ -4430,13 +4431,13 @@ export namespace Prisma {
 
   export type MaintenanceGroupByOutputType = {
     maintenanceId: string
-    deskripsi: string | null
     idAset: string
     tanggalMulai: Date
     perkiraanSelesai: Date
     tanggalSelesai: Date | null
     statusMaintenance: $Enums.MaintenanceRequestStatus
     createdAt: Date
+    deskripsi: string | null
     _count: MaintenanceCountAggregateOutputType | null
     _min: MaintenanceMinAggregateOutputType | null
     _max: MaintenanceMaxAggregateOutputType | null
@@ -4458,52 +4459,52 @@ export namespace Prisma {
 
   export type MaintenanceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     maintenanceId?: boolean
-    deskripsi?: boolean
     idAset?: boolean
     tanggalMulai?: boolean
     perkiraanSelesai?: boolean
     tanggalSelesai?: boolean
     statusMaintenance?: boolean
     createdAt?: boolean
+    deskripsi?: boolean
     aset?: boolean | AsetDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["maintenance"]>
 
   export type MaintenanceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     maintenanceId?: boolean
-    deskripsi?: boolean
     idAset?: boolean
     tanggalMulai?: boolean
     perkiraanSelesai?: boolean
     tanggalSelesai?: boolean
     statusMaintenance?: boolean
     createdAt?: boolean
+    deskripsi?: boolean
     aset?: boolean | AsetDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["maintenance"]>
 
   export type MaintenanceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     maintenanceId?: boolean
-    deskripsi?: boolean
     idAset?: boolean
     tanggalMulai?: boolean
     perkiraanSelesai?: boolean
     tanggalSelesai?: boolean
     statusMaintenance?: boolean
     createdAt?: boolean
+    deskripsi?: boolean
     aset?: boolean | AsetDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["maintenance"]>
 
   export type MaintenanceSelectScalar = {
     maintenanceId?: boolean
-    deskripsi?: boolean
     idAset?: boolean
     tanggalMulai?: boolean
     perkiraanSelesai?: boolean
     tanggalSelesai?: boolean
     statusMaintenance?: boolean
     createdAt?: boolean
+    deskripsi?: boolean
   }
 
-  export type MaintenanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"maintenanceId" | "deskripsi" | "idAset" | "tanggalMulai" | "perkiraanSelesai" | "tanggalSelesai" | "statusMaintenance" | "createdAt", ExtArgs["result"]["maintenance"]>
+  export type MaintenanceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"maintenanceId" | "idAset" | "tanggalMulai" | "perkiraanSelesai" | "tanggalSelesai" | "statusMaintenance" | "createdAt" | "deskripsi", ExtArgs["result"]["maintenance"]>
   export type MaintenanceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     aset?: boolean | AsetDefaultArgs<ExtArgs>
   }
@@ -4521,13 +4522,13 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       maintenanceId: string
-      deskripsi: string | null
       idAset: string
       tanggalMulai: Date
       perkiraanSelesai: Date
       tanggalSelesai: Date | null
       statusMaintenance: $Enums.MaintenanceRequestStatus
       createdAt: Date
+      deskripsi: string | null
     }, ExtArgs["result"]["maintenance"]>
     composites: {}
   }
@@ -4953,13 +4954,13 @@ export namespace Prisma {
    */
   interface MaintenanceFieldRefs {
     readonly maintenanceId: FieldRef<"Maintenance", 'String'>
-    readonly deskripsi: FieldRef<"Maintenance", 'String'>
     readonly idAset: FieldRef<"Maintenance", 'String'>
     readonly tanggalMulai: FieldRef<"Maintenance", 'DateTime'>
     readonly perkiraanSelesai: FieldRef<"Maintenance", 'DateTime'>
     readonly tanggalSelesai: FieldRef<"Maintenance", 'DateTime'>
     readonly statusMaintenance: FieldRef<"Maintenance", 'MaintenanceRequestStatus'>
     readonly createdAt: FieldRef<"Maintenance", 'DateTime'>
+    readonly deskripsi: FieldRef<"Maintenance", 'String'>
   }
     
 
@@ -5387,22 +5388,22 @@ export namespace Prisma {
   export type LokasiMinAggregateOutputType = {
     idLokasi: string | null
     lokasi: string | null
-    kategoriAset: $Enums.AsetKategori | null
     createdAt: Date | null
+    kategoriAset: $Enums.AsetKategori | null
   }
 
   export type LokasiMaxAggregateOutputType = {
     idLokasi: string | null
     lokasi: string | null
-    kategoriAset: $Enums.AsetKategori | null
     createdAt: Date | null
+    kategoriAset: $Enums.AsetKategori | null
   }
 
   export type LokasiCountAggregateOutputType = {
     idLokasi: number
     lokasi: number
-    kategoriAset: number
     createdAt: number
+    kategoriAset: number
     _all: number
   }
 
@@ -5410,22 +5411,22 @@ export namespace Prisma {
   export type LokasiMinAggregateInputType = {
     idLokasi?: true
     lokasi?: true
-    kategoriAset?: true
     createdAt?: true
+    kategoriAset?: true
   }
 
   export type LokasiMaxAggregateInputType = {
     idLokasi?: true
     lokasi?: true
-    kategoriAset?: true
     createdAt?: true
+    kategoriAset?: true
   }
 
   export type LokasiCountAggregateInputType = {
     idLokasi?: true
     lokasi?: true
-    kategoriAset?: true
     createdAt?: true
+    kategoriAset?: true
     _all?: true
   }
 
@@ -5504,8 +5505,8 @@ export namespace Prisma {
   export type LokasiGroupByOutputType = {
     idLokasi: string
     lokasi: string
-    kategoriAset: $Enums.AsetKategori
     createdAt: Date
+    kategoriAset: $Enums.AsetKategori
     _count: LokasiCountAggregateOutputType | null
     _min: LokasiMinAggregateOutputType | null
     _max: LokasiMaxAggregateOutputType | null
@@ -5528,42 +5529,42 @@ export namespace Prisma {
   export type LokasiSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     idLokasi?: boolean
     lokasi?: boolean
-    kategoriAset?: boolean
     createdAt?: boolean
-    subKategoriAset?: boolean | Lokasi$subKategoriAsetArgs<ExtArgs>
+    kategoriAset?: boolean
     aset?: boolean | Lokasi$asetArgs<ExtArgs>
-    perpindahan?: boolean | Lokasi$perpindahanArgs<ExtArgs>
     pengadaan?: boolean | Lokasi$pengadaanArgs<ExtArgs>
+    perpindahan?: boolean | Lokasi$perpindahanArgs<ExtArgs>
+    subKategoriAset?: boolean | Lokasi$subKategoriAsetArgs<ExtArgs>
     _count?: boolean | LokasiCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["lokasi"]>
 
   export type LokasiSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     idLokasi?: boolean
     lokasi?: boolean
-    kategoriAset?: boolean
     createdAt?: boolean
+    kategoriAset?: boolean
   }, ExtArgs["result"]["lokasi"]>
 
   export type LokasiSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     idLokasi?: boolean
     lokasi?: boolean
-    kategoriAset?: boolean
     createdAt?: boolean
+    kategoriAset?: boolean
   }, ExtArgs["result"]["lokasi"]>
 
   export type LokasiSelectScalar = {
     idLokasi?: boolean
     lokasi?: boolean
-    kategoriAset?: boolean
     createdAt?: boolean
+    kategoriAset?: boolean
   }
 
-  export type LokasiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"idLokasi" | "lokasi" | "kategoriAset" | "createdAt", ExtArgs["result"]["lokasi"]>
+  export type LokasiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"idLokasi" | "lokasi" | "createdAt" | "kategoriAset", ExtArgs["result"]["lokasi"]>
   export type LokasiInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    subKategoriAset?: boolean | Lokasi$subKategoriAsetArgs<ExtArgs>
     aset?: boolean | Lokasi$asetArgs<ExtArgs>
-    perpindahan?: boolean | Lokasi$perpindahanArgs<ExtArgs>
     pengadaan?: boolean | Lokasi$pengadaanArgs<ExtArgs>
+    perpindahan?: boolean | Lokasi$perpindahanArgs<ExtArgs>
+    subKategoriAset?: boolean | Lokasi$subKategoriAsetArgs<ExtArgs>
     _count?: boolean | LokasiCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type LokasiIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -5572,16 +5573,16 @@ export namespace Prisma {
   export type $LokasiPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Lokasi"
     objects: {
-      subKategoriAset: Prisma.$SubAsetKategoriPayload<ExtArgs>[]
       aset: Prisma.$AsetPayload<ExtArgs>[]
-      perpindahan: Prisma.$PerpindahanPayload<ExtArgs>[]
       pengadaan: Prisma.$PengadaanPayload<ExtArgs>[]
+      perpindahan: Prisma.$PerpindahanPayload<ExtArgs>[]
+      subKategoriAset: Prisma.$SubAsetKategoriPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       idLokasi: string
       lokasi: string
-      kategoriAset: $Enums.AsetKategori
       createdAt: Date
+      kategoriAset: $Enums.AsetKategori
     }, ExtArgs["result"]["lokasi"]>
     composites: {}
   }
@@ -5976,10 +5977,10 @@ export namespace Prisma {
    */
   export interface Prisma__LokasiClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    subKategoriAset<T extends Lokasi$subKategoriAsetArgs<ExtArgs> = {}>(args?: Subset<T, Lokasi$subKategoriAsetArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubAsetKategoriPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     aset<T extends Lokasi$asetArgs<ExtArgs> = {}>(args?: Subset<T, Lokasi$asetArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AsetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    perpindahan<T extends Lokasi$perpindahanArgs<ExtArgs> = {}>(args?: Subset<T, Lokasi$perpindahanArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PerpindahanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     pengadaan<T extends Lokasi$pengadaanArgs<ExtArgs> = {}>(args?: Subset<T, Lokasi$pengadaanArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PengadaanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    perpindahan<T extends Lokasi$perpindahanArgs<ExtArgs> = {}>(args?: Subset<T, Lokasi$perpindahanArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PerpindahanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    subKategoriAset<T extends Lokasi$subKategoriAsetArgs<ExtArgs> = {}>(args?: Subset<T, Lokasi$subKategoriAsetArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubAsetKategoriPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6011,8 +6012,8 @@ export namespace Prisma {
   interface LokasiFieldRefs {
     readonly idLokasi: FieldRef<"Lokasi", 'String'>
     readonly lokasi: FieldRef<"Lokasi", 'String'>
-    readonly kategoriAset: FieldRef<"Lokasi", 'AsetKategori'>
     readonly createdAt: FieldRef<"Lokasi", 'DateTime'>
+    readonly kategoriAset: FieldRef<"Lokasi", 'AsetKategori'>
   }
     
 
@@ -6401,30 +6402,6 @@ export namespace Prisma {
   }
 
   /**
-   * Lokasi.subKategoriAset
-   */
-  export type Lokasi$subKategoriAsetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SubAsetKategori
-     */
-    select?: SubAsetKategoriSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the SubAsetKategori
-     */
-    omit?: SubAsetKategoriOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubAsetKategoriInclude<ExtArgs> | null
-    where?: SubAsetKategoriWhereInput
-    orderBy?: SubAsetKategoriOrderByWithRelationInput | SubAsetKategoriOrderByWithRelationInput[]
-    cursor?: SubAsetKategoriWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: SubAsetKategoriScalarFieldEnum | SubAsetKategoriScalarFieldEnum[]
-  }
-
-  /**
    * Lokasi.aset
    */
   export type Lokasi$asetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6446,6 +6423,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AsetScalarFieldEnum | AsetScalarFieldEnum[]
+  }
+
+  /**
+   * Lokasi.pengadaan
+   */
+  export type Lokasi$pengadaanArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengadaan
+     */
+    select?: PengadaanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengadaan
+     */
+    omit?: PengadaanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengadaanInclude<ExtArgs> | null
+    where?: PengadaanWhereInput
+    orderBy?: PengadaanOrderByWithRelationInput | PengadaanOrderByWithRelationInput[]
+    cursor?: PengadaanWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PengadaanScalarFieldEnum | PengadaanScalarFieldEnum[]
   }
 
   /**
@@ -6473,27 +6474,27 @@ export namespace Prisma {
   }
 
   /**
-   * Lokasi.pengadaan
+   * Lokasi.subKategoriAset
    */
-  export type Lokasi$pengadaanArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Lokasi$subKategoriAsetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Pengadaan
+     * Select specific fields to fetch from the SubAsetKategori
      */
-    select?: PengadaanSelect<ExtArgs> | null
+    select?: SubAsetKategoriSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Pengadaan
+     * Omit specific fields from the SubAsetKategori
      */
-    omit?: PengadaanOmit<ExtArgs> | null
+    omit?: SubAsetKategoriOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PengadaanInclude<ExtArgs> | null
-    where?: PengadaanWhereInput
-    orderBy?: PengadaanOrderByWithRelationInput | PengadaanOrderByWithRelationInput[]
-    cursor?: PengadaanWhereUniqueInput
+    include?: SubAsetKategoriInclude<ExtArgs> | null
+    where?: SubAsetKategoriWhereInput
+    orderBy?: SubAsetKategoriOrderByWithRelationInput | SubAsetKategoriOrderByWithRelationInput[]
+    cursor?: SubAsetKategoriWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: PengadaanScalarFieldEnum | PengadaanScalarFieldEnum[]
+    distinct?: SubAsetKategoriScalarFieldEnum | SubAsetKategoriScalarFieldEnum[]
   }
 
   /**
@@ -6529,30 +6530,30 @@ export namespace Prisma {
     idPindahan: string | null
     lokasiId: string | null
     idAset: string | null
-    tempatLama: string | null
     tempatBaru: string | null
     tanggalPindah: Date | null
     createdAt: Date | null
+    tempatLama: string | null
   }
 
   export type PerpindahanMaxAggregateOutputType = {
     idPindahan: string | null
     lokasiId: string | null
     idAset: string | null
-    tempatLama: string | null
     tempatBaru: string | null
     tanggalPindah: Date | null
     createdAt: Date | null
+    tempatLama: string | null
   }
 
   export type PerpindahanCountAggregateOutputType = {
     idPindahan: number
     lokasiId: number
     idAset: number
-    tempatLama: number
     tempatBaru: number
     tanggalPindah: number
     createdAt: number
+    tempatLama: number
     _all: number
   }
 
@@ -6561,30 +6562,30 @@ export namespace Prisma {
     idPindahan?: true
     lokasiId?: true
     idAset?: true
-    tempatLama?: true
     tempatBaru?: true
     tanggalPindah?: true
     createdAt?: true
+    tempatLama?: true
   }
 
   export type PerpindahanMaxAggregateInputType = {
     idPindahan?: true
     lokasiId?: true
     idAset?: true
-    tempatLama?: true
     tempatBaru?: true
     tanggalPindah?: true
     createdAt?: true
+    tempatLama?: true
   }
 
   export type PerpindahanCountAggregateInputType = {
     idPindahan?: true
     lokasiId?: true
     idAset?: true
-    tempatLama?: true
     tempatBaru?: true
     tanggalPindah?: true
     createdAt?: true
+    tempatLama?: true
     _all?: true
   }
 
@@ -6664,10 +6665,10 @@ export namespace Prisma {
     idPindahan: string
     lokasiId: string
     idAset: string
-    tempatLama: string
     tempatBaru: string
     tanggalPindah: Date
     createdAt: Date
+    tempatLama: string
     _count: PerpindahanCountAggregateOutputType | null
     _min: PerpindahanMinAggregateOutputType | null
     _max: PerpindahanMaxAggregateOutputType | null
@@ -6691,76 +6692,76 @@ export namespace Prisma {
     idPindahan?: boolean
     lokasiId?: boolean
     idAset?: boolean
-    tempatLama?: boolean
     tempatBaru?: boolean
     tanggalPindah?: boolean
     createdAt?: boolean
-    lokasi?: boolean | LokasiDefaultArgs<ExtArgs>
+    tempatLama?: boolean
     aset?: boolean | AsetDefaultArgs<ExtArgs>
+    lokasi?: boolean | LokasiDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["perpindahan"]>
 
   export type PerpindahanSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     idPindahan?: boolean
     lokasiId?: boolean
     idAset?: boolean
-    tempatLama?: boolean
     tempatBaru?: boolean
     tanggalPindah?: boolean
     createdAt?: boolean
-    lokasi?: boolean | LokasiDefaultArgs<ExtArgs>
+    tempatLama?: boolean
     aset?: boolean | AsetDefaultArgs<ExtArgs>
+    lokasi?: boolean | LokasiDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["perpindahan"]>
 
   export type PerpindahanSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     idPindahan?: boolean
     lokasiId?: boolean
     idAset?: boolean
-    tempatLama?: boolean
     tempatBaru?: boolean
     tanggalPindah?: boolean
     createdAt?: boolean
-    lokasi?: boolean | LokasiDefaultArgs<ExtArgs>
+    tempatLama?: boolean
     aset?: boolean | AsetDefaultArgs<ExtArgs>
+    lokasi?: boolean | LokasiDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["perpindahan"]>
 
   export type PerpindahanSelectScalar = {
     idPindahan?: boolean
     lokasiId?: boolean
     idAset?: boolean
-    tempatLama?: boolean
     tempatBaru?: boolean
     tanggalPindah?: boolean
     createdAt?: boolean
+    tempatLama?: boolean
   }
 
-  export type PerpindahanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"idPindahan" | "lokasiId" | "idAset" | "tempatLama" | "tempatBaru" | "tanggalPindah" | "createdAt", ExtArgs["result"]["perpindahan"]>
+  export type PerpindahanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"idPindahan" | "lokasiId" | "idAset" | "tempatBaru" | "tanggalPindah" | "createdAt" | "tempatLama", ExtArgs["result"]["perpindahan"]>
   export type PerpindahanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    lokasi?: boolean | LokasiDefaultArgs<ExtArgs>
     aset?: boolean | AsetDefaultArgs<ExtArgs>
+    lokasi?: boolean | LokasiDefaultArgs<ExtArgs>
   }
   export type PerpindahanIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    lokasi?: boolean | LokasiDefaultArgs<ExtArgs>
     aset?: boolean | AsetDefaultArgs<ExtArgs>
+    lokasi?: boolean | LokasiDefaultArgs<ExtArgs>
   }
   export type PerpindahanIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    lokasi?: boolean | LokasiDefaultArgs<ExtArgs>
     aset?: boolean | AsetDefaultArgs<ExtArgs>
+    lokasi?: boolean | LokasiDefaultArgs<ExtArgs>
   }
 
   export type $PerpindahanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Perpindahan"
     objects: {
-      lokasi: Prisma.$LokasiPayload<ExtArgs>
       aset: Prisma.$AsetPayload<ExtArgs>
+      lokasi: Prisma.$LokasiPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       idPindahan: string
       lokasiId: string
       idAset: string
-      tempatLama: string
       tempatBaru: string
       tanggalPindah: Date
       createdAt: Date
+      tempatLama: string
     }, ExtArgs["result"]["perpindahan"]>
     composites: {}
   }
@@ -7155,8 +7156,8 @@ export namespace Prisma {
    */
   export interface Prisma__PerpindahanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    lokasi<T extends LokasiDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LokasiDefaultArgs<ExtArgs>>): Prisma__LokasiClient<$Result.GetResult<Prisma.$LokasiPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     aset<T extends AsetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AsetDefaultArgs<ExtArgs>>): Prisma__AsetClient<$Result.GetResult<Prisma.$AsetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    lokasi<T extends LokasiDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LokasiDefaultArgs<ExtArgs>>): Prisma__LokasiClient<$Result.GetResult<Prisma.$LokasiPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7189,10 +7190,10 @@ export namespace Prisma {
     readonly idPindahan: FieldRef<"Perpindahan", 'String'>
     readonly lokasiId: FieldRef<"Perpindahan", 'String'>
     readonly idAset: FieldRef<"Perpindahan", 'String'>
-    readonly tempatLama: FieldRef<"Perpindahan", 'String'>
     readonly tempatBaru: FieldRef<"Perpindahan", 'String'>
     readonly tanggalPindah: FieldRef<"Perpindahan", 'DateTime'>
     readonly createdAt: FieldRef<"Perpindahan", 'DateTime'>
+    readonly tempatLama: FieldRef<"Perpindahan", 'String'>
   }
     
 
@@ -11883,11 +11884,11 @@ export namespace Prisma {
     id: 'id',
     email: 'email',
     name: 'name',
-    roleId: 'roleId',
     password: 'password',
     lastLogin: 'lastLogin',
     createdAt: 'createdAt',
-    status: 'status'
+    status: 'status',
+    roleId: 'roleId'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -11895,20 +11896,20 @@ export namespace Prisma {
 
   export const AsetScalarFieldEnum: {
     asetId: 'asetId',
-    lokasiId: 'lokasiId',
-    subKategoriAsetId: 'subKategoriAsetId',
-    kategoriAset: 'kategoriAset',
     merkDanTipe: 'merkDanTipe',
     tahun: 'tahun',
     kondisiAset: 'kondisiAset',
-    statusAset: 'statusAset',
-    nomorSeri: 'nomorSeri',
     masaBerlaku: 'masaBerlaku',
+    nomorSeri: 'nomorSeri',
+    statusAset: 'statusAset',
     statusKepemilikan: 'statusKepemilikan',
-    urlFoto: 'urlFoto',
+    lokasiId: 'lokasiId',
     urlQR: 'urlQR',
+    urlFoto: 'urlFoto',
     createdAt: 'createdAt',
-    pic: 'pic'
+    pic: 'pic',
+    kategoriAset: 'kategoriAset',
+    subKategoriAsetId: 'subKategoriAsetId'
   };
 
   export type AsetScalarFieldEnum = (typeof AsetScalarFieldEnum)[keyof typeof AsetScalarFieldEnum]
@@ -11916,13 +11917,13 @@ export namespace Prisma {
 
   export const MaintenanceScalarFieldEnum: {
     maintenanceId: 'maintenanceId',
-    deskripsi: 'deskripsi',
     idAset: 'idAset',
     tanggalMulai: 'tanggalMulai',
     perkiraanSelesai: 'perkiraanSelesai',
     tanggalSelesai: 'tanggalSelesai',
     statusMaintenance: 'statusMaintenance',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    deskripsi: 'deskripsi'
   };
 
   export type MaintenanceScalarFieldEnum = (typeof MaintenanceScalarFieldEnum)[keyof typeof MaintenanceScalarFieldEnum]
@@ -11931,8 +11932,8 @@ export namespace Prisma {
   export const LokasiScalarFieldEnum: {
     idLokasi: 'idLokasi',
     lokasi: 'lokasi',
-    kategoriAset: 'kategoriAset',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    kategoriAset: 'kategoriAset'
   };
 
   export type LokasiScalarFieldEnum = (typeof LokasiScalarFieldEnum)[keyof typeof LokasiScalarFieldEnum]
@@ -11942,10 +11943,10 @@ export namespace Prisma {
     idPindahan: 'idPindahan',
     lokasiId: 'lokasiId',
     idAset: 'idAset',
-    tempatLama: 'tempatLama',
     tempatBaru: 'tempatBaru',
     tanggalPindah: 'tanggalPindah',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    tempatLama: 'tempatLama'
   };
 
   export type PerpindahanScalarFieldEnum = (typeof PerpindahanScalarFieldEnum)[keyof typeof PerpindahanScalarFieldEnum]
@@ -12064,20 +12065,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'AsetKategori'
-   */
-  export type EnumAsetKategoriFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AsetKategori'>
-    
-
-
-  /**
-   * Reference to a field of type 'AsetKategori[]'
-   */
-  export type ListEnumAsetKategoriFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AsetKategori[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -12116,6 +12103,20 @@ export namespace Prisma {
    * Reference to a field of type 'AsetStatus[]'
    */
   export type ListEnumAsetStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AsetStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AsetKategori'
+   */
+  export type EnumAsetKategoriFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AsetKategori'>
+    
+
+
+  /**
+   * Reference to a field of type 'AsetKategori[]'
+   */
+  export type ListEnumAsetKategoriFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AsetKategori[]'>
     
 
 
@@ -12171,11 +12172,11 @@ export namespace Prisma {
     id?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
-    roleId?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     status?: EnumUserStatusFilter<"User"> | $Enums.UserStatus
+    roleId?: StringFilter<"User"> | string
     role?: XOR<UserRoleScalarRelationFilter, UserRoleWhereInput>
   }
 
@@ -12183,11 +12184,11 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     name?: SortOrder
-    roleId?: SortOrder
     password?: SortOrder
     lastLogin?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     status?: SortOrder
+    roleId?: SortOrder
     role?: UserRoleOrderByWithRelationInput
   }
 
@@ -12198,11 +12199,11 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
-    roleId?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     status?: EnumUserStatusFilter<"User"> | $Enums.UserStatus
+    roleId?: StringFilter<"User"> | string
     role?: XOR<UserRoleScalarRelationFilter, UserRoleWhereInput>
   }, "id" | "email">
 
@@ -12210,11 +12211,11 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     name?: SortOrder
-    roleId?: SortOrder
     password?: SortOrder
     lastLogin?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     status?: SortOrder
+    roleId?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -12227,11 +12228,11 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
-    roleId?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     lastLogin?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     status?: EnumUserStatusWithAggregatesFilter<"User"> | $Enums.UserStatus
+    roleId?: StringWithAggregatesFilter<"User"> | string
   }
 
   export type AsetWhereInput = {
@@ -12239,20 +12240,20 @@ export namespace Prisma {
     OR?: AsetWhereInput[]
     NOT?: AsetWhereInput | AsetWhereInput[]
     asetId?: StringFilter<"Aset"> | string
-    lokasiId?: StringNullableFilter<"Aset"> | string | null
-    subKategoriAsetId?: StringNullableFilter<"Aset"> | string | null
-    kategoriAset?: EnumAsetKategoriFilter<"Aset"> | $Enums.AsetKategori
     merkDanTipe?: StringFilter<"Aset"> | string
     tahun?: IntNullableFilter<"Aset"> | number | null
     kondisiAset?: EnumAsetKondisiNullableFilter<"Aset"> | $Enums.AsetKondisi | null
-    statusAset?: EnumAsetStatusFilter<"Aset"> | $Enums.AsetStatus
-    nomorSeri?: StringNullableFilter<"Aset"> | string | null
     masaBerlaku?: DateTimeNullableFilter<"Aset"> | Date | string | null
+    nomorSeri?: StringNullableFilter<"Aset"> | string | null
+    statusAset?: EnumAsetStatusFilter<"Aset"> | $Enums.AsetStatus
     statusKepemilikan?: StringFilter<"Aset"> | string
-    urlFoto?: StringNullableListFilter<"Aset">
+    lokasiId?: StringNullableFilter<"Aset"> | string | null
     urlQR?: StringNullableFilter<"Aset"> | string | null
+    urlFoto?: StringNullableListFilter<"Aset">
     createdAt?: DateTimeFilter<"Aset"> | Date | string
     pic?: StringNullableFilter<"Aset"> | string | null
+    kategoriAset?: EnumAsetKategoriFilter<"Aset"> | $Enums.AsetKategori
+    subKategoriAsetId?: StringNullableFilter<"Aset"> | string | null
     lokasi?: XOR<LokasiNullableScalarRelationFilter, LokasiWhereInput> | null
     subKategoriAset?: XOR<SubAsetKategoriNullableScalarRelationFilter, SubAsetKategoriWhereInput> | null
     maintenances?: MaintenanceListRelationFilter
@@ -12261,20 +12262,20 @@ export namespace Prisma {
 
   export type AsetOrderByWithRelationInput = {
     asetId?: SortOrder
-    lokasiId?: SortOrderInput | SortOrder
-    subKategoriAsetId?: SortOrderInput | SortOrder
-    kategoriAset?: SortOrder
     merkDanTipe?: SortOrder
     tahun?: SortOrderInput | SortOrder
     kondisiAset?: SortOrderInput | SortOrder
-    statusAset?: SortOrder
-    nomorSeri?: SortOrderInput | SortOrder
     masaBerlaku?: SortOrderInput | SortOrder
+    nomorSeri?: SortOrderInput | SortOrder
+    statusAset?: SortOrder
     statusKepemilikan?: SortOrder
-    urlFoto?: SortOrder
+    lokasiId?: SortOrderInput | SortOrder
     urlQR?: SortOrderInput | SortOrder
+    urlFoto?: SortOrder
     createdAt?: SortOrder
     pic?: SortOrderInput | SortOrder
+    kategoriAset?: SortOrder
+    subKategoriAsetId?: SortOrderInput | SortOrder
     lokasi?: LokasiOrderByWithRelationInput
     subKategoriAset?: SubAsetKategoriOrderByWithRelationInput
     maintenances?: MaintenanceOrderByRelationAggregateInput
@@ -12286,20 +12287,20 @@ export namespace Prisma {
     AND?: AsetWhereInput | AsetWhereInput[]
     OR?: AsetWhereInput[]
     NOT?: AsetWhereInput | AsetWhereInput[]
-    lokasiId?: StringNullableFilter<"Aset"> | string | null
-    subKategoriAsetId?: StringNullableFilter<"Aset"> | string | null
-    kategoriAset?: EnumAsetKategoriFilter<"Aset"> | $Enums.AsetKategori
     merkDanTipe?: StringFilter<"Aset"> | string
     tahun?: IntNullableFilter<"Aset"> | number | null
     kondisiAset?: EnumAsetKondisiNullableFilter<"Aset"> | $Enums.AsetKondisi | null
-    statusAset?: EnumAsetStatusFilter<"Aset"> | $Enums.AsetStatus
-    nomorSeri?: StringNullableFilter<"Aset"> | string | null
     masaBerlaku?: DateTimeNullableFilter<"Aset"> | Date | string | null
+    nomorSeri?: StringNullableFilter<"Aset"> | string | null
+    statusAset?: EnumAsetStatusFilter<"Aset"> | $Enums.AsetStatus
     statusKepemilikan?: StringFilter<"Aset"> | string
-    urlFoto?: StringNullableListFilter<"Aset">
+    lokasiId?: StringNullableFilter<"Aset"> | string | null
     urlQR?: StringNullableFilter<"Aset"> | string | null
+    urlFoto?: StringNullableListFilter<"Aset">
     createdAt?: DateTimeFilter<"Aset"> | Date | string
     pic?: StringNullableFilter<"Aset"> | string | null
+    kategoriAset?: EnumAsetKategoriFilter<"Aset"> | $Enums.AsetKategori
+    subKategoriAsetId?: StringNullableFilter<"Aset"> | string | null
     lokasi?: XOR<LokasiNullableScalarRelationFilter, LokasiWhereInput> | null
     subKategoriAset?: XOR<SubAsetKategoriNullableScalarRelationFilter, SubAsetKategoriWhereInput> | null
     maintenances?: MaintenanceListRelationFilter
@@ -12308,20 +12309,20 @@ export namespace Prisma {
 
   export type AsetOrderByWithAggregationInput = {
     asetId?: SortOrder
-    lokasiId?: SortOrderInput | SortOrder
-    subKategoriAsetId?: SortOrderInput | SortOrder
-    kategoriAset?: SortOrder
     merkDanTipe?: SortOrder
     tahun?: SortOrderInput | SortOrder
     kondisiAset?: SortOrderInput | SortOrder
-    statusAset?: SortOrder
-    nomorSeri?: SortOrderInput | SortOrder
     masaBerlaku?: SortOrderInput | SortOrder
+    nomorSeri?: SortOrderInput | SortOrder
+    statusAset?: SortOrder
     statusKepemilikan?: SortOrder
-    urlFoto?: SortOrder
+    lokasiId?: SortOrderInput | SortOrder
     urlQR?: SortOrderInput | SortOrder
+    urlFoto?: SortOrder
     createdAt?: SortOrder
     pic?: SortOrderInput | SortOrder
+    kategoriAset?: SortOrder
+    subKategoriAsetId?: SortOrderInput | SortOrder
     _count?: AsetCountOrderByAggregateInput
     _avg?: AsetAvgOrderByAggregateInput
     _max?: AsetMaxOrderByAggregateInput
@@ -12334,20 +12335,20 @@ export namespace Prisma {
     OR?: AsetScalarWhereWithAggregatesInput[]
     NOT?: AsetScalarWhereWithAggregatesInput | AsetScalarWhereWithAggregatesInput[]
     asetId?: StringWithAggregatesFilter<"Aset"> | string
-    lokasiId?: StringNullableWithAggregatesFilter<"Aset"> | string | null
-    subKategoriAsetId?: StringNullableWithAggregatesFilter<"Aset"> | string | null
-    kategoriAset?: EnumAsetKategoriWithAggregatesFilter<"Aset"> | $Enums.AsetKategori
     merkDanTipe?: StringWithAggregatesFilter<"Aset"> | string
     tahun?: IntNullableWithAggregatesFilter<"Aset"> | number | null
     kondisiAset?: EnumAsetKondisiNullableWithAggregatesFilter<"Aset"> | $Enums.AsetKondisi | null
-    statusAset?: EnumAsetStatusWithAggregatesFilter<"Aset"> | $Enums.AsetStatus
-    nomorSeri?: StringNullableWithAggregatesFilter<"Aset"> | string | null
     masaBerlaku?: DateTimeNullableWithAggregatesFilter<"Aset"> | Date | string | null
+    nomorSeri?: StringNullableWithAggregatesFilter<"Aset"> | string | null
+    statusAset?: EnumAsetStatusWithAggregatesFilter<"Aset"> | $Enums.AsetStatus
     statusKepemilikan?: StringWithAggregatesFilter<"Aset"> | string
-    urlFoto?: StringNullableListFilter<"Aset">
+    lokasiId?: StringNullableWithAggregatesFilter<"Aset"> | string | null
     urlQR?: StringNullableWithAggregatesFilter<"Aset"> | string | null
+    urlFoto?: StringNullableListFilter<"Aset">
     createdAt?: DateTimeWithAggregatesFilter<"Aset"> | Date | string
     pic?: StringNullableWithAggregatesFilter<"Aset"> | string | null
+    kategoriAset?: EnumAsetKategoriWithAggregatesFilter<"Aset"> | $Enums.AsetKategori
+    subKategoriAsetId?: StringNullableWithAggregatesFilter<"Aset"> | string | null
   }
 
   export type MaintenanceWhereInput = {
@@ -12355,25 +12356,25 @@ export namespace Prisma {
     OR?: MaintenanceWhereInput[]
     NOT?: MaintenanceWhereInput | MaintenanceWhereInput[]
     maintenanceId?: StringFilter<"Maintenance"> | string
-    deskripsi?: StringNullableFilter<"Maintenance"> | string | null
     idAset?: StringFilter<"Maintenance"> | string
     tanggalMulai?: DateTimeFilter<"Maintenance"> | Date | string
     perkiraanSelesai?: DateTimeFilter<"Maintenance"> | Date | string
     tanggalSelesai?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
     statusMaintenance?: EnumMaintenanceRequestStatusFilter<"Maintenance"> | $Enums.MaintenanceRequestStatus
     createdAt?: DateTimeFilter<"Maintenance"> | Date | string
+    deskripsi?: StringNullableFilter<"Maintenance"> | string | null
     aset?: XOR<AsetScalarRelationFilter, AsetWhereInput>
   }
 
   export type MaintenanceOrderByWithRelationInput = {
     maintenanceId?: SortOrder
-    deskripsi?: SortOrderInput | SortOrder
     idAset?: SortOrder
     tanggalMulai?: SortOrder
     perkiraanSelesai?: SortOrder
     tanggalSelesai?: SortOrderInput | SortOrder
     statusMaintenance?: SortOrder
     createdAt?: SortOrder
+    deskripsi?: SortOrderInput | SortOrder
     aset?: AsetOrderByWithRelationInput
   }
 
@@ -12382,25 +12383,25 @@ export namespace Prisma {
     AND?: MaintenanceWhereInput | MaintenanceWhereInput[]
     OR?: MaintenanceWhereInput[]
     NOT?: MaintenanceWhereInput | MaintenanceWhereInput[]
-    deskripsi?: StringNullableFilter<"Maintenance"> | string | null
     idAset?: StringFilter<"Maintenance"> | string
     tanggalMulai?: DateTimeFilter<"Maintenance"> | Date | string
     perkiraanSelesai?: DateTimeFilter<"Maintenance"> | Date | string
     tanggalSelesai?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
     statusMaintenance?: EnumMaintenanceRequestStatusFilter<"Maintenance"> | $Enums.MaintenanceRequestStatus
     createdAt?: DateTimeFilter<"Maintenance"> | Date | string
+    deskripsi?: StringNullableFilter<"Maintenance"> | string | null
     aset?: XOR<AsetScalarRelationFilter, AsetWhereInput>
   }, "maintenanceId">
 
   export type MaintenanceOrderByWithAggregationInput = {
     maintenanceId?: SortOrder
-    deskripsi?: SortOrderInput | SortOrder
     idAset?: SortOrder
     tanggalMulai?: SortOrder
     perkiraanSelesai?: SortOrder
     tanggalSelesai?: SortOrderInput | SortOrder
     statusMaintenance?: SortOrder
     createdAt?: SortOrder
+    deskripsi?: SortOrderInput | SortOrder
     _count?: MaintenanceCountOrderByAggregateInput
     _max?: MaintenanceMaxOrderByAggregateInput
     _min?: MaintenanceMinOrderByAggregateInput
@@ -12411,13 +12412,13 @@ export namespace Prisma {
     OR?: MaintenanceScalarWhereWithAggregatesInput[]
     NOT?: MaintenanceScalarWhereWithAggregatesInput | MaintenanceScalarWhereWithAggregatesInput[]
     maintenanceId?: StringWithAggregatesFilter<"Maintenance"> | string
-    deskripsi?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
     idAset?: StringWithAggregatesFilter<"Maintenance"> | string
     tanggalMulai?: DateTimeWithAggregatesFilter<"Maintenance"> | Date | string
     perkiraanSelesai?: DateTimeWithAggregatesFilter<"Maintenance"> | Date | string
     tanggalSelesai?: DateTimeNullableWithAggregatesFilter<"Maintenance"> | Date | string | null
     statusMaintenance?: EnumMaintenanceRequestStatusWithAggregatesFilter<"Maintenance"> | $Enums.MaintenanceRequestStatus
     createdAt?: DateTimeWithAggregatesFilter<"Maintenance"> | Date | string
+    deskripsi?: StringNullableWithAggregatesFilter<"Maintenance"> | string | null
   }
 
   export type LokasiWhereInput = {
@@ -12426,23 +12427,23 @@ export namespace Prisma {
     NOT?: LokasiWhereInput | LokasiWhereInput[]
     idLokasi?: StringFilter<"Lokasi"> | string
     lokasi?: StringFilter<"Lokasi"> | string
-    kategoriAset?: EnumAsetKategoriFilter<"Lokasi"> | $Enums.AsetKategori
     createdAt?: DateTimeFilter<"Lokasi"> | Date | string
-    subKategoriAset?: SubAsetKategoriListRelationFilter
+    kategoriAset?: EnumAsetKategoriFilter<"Lokasi"> | $Enums.AsetKategori
     aset?: AsetListRelationFilter
-    perpindahan?: PerpindahanListRelationFilter
     pengadaan?: PengadaanListRelationFilter
+    perpindahan?: PerpindahanListRelationFilter
+    subKategoriAset?: SubAsetKategoriListRelationFilter
   }
 
   export type LokasiOrderByWithRelationInput = {
     idLokasi?: SortOrder
     lokasi?: SortOrder
-    kategoriAset?: SortOrder
     createdAt?: SortOrder
-    subKategoriAset?: SubAsetKategoriOrderByRelationAggregateInput
+    kategoriAset?: SortOrder
     aset?: AsetOrderByRelationAggregateInput
-    perpindahan?: PerpindahanOrderByRelationAggregateInput
     pengadaan?: PengadaanOrderByRelationAggregateInput
+    perpindahan?: PerpindahanOrderByRelationAggregateInput
+    subKategoriAset?: SubAsetKategoriOrderByRelationAggregateInput
   }
 
   export type LokasiWhereUniqueInput = Prisma.AtLeast<{
@@ -12451,19 +12452,19 @@ export namespace Prisma {
     AND?: LokasiWhereInput | LokasiWhereInput[]
     OR?: LokasiWhereInput[]
     NOT?: LokasiWhereInput | LokasiWhereInput[]
-    kategoriAset?: EnumAsetKategoriFilter<"Lokasi"> | $Enums.AsetKategori
     createdAt?: DateTimeFilter<"Lokasi"> | Date | string
-    subKategoriAset?: SubAsetKategoriListRelationFilter
+    kategoriAset?: EnumAsetKategoriFilter<"Lokasi"> | $Enums.AsetKategori
     aset?: AsetListRelationFilter
-    perpindahan?: PerpindahanListRelationFilter
     pengadaan?: PengadaanListRelationFilter
+    perpindahan?: PerpindahanListRelationFilter
+    subKategoriAset?: SubAsetKategoriListRelationFilter
   }, "idLokasi" | "lokasi">
 
   export type LokasiOrderByWithAggregationInput = {
     idLokasi?: SortOrder
     lokasi?: SortOrder
-    kategoriAset?: SortOrder
     createdAt?: SortOrder
+    kategoriAset?: SortOrder
     _count?: LokasiCountOrderByAggregateInput
     _max?: LokasiMaxOrderByAggregateInput
     _min?: LokasiMinOrderByAggregateInput
@@ -12475,8 +12476,8 @@ export namespace Prisma {
     NOT?: LokasiScalarWhereWithAggregatesInput | LokasiScalarWhereWithAggregatesInput[]
     idLokasi?: StringWithAggregatesFilter<"Lokasi"> | string
     lokasi?: StringWithAggregatesFilter<"Lokasi"> | string
-    kategoriAset?: EnumAsetKategoriWithAggregatesFilter<"Lokasi"> | $Enums.AsetKategori
     createdAt?: DateTimeWithAggregatesFilter<"Lokasi"> | Date | string
+    kategoriAset?: EnumAsetKategoriWithAggregatesFilter<"Lokasi"> | $Enums.AsetKategori
   }
 
   export type PerpindahanWhereInput = {
@@ -12486,24 +12487,24 @@ export namespace Prisma {
     idPindahan?: StringFilter<"Perpindahan"> | string
     lokasiId?: StringFilter<"Perpindahan"> | string
     idAset?: StringFilter<"Perpindahan"> | string
-    tempatLama?: StringFilter<"Perpindahan"> | string
     tempatBaru?: StringFilter<"Perpindahan"> | string
     tanggalPindah?: DateTimeFilter<"Perpindahan"> | Date | string
     createdAt?: DateTimeFilter<"Perpindahan"> | Date | string
-    lokasi?: XOR<LokasiScalarRelationFilter, LokasiWhereInput>
+    tempatLama?: StringFilter<"Perpindahan"> | string
     aset?: XOR<AsetScalarRelationFilter, AsetWhereInput>
+    lokasi?: XOR<LokasiScalarRelationFilter, LokasiWhereInput>
   }
 
   export type PerpindahanOrderByWithRelationInput = {
     idPindahan?: SortOrder
     lokasiId?: SortOrder
     idAset?: SortOrder
-    tempatLama?: SortOrder
     tempatBaru?: SortOrder
     tanggalPindah?: SortOrder
     createdAt?: SortOrder
-    lokasi?: LokasiOrderByWithRelationInput
+    tempatLama?: SortOrder
     aset?: AsetOrderByWithRelationInput
+    lokasi?: LokasiOrderByWithRelationInput
   }
 
   export type PerpindahanWhereUniqueInput = Prisma.AtLeast<{
@@ -12513,22 +12514,22 @@ export namespace Prisma {
     NOT?: PerpindahanWhereInput | PerpindahanWhereInput[]
     lokasiId?: StringFilter<"Perpindahan"> | string
     idAset?: StringFilter<"Perpindahan"> | string
-    tempatLama?: StringFilter<"Perpindahan"> | string
     tempatBaru?: StringFilter<"Perpindahan"> | string
     tanggalPindah?: DateTimeFilter<"Perpindahan"> | Date | string
     createdAt?: DateTimeFilter<"Perpindahan"> | Date | string
-    lokasi?: XOR<LokasiScalarRelationFilter, LokasiWhereInput>
+    tempatLama?: StringFilter<"Perpindahan"> | string
     aset?: XOR<AsetScalarRelationFilter, AsetWhereInput>
+    lokasi?: XOR<LokasiScalarRelationFilter, LokasiWhereInput>
   }, "idPindahan">
 
   export type PerpindahanOrderByWithAggregationInput = {
     idPindahan?: SortOrder
     lokasiId?: SortOrder
     idAset?: SortOrder
-    tempatLama?: SortOrder
     tempatBaru?: SortOrder
     tanggalPindah?: SortOrder
     createdAt?: SortOrder
+    tempatLama?: SortOrder
     _count?: PerpindahanCountOrderByAggregateInput
     _max?: PerpindahanMaxOrderByAggregateInput
     _min?: PerpindahanMinOrderByAggregateInput
@@ -12541,10 +12542,10 @@ export namespace Prisma {
     idPindahan?: StringWithAggregatesFilter<"Perpindahan"> | string
     lokasiId?: StringWithAggregatesFilter<"Perpindahan"> | string
     idAset?: StringWithAggregatesFilter<"Perpindahan"> | string
-    tempatLama?: StringWithAggregatesFilter<"Perpindahan"> | string
     tempatBaru?: StringWithAggregatesFilter<"Perpindahan"> | string
     tanggalPindah?: DateTimeWithAggregatesFilter<"Perpindahan"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"Perpindahan"> | Date | string
+    tempatLama?: StringWithAggregatesFilter<"Perpindahan"> | string
   }
 
   export type PengadaanWhereInput = {
@@ -12684,14 +12685,14 @@ export namespace Prisma {
 
   export type SubAsetKategoriWhereUniqueInput = Prisma.AtLeast<{
     subAsetId?: string
+    nameSubAset?: string
     AND?: SubAsetKategoriWhereInput | SubAsetKategoriWhereInput[]
     OR?: SubAsetKategoriWhereInput[]
     NOT?: SubAsetKategoriWhereInput | SubAsetKategoriWhereInput[]
-    nameSubAset?: StringFilter<"SubAsetKategori"> | string
     createdAt?: DateTimeFilter<"SubAsetKategori"> | Date | string
     asets?: AsetListRelationFilter
     lokasi?: LokasiListRelationFilter
-  }, "subAsetId">
+  }, "subAsetId" | "nameSubAset">
 
   export type SubAsetKategoriOrderByWithAggregationInput = {
     subAsetId?: SortOrder
@@ -12771,11 +12772,11 @@ export namespace Prisma {
     id?: string
     email: string
     name: string
-    roleId: string
     password: string
     lastLogin?: Date | string | null
     createdAt?: Date | string
     status?: $Enums.UserStatus
+    roleId: string
   }
 
   export type UserUpdateInput = {
@@ -12793,22 +12794,22 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    roleId?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    roleId?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserCreateManyInput = {
     id?: string
     email: string
     name: string
-    roleId: string
     password: string
     lastLogin?: Date | string | null
     createdAt?: Date | string
     status?: $Enums.UserStatus
+    roleId: string
   }
 
   export type UserUpdateManyMutationInput = {
@@ -12825,27 +12826,27 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    roleId?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    roleId?: StringFieldUpdateOperationsInput | string
   }
 
   export type AsetCreateInput = {
     asetId?: string
-    kategoriAset: $Enums.AsetKategori
     merkDanTipe: string
     tahun?: number | null
     kondisiAset?: $Enums.AsetKondisi | null
-    statusAset: $Enums.AsetStatus
-    nomorSeri?: string | null
     masaBerlaku?: Date | string | null
+    nomorSeri?: string | null
+    statusAset: $Enums.AsetStatus
     statusKepemilikan: string
-    urlFoto?: AsetCreateurlFotoInput | string[]
     urlQR?: string | null
+    urlFoto?: AsetCreateurlFotoInput | string[]
     createdAt?: Date | string
     pic?: string | null
+    kategoriAset: $Enums.AsetKategori
     lokasi?: LokasiCreateNestedOneWithoutAsetInput
     subKategoriAset?: SubAsetKategoriCreateNestedOneWithoutAsetsInput
     maintenances?: MaintenanceCreateNestedManyWithoutAsetInput
@@ -12854,38 +12855,38 @@ export namespace Prisma {
 
   export type AsetUncheckedCreateInput = {
     asetId?: string
-    lokasiId?: string | null
-    subKategoriAsetId?: string | null
-    kategoriAset: $Enums.AsetKategori
     merkDanTipe: string
     tahun?: number | null
     kondisiAset?: $Enums.AsetKondisi | null
-    statusAset: $Enums.AsetStatus
-    nomorSeri?: string | null
     masaBerlaku?: Date | string | null
+    nomorSeri?: string | null
+    statusAset: $Enums.AsetStatus
     statusKepemilikan: string
-    urlFoto?: AsetCreateurlFotoInput | string[]
+    lokasiId?: string | null
     urlQR?: string | null
+    urlFoto?: AsetCreateurlFotoInput | string[]
     createdAt?: Date | string
     pic?: string | null
+    kategoriAset: $Enums.AsetKategori
+    subKategoriAsetId?: string | null
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAsetInput
     perpindahan?: PerpindahanUncheckedCreateNestedManyWithoutAsetInput
   }
 
   export type AsetUpdateInput = {
     asetId?: StringFieldUpdateOperationsInput | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     merkDanTipe?: StringFieldUpdateOperationsInput | string
     tahun?: NullableIntFieldUpdateOperationsInput | number | null
     kondisiAset?: NullableEnumAsetKondisiFieldUpdateOperationsInput | $Enums.AsetKondisi | null
-    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
-    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
     masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
+    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
     statusKepemilikan?: StringFieldUpdateOperationsInput | string
-    urlFoto?: AsetUpdateurlFotoInput | string[]
     urlQR?: NullableStringFieldUpdateOperationsInput | string | null
+    urlFoto?: AsetUpdateurlFotoInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     lokasi?: LokasiUpdateOneWithoutAsetNestedInput
     subKategoriAset?: SubAsetKategoriUpdateOneWithoutAsetsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutAsetNestedInput
@@ -12894,283 +12895,283 @@ export namespace Prisma {
 
   export type AsetUncheckedUpdateInput = {
     asetId?: StringFieldUpdateOperationsInput | string
-    lokasiId?: NullableStringFieldUpdateOperationsInput | string | null
-    subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     merkDanTipe?: StringFieldUpdateOperationsInput | string
     tahun?: NullableIntFieldUpdateOperationsInput | number | null
     kondisiAset?: NullableEnumAsetKondisiFieldUpdateOperationsInput | $Enums.AsetKondisi | null
-    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
-    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
     masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
+    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
     statusKepemilikan?: StringFieldUpdateOperationsInput | string
-    urlFoto?: AsetUpdateurlFotoInput | string[]
+    lokasiId?: NullableStringFieldUpdateOperationsInput | string | null
     urlQR?: NullableStringFieldUpdateOperationsInput | string | null
+    urlFoto?: AsetUpdateurlFotoInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
     maintenances?: MaintenanceUncheckedUpdateManyWithoutAsetNestedInput
     perpindahan?: PerpindahanUncheckedUpdateManyWithoutAsetNestedInput
   }
 
   export type AsetCreateManyInput = {
     asetId?: string
-    lokasiId?: string | null
-    subKategoriAsetId?: string | null
-    kategoriAset: $Enums.AsetKategori
     merkDanTipe: string
     tahun?: number | null
     kondisiAset?: $Enums.AsetKondisi | null
-    statusAset: $Enums.AsetStatus
-    nomorSeri?: string | null
     masaBerlaku?: Date | string | null
+    nomorSeri?: string | null
+    statusAset: $Enums.AsetStatus
     statusKepemilikan: string
-    urlFoto?: AsetCreateurlFotoInput | string[]
+    lokasiId?: string | null
     urlQR?: string | null
+    urlFoto?: AsetCreateurlFotoInput | string[]
     createdAt?: Date | string
     pic?: string | null
+    kategoriAset: $Enums.AsetKategori
+    subKategoriAsetId?: string | null
   }
 
   export type AsetUpdateManyMutationInput = {
     asetId?: StringFieldUpdateOperationsInput | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     merkDanTipe?: StringFieldUpdateOperationsInput | string
     tahun?: NullableIntFieldUpdateOperationsInput | number | null
     kondisiAset?: NullableEnumAsetKondisiFieldUpdateOperationsInput | $Enums.AsetKondisi | null
-    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
-    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
     masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
+    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
     statusKepemilikan?: StringFieldUpdateOperationsInput | string
-    urlFoto?: AsetUpdateurlFotoInput | string[]
     urlQR?: NullableStringFieldUpdateOperationsInput | string | null
+    urlFoto?: AsetUpdateurlFotoInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
   }
 
   export type AsetUncheckedUpdateManyInput = {
     asetId?: StringFieldUpdateOperationsInput | string
-    lokasiId?: NullableStringFieldUpdateOperationsInput | string | null
-    subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     merkDanTipe?: StringFieldUpdateOperationsInput | string
     tahun?: NullableIntFieldUpdateOperationsInput | number | null
     kondisiAset?: NullableEnumAsetKondisiFieldUpdateOperationsInput | $Enums.AsetKondisi | null
-    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
-    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
     masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
+    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
     statusKepemilikan?: StringFieldUpdateOperationsInput | string
-    urlFoto?: AsetUpdateurlFotoInput | string[]
+    lokasiId?: NullableStringFieldUpdateOperationsInput | string | null
     urlQR?: NullableStringFieldUpdateOperationsInput | string | null
+    urlFoto?: AsetUpdateurlFotoInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MaintenanceCreateInput = {
     maintenanceId?: string
-    deskripsi?: string | null
     tanggalMulai: Date | string
     perkiraanSelesai: Date | string
     tanggalSelesai?: Date | string | null
     statusMaintenance: $Enums.MaintenanceRequestStatus
     createdAt?: Date | string
+    deskripsi?: string | null
     aset: AsetCreateNestedOneWithoutMaintenancesInput
   }
 
   export type MaintenanceUncheckedCreateInput = {
     maintenanceId?: string
-    deskripsi?: string | null
     idAset: string
     tanggalMulai: Date | string
     perkiraanSelesai: Date | string
     tanggalSelesai?: Date | string | null
     statusMaintenance: $Enums.MaintenanceRequestStatus
     createdAt?: Date | string
+    deskripsi?: string | null
   }
 
   export type MaintenanceUpdateInput = {
     maintenanceId?: StringFieldUpdateOperationsInput | string
-    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     tanggalMulai?: DateTimeFieldUpdateOperationsInput | Date | string
     perkiraanSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
     tanggalSelesai?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     statusMaintenance?: EnumMaintenanceRequestStatusFieldUpdateOperationsInput | $Enums.MaintenanceRequestStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     aset?: AsetUpdateOneRequiredWithoutMaintenancesNestedInput
   }
 
   export type MaintenanceUncheckedUpdateInput = {
     maintenanceId?: StringFieldUpdateOperationsInput | string
-    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     idAset?: StringFieldUpdateOperationsInput | string
     tanggalMulai?: DateTimeFieldUpdateOperationsInput | Date | string
     perkiraanSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
     tanggalSelesai?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     statusMaintenance?: EnumMaintenanceRequestStatusFieldUpdateOperationsInput | $Enums.MaintenanceRequestStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MaintenanceCreateManyInput = {
     maintenanceId?: string
-    deskripsi?: string | null
     idAset: string
     tanggalMulai: Date | string
     perkiraanSelesai: Date | string
     tanggalSelesai?: Date | string | null
     statusMaintenance: $Enums.MaintenanceRequestStatus
     createdAt?: Date | string
+    deskripsi?: string | null
   }
 
   export type MaintenanceUpdateManyMutationInput = {
     maintenanceId?: StringFieldUpdateOperationsInput | string
-    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     tanggalMulai?: DateTimeFieldUpdateOperationsInput | Date | string
     perkiraanSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
     tanggalSelesai?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     statusMaintenance?: EnumMaintenanceRequestStatusFieldUpdateOperationsInput | $Enums.MaintenanceRequestStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MaintenanceUncheckedUpdateManyInput = {
     maintenanceId?: StringFieldUpdateOperationsInput | string
-    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     idAset?: StringFieldUpdateOperationsInput | string
     tanggalMulai?: DateTimeFieldUpdateOperationsInput | Date | string
     perkiraanSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
     tanggalSelesai?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     statusMaintenance?: EnumMaintenanceRequestStatusFieldUpdateOperationsInput | $Enums.MaintenanceRequestStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LokasiCreateInput = {
     idLokasi?: string
     lokasi: string
-    kategoriAset: $Enums.AsetKategori
     createdAt?: Date | string
-    subKategoriAset?: SubAsetKategoriCreateNestedManyWithoutLokasiInput
+    kategoriAset: $Enums.AsetKategori
     aset?: AsetCreateNestedManyWithoutLokasiInput
-    perpindahan?: PerpindahanCreateNestedManyWithoutLokasiInput
     pengadaan?: PengadaanCreateNestedManyWithoutLokasiInput
+    perpindahan?: PerpindahanCreateNestedManyWithoutLokasiInput
+    subKategoriAset?: SubAsetKategoriCreateNestedManyWithoutLokasiInput
   }
 
   export type LokasiUncheckedCreateInput = {
     idLokasi?: string
     lokasi: string
-    kategoriAset: $Enums.AsetKategori
     createdAt?: Date | string
-    subKategoriAset?: SubAsetKategoriUncheckedCreateNestedManyWithoutLokasiInput
+    kategoriAset: $Enums.AsetKategori
     aset?: AsetUncheckedCreateNestedManyWithoutLokasiInput
-    perpindahan?: PerpindahanUncheckedCreateNestedManyWithoutLokasiInput
     pengadaan?: PengadaanUncheckedCreateNestedManyWithoutLokasiInput
+    perpindahan?: PerpindahanUncheckedCreateNestedManyWithoutLokasiInput
+    subKategoriAset?: SubAsetKategoriUncheckedCreateNestedManyWithoutLokasiInput
   }
 
   export type LokasiUpdateInput = {
     idLokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    subKategoriAset?: SubAsetKategoriUpdateManyWithoutLokasiNestedInput
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     aset?: AsetUpdateManyWithoutLokasiNestedInput
-    perpindahan?: PerpindahanUpdateManyWithoutLokasiNestedInput
     pengadaan?: PengadaanUpdateManyWithoutLokasiNestedInput
+    perpindahan?: PerpindahanUpdateManyWithoutLokasiNestedInput
+    subKategoriAset?: SubAsetKategoriUpdateManyWithoutLokasiNestedInput
   }
 
   export type LokasiUncheckedUpdateInput = {
     idLokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    subKategoriAset?: SubAsetKategoriUncheckedUpdateManyWithoutLokasiNestedInput
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     aset?: AsetUncheckedUpdateManyWithoutLokasiNestedInput
-    perpindahan?: PerpindahanUncheckedUpdateManyWithoutLokasiNestedInput
     pengadaan?: PengadaanUncheckedUpdateManyWithoutLokasiNestedInput
+    perpindahan?: PerpindahanUncheckedUpdateManyWithoutLokasiNestedInput
+    subKategoriAset?: SubAsetKategoriUncheckedUpdateManyWithoutLokasiNestedInput
   }
 
   export type LokasiCreateManyInput = {
     idLokasi?: string
     lokasi: string
-    kategoriAset: $Enums.AsetKategori
     createdAt?: Date | string
+    kategoriAset: $Enums.AsetKategori
   }
 
   export type LokasiUpdateManyMutationInput = {
     idLokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
   }
 
   export type LokasiUncheckedUpdateManyInput = {
     idLokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
   }
 
   export type PerpindahanCreateInput = {
     idPindahan?: string
-    tempatLama: string
     tempatBaru: string
     tanggalPindah: Date | string
     createdAt?: Date | string
-    lokasi: LokasiCreateNestedOneWithoutPerpindahanInput
+    tempatLama: string
     aset: AsetCreateNestedOneWithoutPerpindahanInput
+    lokasi: LokasiCreateNestedOneWithoutPerpindahanInput
   }
 
   export type PerpindahanUncheckedCreateInput = {
     idPindahan?: string
     lokasiId: string
     idAset: string
-    tempatLama: string
     tempatBaru: string
     tanggalPindah: Date | string
     createdAt?: Date | string
+    tempatLama: string
   }
 
   export type PerpindahanUpdateInput = {
     idPindahan?: StringFieldUpdateOperationsInput | string
-    tempatLama?: StringFieldUpdateOperationsInput | string
     tempatBaru?: StringFieldUpdateOperationsInput | string
     tanggalPindah?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    lokasi?: LokasiUpdateOneRequiredWithoutPerpindahanNestedInput
+    tempatLama?: StringFieldUpdateOperationsInput | string
     aset?: AsetUpdateOneRequiredWithoutPerpindahanNestedInput
+    lokasi?: LokasiUpdateOneRequiredWithoutPerpindahanNestedInput
   }
 
   export type PerpindahanUncheckedUpdateInput = {
     idPindahan?: StringFieldUpdateOperationsInput | string
     lokasiId?: StringFieldUpdateOperationsInput | string
     idAset?: StringFieldUpdateOperationsInput | string
-    tempatLama?: StringFieldUpdateOperationsInput | string
     tempatBaru?: StringFieldUpdateOperationsInput | string
     tanggalPindah?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tempatLama?: StringFieldUpdateOperationsInput | string
   }
 
   export type PerpindahanCreateManyInput = {
     idPindahan?: string
     lokasiId: string
     idAset: string
-    tempatLama: string
     tempatBaru: string
     tanggalPindah: Date | string
     createdAt?: Date | string
+    tempatLama: string
   }
 
   export type PerpindahanUpdateManyMutationInput = {
     idPindahan?: StringFieldUpdateOperationsInput | string
-    tempatLama?: StringFieldUpdateOperationsInput | string
     tempatBaru?: StringFieldUpdateOperationsInput | string
     tanggalPindah?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tempatLama?: StringFieldUpdateOperationsInput | string
   }
 
   export type PerpindahanUncheckedUpdateManyInput = {
     idPindahan?: StringFieldUpdateOperationsInput | string
     lokasiId?: StringFieldUpdateOperationsInput | string
     idAset?: StringFieldUpdateOperationsInput | string
-    tempatLama?: StringFieldUpdateOperationsInput | string
     tempatBaru?: StringFieldUpdateOperationsInput | string
     tanggalPindah?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tempatLama?: StringFieldUpdateOperationsInput | string
   }
 
   export type PengadaanCreateInput = {
@@ -13445,33 +13446,33 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     name?: SortOrder
-    roleId?: SortOrder
     password?: SortOrder
     lastLogin?: SortOrder
     createdAt?: SortOrder
     status?: SortOrder
+    roleId?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
     name?: SortOrder
-    roleId?: SortOrder
     password?: SortOrder
     lastLogin?: SortOrder
     createdAt?: SortOrder
     status?: SortOrder
+    roleId?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
     name?: SortOrder
-    roleId?: SortOrder
     password?: SortOrder
     lastLogin?: SortOrder
     createdAt?: SortOrder
     status?: SortOrder
+    roleId?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -13530,28 +13531,6 @@ export namespace Prisma {
     _max?: NestedEnumUserStatusFilter<$PrismaModel>
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type EnumAsetKategoriFilter<$PrismaModel = never> = {
-    equals?: $Enums.AsetKategori | EnumAsetKategoriFieldRefInput<$PrismaModel>
-    in?: $Enums.AsetKategori[] | ListEnumAsetKategoriFieldRefInput<$PrismaModel>
-    notIn?: $Enums.AsetKategori[] | ListEnumAsetKategoriFieldRefInput<$PrismaModel>
-    not?: NestedEnumAsetKategoriFilter<$PrismaModel> | $Enums.AsetKategori
-  }
-
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -13570,6 +13549,21 @@ export namespace Prisma {
     not?: NestedEnumAsetKondisiNullableFilter<$PrismaModel> | $Enums.AsetKondisi | null
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type EnumAsetStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.AsetStatus | EnumAsetStatusFieldRefInput<$PrismaModel>
     in?: $Enums.AsetStatus[] | ListEnumAsetStatusFieldRefInput<$PrismaModel>
@@ -13583,6 +13577,13 @@ export namespace Prisma {
     hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
     hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
     isEmpty?: boolean
+  }
+
+  export type EnumAsetKategoriFilter<$PrismaModel = never> = {
+    equals?: $Enums.AsetKategori | EnumAsetKategoriFieldRefInput<$PrismaModel>
+    in?: $Enums.AsetKategori[] | ListEnumAsetKategoriFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AsetKategori[] | ListEnumAsetKategoriFieldRefInput<$PrismaModel>
+    not?: NestedEnumAsetKategoriFilter<$PrismaModel> | $Enums.AsetKategori
   }
 
   export type LokasiNullableScalarRelationFilter = {
@@ -13617,20 +13618,20 @@ export namespace Prisma {
 
   export type AsetCountOrderByAggregateInput = {
     asetId?: SortOrder
-    lokasiId?: SortOrder
-    subKategoriAsetId?: SortOrder
-    kategoriAset?: SortOrder
     merkDanTipe?: SortOrder
     tahun?: SortOrder
     kondisiAset?: SortOrder
-    statusAset?: SortOrder
-    nomorSeri?: SortOrder
     masaBerlaku?: SortOrder
+    nomorSeri?: SortOrder
+    statusAset?: SortOrder
     statusKepemilikan?: SortOrder
-    urlFoto?: SortOrder
+    lokasiId?: SortOrder
     urlQR?: SortOrder
+    urlFoto?: SortOrder
     createdAt?: SortOrder
     pic?: SortOrder
+    kategoriAset?: SortOrder
+    subKategoriAsetId?: SortOrder
   }
 
   export type AsetAvgOrderByAggregateInput = {
@@ -13639,68 +13640,40 @@ export namespace Prisma {
 
   export type AsetMaxOrderByAggregateInput = {
     asetId?: SortOrder
-    lokasiId?: SortOrder
-    subKategoriAsetId?: SortOrder
-    kategoriAset?: SortOrder
     merkDanTipe?: SortOrder
     tahun?: SortOrder
     kondisiAset?: SortOrder
-    statusAset?: SortOrder
-    nomorSeri?: SortOrder
     masaBerlaku?: SortOrder
+    nomorSeri?: SortOrder
+    statusAset?: SortOrder
     statusKepemilikan?: SortOrder
+    lokasiId?: SortOrder
     urlQR?: SortOrder
     createdAt?: SortOrder
     pic?: SortOrder
+    kategoriAset?: SortOrder
+    subKategoriAsetId?: SortOrder
   }
 
   export type AsetMinOrderByAggregateInput = {
     asetId?: SortOrder
-    lokasiId?: SortOrder
-    subKategoriAsetId?: SortOrder
-    kategoriAset?: SortOrder
     merkDanTipe?: SortOrder
     tahun?: SortOrder
     kondisiAset?: SortOrder
-    statusAset?: SortOrder
-    nomorSeri?: SortOrder
     masaBerlaku?: SortOrder
+    nomorSeri?: SortOrder
+    statusAset?: SortOrder
     statusKepemilikan?: SortOrder
+    lokasiId?: SortOrder
     urlQR?: SortOrder
     createdAt?: SortOrder
     pic?: SortOrder
+    kategoriAset?: SortOrder
+    subKategoriAsetId?: SortOrder
   }
 
   export type AsetSumOrderByAggregateInput = {
     tahun?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type EnumAsetKategoriWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.AsetKategori | EnumAsetKategoriFieldRefInput<$PrismaModel>
-    in?: $Enums.AsetKategori[] | ListEnumAsetKategoriFieldRefInput<$PrismaModel>
-    notIn?: $Enums.AsetKategori[] | ListEnumAsetKategoriFieldRefInput<$PrismaModel>
-    not?: NestedEnumAsetKategoriWithAggregatesFilter<$PrismaModel> | $Enums.AsetKategori
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumAsetKategoriFilter<$PrismaModel>
-    _max?: NestedEnumAsetKategoriFilter<$PrismaModel>
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -13729,6 +13702,24 @@ export namespace Prisma {
     _max?: NestedEnumAsetKondisiNullableFilter<$PrismaModel>
   }
 
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type EnumAsetStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.AsetStatus | EnumAsetStatusFieldRefInput<$PrismaModel>
     in?: $Enums.AsetStatus[] | ListEnumAsetStatusFieldRefInput<$PrismaModel>
@@ -13737,6 +13728,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumAsetStatusFilter<$PrismaModel>
     _max?: NestedEnumAsetStatusFilter<$PrismaModel>
+  }
+
+  export type EnumAsetKategoriWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AsetKategori | EnumAsetKategoriFieldRefInput<$PrismaModel>
+    in?: $Enums.AsetKategori[] | ListEnumAsetKategoriFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AsetKategori[] | ListEnumAsetKategoriFieldRefInput<$PrismaModel>
+    not?: NestedEnumAsetKategoriWithAggregatesFilter<$PrismaModel> | $Enums.AsetKategori
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAsetKategoriFilter<$PrismaModel>
+    _max?: NestedEnumAsetKategoriFilter<$PrismaModel>
   }
 
   export type EnumMaintenanceRequestStatusFilter<$PrismaModel = never> = {
@@ -13753,35 +13754,35 @@ export namespace Prisma {
 
   export type MaintenanceCountOrderByAggregateInput = {
     maintenanceId?: SortOrder
-    deskripsi?: SortOrder
     idAset?: SortOrder
     tanggalMulai?: SortOrder
     perkiraanSelesai?: SortOrder
     tanggalSelesai?: SortOrder
     statusMaintenance?: SortOrder
     createdAt?: SortOrder
+    deskripsi?: SortOrder
   }
 
   export type MaintenanceMaxOrderByAggregateInput = {
     maintenanceId?: SortOrder
-    deskripsi?: SortOrder
     idAset?: SortOrder
     tanggalMulai?: SortOrder
     perkiraanSelesai?: SortOrder
     tanggalSelesai?: SortOrder
     statusMaintenance?: SortOrder
     createdAt?: SortOrder
+    deskripsi?: SortOrder
   }
 
   export type MaintenanceMinOrderByAggregateInput = {
     maintenanceId?: SortOrder
-    deskripsi?: SortOrder
     idAset?: SortOrder
     tanggalMulai?: SortOrder
     perkiraanSelesai?: SortOrder
     tanggalSelesai?: SortOrder
     statusMaintenance?: SortOrder
     createdAt?: SortOrder
+    deskripsi?: SortOrder
   }
 
   export type EnumMaintenanceRequestStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -13792,12 +13793,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumMaintenanceRequestStatusFilter<$PrismaModel>
     _max?: NestedEnumMaintenanceRequestStatusFilter<$PrismaModel>
-  }
-
-  export type SubAsetKategoriListRelationFilter = {
-    every?: SubAsetKategoriWhereInput
-    some?: SubAsetKategoriWhereInput
-    none?: SubAsetKategoriWhereInput
   }
 
   export type AsetListRelationFilter = {
@@ -13812,8 +13807,10 @@ export namespace Prisma {
     none?: PengadaanWhereInput
   }
 
-  export type SubAsetKategoriOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type SubAsetKategoriListRelationFilter = {
+    every?: SubAsetKategoriWhereInput
+    some?: SubAsetKategoriWhereInput
+    none?: SubAsetKategoriWhereInput
   }
 
   export type AsetOrderByRelationAggregateInput = {
@@ -13824,25 +13821,29 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type SubAsetKategoriOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type LokasiCountOrderByAggregateInput = {
     idLokasi?: SortOrder
     lokasi?: SortOrder
-    kategoriAset?: SortOrder
     createdAt?: SortOrder
+    kategoriAset?: SortOrder
   }
 
   export type LokasiMaxOrderByAggregateInput = {
     idLokasi?: SortOrder
     lokasi?: SortOrder
-    kategoriAset?: SortOrder
     createdAt?: SortOrder
+    kategoriAset?: SortOrder
   }
 
   export type LokasiMinOrderByAggregateInput = {
     idLokasi?: SortOrder
     lokasi?: SortOrder
-    kategoriAset?: SortOrder
     createdAt?: SortOrder
+    kategoriAset?: SortOrder
   }
 
   export type LokasiScalarRelationFilter = {
@@ -13854,30 +13855,30 @@ export namespace Prisma {
     idPindahan?: SortOrder
     lokasiId?: SortOrder
     idAset?: SortOrder
-    tempatLama?: SortOrder
     tempatBaru?: SortOrder
     tanggalPindah?: SortOrder
     createdAt?: SortOrder
+    tempatLama?: SortOrder
   }
 
   export type PerpindahanMaxOrderByAggregateInput = {
     idPindahan?: SortOrder
     lokasiId?: SortOrder
     idAset?: SortOrder
-    tempatLama?: SortOrder
     tempatBaru?: SortOrder
     tanggalPindah?: SortOrder
     createdAt?: SortOrder
+    tempatLama?: SortOrder
   }
 
   export type PerpindahanMinOrderByAggregateInput = {
     idPindahan?: SortOrder
     lokasiId?: SortOrder
     idAset?: SortOrder
-    tempatLama?: SortOrder
     tempatBaru?: SortOrder
     tanggalPindah?: SortOrder
     createdAt?: SortOrder
+    tempatLama?: SortOrder
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -14135,10 +14136,6 @@ export namespace Prisma {
     connect?: PerpindahanWhereUniqueInput | PerpindahanWhereUniqueInput[]
   }
 
-  export type EnumAsetKategoriFieldUpdateOperationsInput = {
-    set?: $Enums.AsetKategori
-  }
-
   export type NullableIntFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
@@ -14151,17 +14148,21 @@ export namespace Prisma {
     set?: $Enums.AsetKondisi | null
   }
 
-  export type EnumAsetStatusFieldUpdateOperationsInput = {
-    set?: $Enums.AsetStatus
-  }
-
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type EnumAsetStatusFieldUpdateOperationsInput = {
+    set?: $Enums.AsetStatus
   }
 
   export type AsetUpdateurlFotoInput = {
     set?: string[]
     push?: string | string[]
+  }
+
+  export type EnumAsetKategoriFieldUpdateOperationsInput = {
+    set?: $Enums.AsetKategori
   }
 
   export type LokasiUpdateOneWithoutAsetNestedInput = {
@@ -14258,24 +14259,11 @@ export namespace Prisma {
     update?: XOR<XOR<AsetUpdateToOneWithWhereWithoutMaintenancesInput, AsetUpdateWithoutMaintenancesInput>, AsetUncheckedUpdateWithoutMaintenancesInput>
   }
 
-  export type SubAsetKategoriCreateNestedManyWithoutLokasiInput = {
-    create?: XOR<SubAsetKategoriCreateWithoutLokasiInput, SubAsetKategoriUncheckedCreateWithoutLokasiInput> | SubAsetKategoriCreateWithoutLokasiInput[] | SubAsetKategoriUncheckedCreateWithoutLokasiInput[]
-    connectOrCreate?: SubAsetKategoriCreateOrConnectWithoutLokasiInput | SubAsetKategoriCreateOrConnectWithoutLokasiInput[]
-    connect?: SubAsetKategoriWhereUniqueInput | SubAsetKategoriWhereUniqueInput[]
-  }
-
   export type AsetCreateNestedManyWithoutLokasiInput = {
     create?: XOR<AsetCreateWithoutLokasiInput, AsetUncheckedCreateWithoutLokasiInput> | AsetCreateWithoutLokasiInput[] | AsetUncheckedCreateWithoutLokasiInput[]
     connectOrCreate?: AsetCreateOrConnectWithoutLokasiInput | AsetCreateOrConnectWithoutLokasiInput[]
     createMany?: AsetCreateManyLokasiInputEnvelope
     connect?: AsetWhereUniqueInput | AsetWhereUniqueInput[]
-  }
-
-  export type PerpindahanCreateNestedManyWithoutLokasiInput = {
-    create?: XOR<PerpindahanCreateWithoutLokasiInput, PerpindahanUncheckedCreateWithoutLokasiInput> | PerpindahanCreateWithoutLokasiInput[] | PerpindahanUncheckedCreateWithoutLokasiInput[]
-    connectOrCreate?: PerpindahanCreateOrConnectWithoutLokasiInput | PerpindahanCreateOrConnectWithoutLokasiInput[]
-    createMany?: PerpindahanCreateManyLokasiInputEnvelope
-    connect?: PerpindahanWhereUniqueInput | PerpindahanWhereUniqueInput[]
   }
 
   export type PengadaanCreateNestedManyWithoutLokasiInput = {
@@ -14285,7 +14273,14 @@ export namespace Prisma {
     connect?: PengadaanWhereUniqueInput | PengadaanWhereUniqueInput[]
   }
 
-  export type SubAsetKategoriUncheckedCreateNestedManyWithoutLokasiInput = {
+  export type PerpindahanCreateNestedManyWithoutLokasiInput = {
+    create?: XOR<PerpindahanCreateWithoutLokasiInput, PerpindahanUncheckedCreateWithoutLokasiInput> | PerpindahanCreateWithoutLokasiInput[] | PerpindahanUncheckedCreateWithoutLokasiInput[]
+    connectOrCreate?: PerpindahanCreateOrConnectWithoutLokasiInput | PerpindahanCreateOrConnectWithoutLokasiInput[]
+    createMany?: PerpindahanCreateManyLokasiInputEnvelope
+    connect?: PerpindahanWhereUniqueInput | PerpindahanWhereUniqueInput[]
+  }
+
+  export type SubAsetKategoriCreateNestedManyWithoutLokasiInput = {
     create?: XOR<SubAsetKategoriCreateWithoutLokasiInput, SubAsetKategoriUncheckedCreateWithoutLokasiInput> | SubAsetKategoriCreateWithoutLokasiInput[] | SubAsetKategoriUncheckedCreateWithoutLokasiInput[]
     connectOrCreate?: SubAsetKategoriCreateOrConnectWithoutLokasiInput | SubAsetKategoriCreateOrConnectWithoutLokasiInput[]
     connect?: SubAsetKategoriWhereUniqueInput | SubAsetKategoriWhereUniqueInput[]
@@ -14298,13 +14293,6 @@ export namespace Prisma {
     connect?: AsetWhereUniqueInput | AsetWhereUniqueInput[]
   }
 
-  export type PerpindahanUncheckedCreateNestedManyWithoutLokasiInput = {
-    create?: XOR<PerpindahanCreateWithoutLokasiInput, PerpindahanUncheckedCreateWithoutLokasiInput> | PerpindahanCreateWithoutLokasiInput[] | PerpindahanUncheckedCreateWithoutLokasiInput[]
-    connectOrCreate?: PerpindahanCreateOrConnectWithoutLokasiInput | PerpindahanCreateOrConnectWithoutLokasiInput[]
-    createMany?: PerpindahanCreateManyLokasiInputEnvelope
-    connect?: PerpindahanWhereUniqueInput | PerpindahanWhereUniqueInput[]
-  }
-
   export type PengadaanUncheckedCreateNestedManyWithoutLokasiInput = {
     create?: XOR<PengadaanCreateWithoutLokasiInput, PengadaanUncheckedCreateWithoutLokasiInput> | PengadaanCreateWithoutLokasiInput[] | PengadaanUncheckedCreateWithoutLokasiInput[]
     connectOrCreate?: PengadaanCreateOrConnectWithoutLokasiInput | PengadaanCreateOrConnectWithoutLokasiInput[]
@@ -14312,17 +14300,17 @@ export namespace Prisma {
     connect?: PengadaanWhereUniqueInput | PengadaanWhereUniqueInput[]
   }
 
-  export type SubAsetKategoriUpdateManyWithoutLokasiNestedInput = {
+  export type PerpindahanUncheckedCreateNestedManyWithoutLokasiInput = {
+    create?: XOR<PerpindahanCreateWithoutLokasiInput, PerpindahanUncheckedCreateWithoutLokasiInput> | PerpindahanCreateWithoutLokasiInput[] | PerpindahanUncheckedCreateWithoutLokasiInput[]
+    connectOrCreate?: PerpindahanCreateOrConnectWithoutLokasiInput | PerpindahanCreateOrConnectWithoutLokasiInput[]
+    createMany?: PerpindahanCreateManyLokasiInputEnvelope
+    connect?: PerpindahanWhereUniqueInput | PerpindahanWhereUniqueInput[]
+  }
+
+  export type SubAsetKategoriUncheckedCreateNestedManyWithoutLokasiInput = {
     create?: XOR<SubAsetKategoriCreateWithoutLokasiInput, SubAsetKategoriUncheckedCreateWithoutLokasiInput> | SubAsetKategoriCreateWithoutLokasiInput[] | SubAsetKategoriUncheckedCreateWithoutLokasiInput[]
     connectOrCreate?: SubAsetKategoriCreateOrConnectWithoutLokasiInput | SubAsetKategoriCreateOrConnectWithoutLokasiInput[]
-    upsert?: SubAsetKategoriUpsertWithWhereUniqueWithoutLokasiInput | SubAsetKategoriUpsertWithWhereUniqueWithoutLokasiInput[]
-    set?: SubAsetKategoriWhereUniqueInput | SubAsetKategoriWhereUniqueInput[]
-    disconnect?: SubAsetKategoriWhereUniqueInput | SubAsetKategoriWhereUniqueInput[]
-    delete?: SubAsetKategoriWhereUniqueInput | SubAsetKategoriWhereUniqueInput[]
     connect?: SubAsetKategoriWhereUniqueInput | SubAsetKategoriWhereUniqueInput[]
-    update?: SubAsetKategoriUpdateWithWhereUniqueWithoutLokasiInput | SubAsetKategoriUpdateWithWhereUniqueWithoutLokasiInput[]
-    updateMany?: SubAsetKategoriUpdateManyWithWhereWithoutLokasiInput | SubAsetKategoriUpdateManyWithWhereWithoutLokasiInput[]
-    deleteMany?: SubAsetKategoriScalarWhereInput | SubAsetKategoriScalarWhereInput[]
   }
 
   export type AsetUpdateManyWithoutLokasiNestedInput = {
@@ -14339,20 +14327,6 @@ export namespace Prisma {
     deleteMany?: AsetScalarWhereInput | AsetScalarWhereInput[]
   }
 
-  export type PerpindahanUpdateManyWithoutLokasiNestedInput = {
-    create?: XOR<PerpindahanCreateWithoutLokasiInput, PerpindahanUncheckedCreateWithoutLokasiInput> | PerpindahanCreateWithoutLokasiInput[] | PerpindahanUncheckedCreateWithoutLokasiInput[]
-    connectOrCreate?: PerpindahanCreateOrConnectWithoutLokasiInput | PerpindahanCreateOrConnectWithoutLokasiInput[]
-    upsert?: PerpindahanUpsertWithWhereUniqueWithoutLokasiInput | PerpindahanUpsertWithWhereUniqueWithoutLokasiInput[]
-    createMany?: PerpindahanCreateManyLokasiInputEnvelope
-    set?: PerpindahanWhereUniqueInput | PerpindahanWhereUniqueInput[]
-    disconnect?: PerpindahanWhereUniqueInput | PerpindahanWhereUniqueInput[]
-    delete?: PerpindahanWhereUniqueInput | PerpindahanWhereUniqueInput[]
-    connect?: PerpindahanWhereUniqueInput | PerpindahanWhereUniqueInput[]
-    update?: PerpindahanUpdateWithWhereUniqueWithoutLokasiInput | PerpindahanUpdateWithWhereUniqueWithoutLokasiInput[]
-    updateMany?: PerpindahanUpdateManyWithWhereWithoutLokasiInput | PerpindahanUpdateManyWithWhereWithoutLokasiInput[]
-    deleteMany?: PerpindahanScalarWhereInput | PerpindahanScalarWhereInput[]
-  }
-
   export type PengadaanUpdateManyWithoutLokasiNestedInput = {
     create?: XOR<PengadaanCreateWithoutLokasiInput, PengadaanUncheckedCreateWithoutLokasiInput> | PengadaanCreateWithoutLokasiInput[] | PengadaanUncheckedCreateWithoutLokasiInput[]
     connectOrCreate?: PengadaanCreateOrConnectWithoutLokasiInput | PengadaanCreateOrConnectWithoutLokasiInput[]
@@ -14367,7 +14341,21 @@ export namespace Prisma {
     deleteMany?: PengadaanScalarWhereInput | PengadaanScalarWhereInput[]
   }
 
-  export type SubAsetKategoriUncheckedUpdateManyWithoutLokasiNestedInput = {
+  export type PerpindahanUpdateManyWithoutLokasiNestedInput = {
+    create?: XOR<PerpindahanCreateWithoutLokasiInput, PerpindahanUncheckedCreateWithoutLokasiInput> | PerpindahanCreateWithoutLokasiInput[] | PerpindahanUncheckedCreateWithoutLokasiInput[]
+    connectOrCreate?: PerpindahanCreateOrConnectWithoutLokasiInput | PerpindahanCreateOrConnectWithoutLokasiInput[]
+    upsert?: PerpindahanUpsertWithWhereUniqueWithoutLokasiInput | PerpindahanUpsertWithWhereUniqueWithoutLokasiInput[]
+    createMany?: PerpindahanCreateManyLokasiInputEnvelope
+    set?: PerpindahanWhereUniqueInput | PerpindahanWhereUniqueInput[]
+    disconnect?: PerpindahanWhereUniqueInput | PerpindahanWhereUniqueInput[]
+    delete?: PerpindahanWhereUniqueInput | PerpindahanWhereUniqueInput[]
+    connect?: PerpindahanWhereUniqueInput | PerpindahanWhereUniqueInput[]
+    update?: PerpindahanUpdateWithWhereUniqueWithoutLokasiInput | PerpindahanUpdateWithWhereUniqueWithoutLokasiInput[]
+    updateMany?: PerpindahanUpdateManyWithWhereWithoutLokasiInput | PerpindahanUpdateManyWithWhereWithoutLokasiInput[]
+    deleteMany?: PerpindahanScalarWhereInput | PerpindahanScalarWhereInput[]
+  }
+
+  export type SubAsetKategoriUpdateManyWithoutLokasiNestedInput = {
     create?: XOR<SubAsetKategoriCreateWithoutLokasiInput, SubAsetKategoriUncheckedCreateWithoutLokasiInput> | SubAsetKategoriCreateWithoutLokasiInput[] | SubAsetKategoriUncheckedCreateWithoutLokasiInput[]
     connectOrCreate?: SubAsetKategoriCreateOrConnectWithoutLokasiInput | SubAsetKategoriCreateOrConnectWithoutLokasiInput[]
     upsert?: SubAsetKategoriUpsertWithWhereUniqueWithoutLokasiInput | SubAsetKategoriUpsertWithWhereUniqueWithoutLokasiInput[]
@@ -14394,20 +14382,6 @@ export namespace Prisma {
     deleteMany?: AsetScalarWhereInput | AsetScalarWhereInput[]
   }
 
-  export type PerpindahanUncheckedUpdateManyWithoutLokasiNestedInput = {
-    create?: XOR<PerpindahanCreateWithoutLokasiInput, PerpindahanUncheckedCreateWithoutLokasiInput> | PerpindahanCreateWithoutLokasiInput[] | PerpindahanUncheckedCreateWithoutLokasiInput[]
-    connectOrCreate?: PerpindahanCreateOrConnectWithoutLokasiInput | PerpindahanCreateOrConnectWithoutLokasiInput[]
-    upsert?: PerpindahanUpsertWithWhereUniqueWithoutLokasiInput | PerpindahanUpsertWithWhereUniqueWithoutLokasiInput[]
-    createMany?: PerpindahanCreateManyLokasiInputEnvelope
-    set?: PerpindahanWhereUniqueInput | PerpindahanWhereUniqueInput[]
-    disconnect?: PerpindahanWhereUniqueInput | PerpindahanWhereUniqueInput[]
-    delete?: PerpindahanWhereUniqueInput | PerpindahanWhereUniqueInput[]
-    connect?: PerpindahanWhereUniqueInput | PerpindahanWhereUniqueInput[]
-    update?: PerpindahanUpdateWithWhereUniqueWithoutLokasiInput | PerpindahanUpdateWithWhereUniqueWithoutLokasiInput[]
-    updateMany?: PerpindahanUpdateManyWithWhereWithoutLokasiInput | PerpindahanUpdateManyWithWhereWithoutLokasiInput[]
-    deleteMany?: PerpindahanScalarWhereInput | PerpindahanScalarWhereInput[]
-  }
-
   export type PengadaanUncheckedUpdateManyWithoutLokasiNestedInput = {
     create?: XOR<PengadaanCreateWithoutLokasiInput, PengadaanUncheckedCreateWithoutLokasiInput> | PengadaanCreateWithoutLokasiInput[] | PengadaanUncheckedCreateWithoutLokasiInput[]
     connectOrCreate?: PengadaanCreateOrConnectWithoutLokasiInput | PengadaanCreateOrConnectWithoutLokasiInput[]
@@ -14422,10 +14396,31 @@ export namespace Prisma {
     deleteMany?: PengadaanScalarWhereInput | PengadaanScalarWhereInput[]
   }
 
-  export type LokasiCreateNestedOneWithoutPerpindahanInput = {
-    create?: XOR<LokasiCreateWithoutPerpindahanInput, LokasiUncheckedCreateWithoutPerpindahanInput>
-    connectOrCreate?: LokasiCreateOrConnectWithoutPerpindahanInput
-    connect?: LokasiWhereUniqueInput
+  export type PerpindahanUncheckedUpdateManyWithoutLokasiNestedInput = {
+    create?: XOR<PerpindahanCreateWithoutLokasiInput, PerpindahanUncheckedCreateWithoutLokasiInput> | PerpindahanCreateWithoutLokasiInput[] | PerpindahanUncheckedCreateWithoutLokasiInput[]
+    connectOrCreate?: PerpindahanCreateOrConnectWithoutLokasiInput | PerpindahanCreateOrConnectWithoutLokasiInput[]
+    upsert?: PerpindahanUpsertWithWhereUniqueWithoutLokasiInput | PerpindahanUpsertWithWhereUniqueWithoutLokasiInput[]
+    createMany?: PerpindahanCreateManyLokasiInputEnvelope
+    set?: PerpindahanWhereUniqueInput | PerpindahanWhereUniqueInput[]
+    disconnect?: PerpindahanWhereUniqueInput | PerpindahanWhereUniqueInput[]
+    delete?: PerpindahanWhereUniqueInput | PerpindahanWhereUniqueInput[]
+    connect?: PerpindahanWhereUniqueInput | PerpindahanWhereUniqueInput[]
+    update?: PerpindahanUpdateWithWhereUniqueWithoutLokasiInput | PerpindahanUpdateWithWhereUniqueWithoutLokasiInput[]
+    updateMany?: PerpindahanUpdateManyWithWhereWithoutLokasiInput | PerpindahanUpdateManyWithWhereWithoutLokasiInput[]
+    deleteMany?: PerpindahanScalarWhereInput | PerpindahanScalarWhereInput[]
+  }
+
+  export type SubAsetKategoriUncheckedUpdateManyWithoutLokasiNestedInput = {
+    create?: XOR<SubAsetKategoriCreateWithoutLokasiInput, SubAsetKategoriUncheckedCreateWithoutLokasiInput> | SubAsetKategoriCreateWithoutLokasiInput[] | SubAsetKategoriUncheckedCreateWithoutLokasiInput[]
+    connectOrCreate?: SubAsetKategoriCreateOrConnectWithoutLokasiInput | SubAsetKategoriCreateOrConnectWithoutLokasiInput[]
+    upsert?: SubAsetKategoriUpsertWithWhereUniqueWithoutLokasiInput | SubAsetKategoriUpsertWithWhereUniqueWithoutLokasiInput[]
+    set?: SubAsetKategoriWhereUniqueInput | SubAsetKategoriWhereUniqueInput[]
+    disconnect?: SubAsetKategoriWhereUniqueInput | SubAsetKategoriWhereUniqueInput[]
+    delete?: SubAsetKategoriWhereUniqueInput | SubAsetKategoriWhereUniqueInput[]
+    connect?: SubAsetKategoriWhereUniqueInput | SubAsetKategoriWhereUniqueInput[]
+    update?: SubAsetKategoriUpdateWithWhereUniqueWithoutLokasiInput | SubAsetKategoriUpdateWithWhereUniqueWithoutLokasiInput[]
+    updateMany?: SubAsetKategoriUpdateManyWithWhereWithoutLokasiInput | SubAsetKategoriUpdateManyWithWhereWithoutLokasiInput[]
+    deleteMany?: SubAsetKategoriScalarWhereInput | SubAsetKategoriScalarWhereInput[]
   }
 
   export type AsetCreateNestedOneWithoutPerpindahanInput = {
@@ -14434,12 +14429,10 @@ export namespace Prisma {
     connect?: AsetWhereUniqueInput
   }
 
-  export type LokasiUpdateOneRequiredWithoutPerpindahanNestedInput = {
+  export type LokasiCreateNestedOneWithoutPerpindahanInput = {
     create?: XOR<LokasiCreateWithoutPerpindahanInput, LokasiUncheckedCreateWithoutPerpindahanInput>
     connectOrCreate?: LokasiCreateOrConnectWithoutPerpindahanInput
-    upsert?: LokasiUpsertWithoutPerpindahanInput
     connect?: LokasiWhereUniqueInput
-    update?: XOR<XOR<LokasiUpdateToOneWithWhereWithoutPerpindahanInput, LokasiUpdateWithoutPerpindahanInput>, LokasiUncheckedUpdateWithoutPerpindahanInput>
   }
 
   export type AsetUpdateOneRequiredWithoutPerpindahanNestedInput = {
@@ -14448,6 +14441,14 @@ export namespace Prisma {
     upsert?: AsetUpsertWithoutPerpindahanInput
     connect?: AsetWhereUniqueInput
     update?: XOR<XOR<AsetUpdateToOneWithWhereWithoutPerpindahanInput, AsetUpdateWithoutPerpindahanInput>, AsetUncheckedUpdateWithoutPerpindahanInput>
+  }
+
+  export type LokasiUpdateOneRequiredWithoutPerpindahanNestedInput = {
+    create?: XOR<LokasiCreateWithoutPerpindahanInput, LokasiUncheckedCreateWithoutPerpindahanInput>
+    connectOrCreate?: LokasiCreateOrConnectWithoutPerpindahanInput
+    upsert?: LokasiUpsertWithoutPerpindahanInput
+    connect?: LokasiWhereUniqueInput
+    update?: XOR<XOR<LokasiUpdateToOneWithWhereWithoutPerpindahanInput, LokasiUpdateWithoutPerpindahanInput>, LokasiUncheckedUpdateWithoutPerpindahanInput>
   }
 
   export type LokasiCreateNestedOneWithoutPengadaanInput = {
@@ -14722,6 +14723,13 @@ export namespace Prisma {
     _max?: NestedEnumUserStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumAsetKondisiNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.AsetKondisi | EnumAsetKondisiFieldRefInput<$PrismaModel> | null
+    in?: $Enums.AsetKondisi[] | ListEnumAsetKondisiFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.AsetKondisi[] | ListEnumAsetKondisiFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumAsetKondisiNullableFilter<$PrismaModel> | $Enums.AsetKondisi | null
+  }
+
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -14736,20 +14744,6 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type NestedEnumAsetKategoriFilter<$PrismaModel = never> = {
-    equals?: $Enums.AsetKategori | EnumAsetKategoriFieldRefInput<$PrismaModel>
-    in?: $Enums.AsetKategori[] | ListEnumAsetKategoriFieldRefInput<$PrismaModel>
-    notIn?: $Enums.AsetKategori[] | ListEnumAsetKategoriFieldRefInput<$PrismaModel>
-    not?: NestedEnumAsetKategoriFilter<$PrismaModel> | $Enums.AsetKategori
-  }
-
-  export type NestedEnumAsetKondisiNullableFilter<$PrismaModel = never> = {
-    equals?: $Enums.AsetKondisi | EnumAsetKondisiFieldRefInput<$PrismaModel> | null
-    in?: $Enums.AsetKondisi[] | ListEnumAsetKondisiFieldRefInput<$PrismaModel> | null
-    notIn?: $Enums.AsetKondisi[] | ListEnumAsetKondisiFieldRefInput<$PrismaModel> | null
-    not?: NestedEnumAsetKondisiNullableFilter<$PrismaModel> | $Enums.AsetKondisi | null
-  }
-
   export type NestedEnumAsetStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.AsetStatus | EnumAsetStatusFieldRefInput<$PrismaModel>
     in?: $Enums.AsetStatus[] | ListEnumAsetStatusFieldRefInput<$PrismaModel>
@@ -14757,31 +14751,11 @@ export namespace Prisma {
     not?: NestedEnumAsetStatusFilter<$PrismaModel> | $Enums.AsetStatus
   }
 
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedEnumAsetKategoriWithAggregatesFilter<$PrismaModel = never> = {
+  export type NestedEnumAsetKategoriFilter<$PrismaModel = never> = {
     equals?: $Enums.AsetKategori | EnumAsetKategoriFieldRefInput<$PrismaModel>
     in?: $Enums.AsetKategori[] | ListEnumAsetKategoriFieldRefInput<$PrismaModel>
     notIn?: $Enums.AsetKategori[] | ListEnumAsetKategoriFieldRefInput<$PrismaModel>
-    not?: NestedEnumAsetKategoriWithAggregatesFilter<$PrismaModel> | $Enums.AsetKategori
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumAsetKategoriFilter<$PrismaModel>
-    _max?: NestedEnumAsetKategoriFilter<$PrismaModel>
+    not?: NestedEnumAsetKategoriFilter<$PrismaModel> | $Enums.AsetKategori
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -14821,6 +14795,23 @@ export namespace Prisma {
     _max?: NestedEnumAsetKondisiNullableFilter<$PrismaModel>
   }
 
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type NestedEnumAsetStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.AsetStatus | EnumAsetStatusFieldRefInput<$PrismaModel>
     in?: $Enums.AsetStatus[] | ListEnumAsetStatusFieldRefInput<$PrismaModel>
@@ -14829,6 +14820,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumAsetStatusFilter<$PrismaModel>
     _max?: NestedEnumAsetStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumAsetKategoriWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AsetKategori | EnumAsetKategoriFieldRefInput<$PrismaModel>
+    in?: $Enums.AsetKategori[] | ListEnumAsetKategoriFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AsetKategori[] | ListEnumAsetKategoriFieldRefInput<$PrismaModel>
+    not?: NestedEnumAsetKategoriWithAggregatesFilter<$PrismaModel> | $Enums.AsetKategori
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAsetKategoriFilter<$PrismaModel>
+    _max?: NestedEnumAsetKategoriFilter<$PrismaModel>
   }
 
   export type NestedEnumMaintenanceRequestStatusFilter<$PrismaModel = never> = {
@@ -14945,21 +14946,21 @@ export namespace Prisma {
   export type LokasiCreateWithoutAsetInput = {
     idLokasi?: string
     lokasi: string
-    kategoriAset: $Enums.AsetKategori
     createdAt?: Date | string
-    subKategoriAset?: SubAsetKategoriCreateNestedManyWithoutLokasiInput
-    perpindahan?: PerpindahanCreateNestedManyWithoutLokasiInput
+    kategoriAset: $Enums.AsetKategori
     pengadaan?: PengadaanCreateNestedManyWithoutLokasiInput
+    perpindahan?: PerpindahanCreateNestedManyWithoutLokasiInput
+    subKategoriAset?: SubAsetKategoriCreateNestedManyWithoutLokasiInput
   }
 
   export type LokasiUncheckedCreateWithoutAsetInput = {
     idLokasi?: string
     lokasi: string
-    kategoriAset: $Enums.AsetKategori
     createdAt?: Date | string
-    subKategoriAset?: SubAsetKategoriUncheckedCreateNestedManyWithoutLokasiInput
-    perpindahan?: PerpindahanUncheckedCreateNestedManyWithoutLokasiInput
+    kategoriAset: $Enums.AsetKategori
     pengadaan?: PengadaanUncheckedCreateNestedManyWithoutLokasiInput
+    perpindahan?: PerpindahanUncheckedCreateNestedManyWithoutLokasiInput
+    subKategoriAset?: SubAsetKategoriUncheckedCreateNestedManyWithoutLokasiInput
   }
 
   export type LokasiCreateOrConnectWithoutAsetInput = {
@@ -14988,22 +14989,22 @@ export namespace Prisma {
 
   export type MaintenanceCreateWithoutAsetInput = {
     maintenanceId?: string
-    deskripsi?: string | null
     tanggalMulai: Date | string
     perkiraanSelesai: Date | string
     tanggalSelesai?: Date | string | null
     statusMaintenance: $Enums.MaintenanceRequestStatus
     createdAt?: Date | string
+    deskripsi?: string | null
   }
 
   export type MaintenanceUncheckedCreateWithoutAsetInput = {
     maintenanceId?: string
-    deskripsi?: string | null
     tanggalMulai: Date | string
     perkiraanSelesai: Date | string
     tanggalSelesai?: Date | string | null
     statusMaintenance: $Enums.MaintenanceRequestStatus
     createdAt?: Date | string
+    deskripsi?: string | null
   }
 
   export type MaintenanceCreateOrConnectWithoutAsetInput = {
@@ -15018,20 +15019,20 @@ export namespace Prisma {
 
   export type PerpindahanCreateWithoutAsetInput = {
     idPindahan?: string
-    tempatLama: string
     tempatBaru: string
     tanggalPindah: Date | string
     createdAt?: Date | string
+    tempatLama: string
     lokasi: LokasiCreateNestedOneWithoutPerpindahanInput
   }
 
   export type PerpindahanUncheckedCreateWithoutAsetInput = {
     idPindahan?: string
     lokasiId: string
-    tempatLama: string
     tempatBaru: string
     tanggalPindah: Date | string
     createdAt?: Date | string
+    tempatLama: string
   }
 
   export type PerpindahanCreateOrConnectWithoutAsetInput = {
@@ -15058,21 +15059,21 @@ export namespace Prisma {
   export type LokasiUpdateWithoutAsetInput = {
     idLokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    subKategoriAset?: SubAsetKategoriUpdateManyWithoutLokasiNestedInput
-    perpindahan?: PerpindahanUpdateManyWithoutLokasiNestedInput
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     pengadaan?: PengadaanUpdateManyWithoutLokasiNestedInput
+    perpindahan?: PerpindahanUpdateManyWithoutLokasiNestedInput
+    subKategoriAset?: SubAsetKategoriUpdateManyWithoutLokasiNestedInput
   }
 
   export type LokasiUncheckedUpdateWithoutAsetInput = {
     idLokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    subKategoriAset?: SubAsetKategoriUncheckedUpdateManyWithoutLokasiNestedInput
-    perpindahan?: PerpindahanUncheckedUpdateManyWithoutLokasiNestedInput
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     pengadaan?: PengadaanUncheckedUpdateManyWithoutLokasiNestedInput
+    perpindahan?: PerpindahanUncheckedUpdateManyWithoutLokasiNestedInput
+    subKategoriAset?: SubAsetKategoriUncheckedUpdateManyWithoutLokasiNestedInput
   }
 
   export type SubAsetKategoriUpsertWithoutAsetsInput = {
@@ -15121,13 +15122,13 @@ export namespace Prisma {
     OR?: MaintenanceScalarWhereInput[]
     NOT?: MaintenanceScalarWhereInput | MaintenanceScalarWhereInput[]
     maintenanceId?: StringFilter<"Maintenance"> | string
-    deskripsi?: StringNullableFilter<"Maintenance"> | string | null
     idAset?: StringFilter<"Maintenance"> | string
     tanggalMulai?: DateTimeFilter<"Maintenance"> | Date | string
     perkiraanSelesai?: DateTimeFilter<"Maintenance"> | Date | string
     tanggalSelesai?: DateTimeNullableFilter<"Maintenance"> | Date | string | null
     statusMaintenance?: EnumMaintenanceRequestStatusFilter<"Maintenance"> | $Enums.MaintenanceRequestStatus
     createdAt?: DateTimeFilter<"Maintenance"> | Date | string
+    deskripsi?: StringNullableFilter<"Maintenance"> | string | null
   }
 
   export type PerpindahanUpsertWithWhereUniqueWithoutAsetInput = {
@@ -15153,26 +15154,26 @@ export namespace Prisma {
     idPindahan?: StringFilter<"Perpindahan"> | string
     lokasiId?: StringFilter<"Perpindahan"> | string
     idAset?: StringFilter<"Perpindahan"> | string
-    tempatLama?: StringFilter<"Perpindahan"> | string
     tempatBaru?: StringFilter<"Perpindahan"> | string
     tanggalPindah?: DateTimeFilter<"Perpindahan"> | Date | string
     createdAt?: DateTimeFilter<"Perpindahan"> | Date | string
+    tempatLama?: StringFilter<"Perpindahan"> | string
   }
 
   export type AsetCreateWithoutMaintenancesInput = {
     asetId?: string
-    kategoriAset: $Enums.AsetKategori
     merkDanTipe: string
     tahun?: number | null
     kondisiAset?: $Enums.AsetKondisi | null
-    statusAset: $Enums.AsetStatus
-    nomorSeri?: string | null
     masaBerlaku?: Date | string | null
+    nomorSeri?: string | null
+    statusAset: $Enums.AsetStatus
     statusKepemilikan: string
-    urlFoto?: AsetCreateurlFotoInput | string[]
     urlQR?: string | null
+    urlFoto?: AsetCreateurlFotoInput | string[]
     createdAt?: Date | string
     pic?: string | null
+    kategoriAset: $Enums.AsetKategori
     lokasi?: LokasiCreateNestedOneWithoutAsetInput
     subKategoriAset?: SubAsetKategoriCreateNestedOneWithoutAsetsInput
     perpindahan?: PerpindahanCreateNestedManyWithoutAsetInput
@@ -15180,20 +15181,20 @@ export namespace Prisma {
 
   export type AsetUncheckedCreateWithoutMaintenancesInput = {
     asetId?: string
-    lokasiId?: string | null
-    subKategoriAsetId?: string | null
-    kategoriAset: $Enums.AsetKategori
     merkDanTipe: string
     tahun?: number | null
     kondisiAset?: $Enums.AsetKondisi | null
-    statusAset: $Enums.AsetStatus
-    nomorSeri?: string | null
     masaBerlaku?: Date | string | null
+    nomorSeri?: string | null
+    statusAset: $Enums.AsetStatus
     statusKepemilikan: string
-    urlFoto?: AsetCreateurlFotoInput | string[]
+    lokasiId?: string | null
     urlQR?: string | null
+    urlFoto?: AsetCreateurlFotoInput | string[]
     createdAt?: Date | string
     pic?: string | null
+    kategoriAset: $Enums.AsetKategori
+    subKategoriAsetId?: string | null
     perpindahan?: PerpindahanUncheckedCreateNestedManyWithoutAsetInput
   }
 
@@ -15215,18 +15216,18 @@ export namespace Prisma {
 
   export type AsetUpdateWithoutMaintenancesInput = {
     asetId?: StringFieldUpdateOperationsInput | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     merkDanTipe?: StringFieldUpdateOperationsInput | string
     tahun?: NullableIntFieldUpdateOperationsInput | number | null
     kondisiAset?: NullableEnumAsetKondisiFieldUpdateOperationsInput | $Enums.AsetKondisi | null
-    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
-    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
     masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
+    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
     statusKepemilikan?: StringFieldUpdateOperationsInput | string
-    urlFoto?: AsetUpdateurlFotoInput | string[]
     urlQR?: NullableStringFieldUpdateOperationsInput | string | null
+    urlFoto?: AsetUpdateurlFotoInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     lokasi?: LokasiUpdateOneWithoutAsetNestedInput
     subKategoriAset?: SubAsetKategoriUpdateOneWithoutAsetsNestedInput
     perpindahan?: PerpindahanUpdateManyWithoutAsetNestedInput
@@ -15234,56 +15235,37 @@ export namespace Prisma {
 
   export type AsetUncheckedUpdateWithoutMaintenancesInput = {
     asetId?: StringFieldUpdateOperationsInput | string
-    lokasiId?: NullableStringFieldUpdateOperationsInput | string | null
-    subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     merkDanTipe?: StringFieldUpdateOperationsInput | string
     tahun?: NullableIntFieldUpdateOperationsInput | number | null
     kondisiAset?: NullableEnumAsetKondisiFieldUpdateOperationsInput | $Enums.AsetKondisi | null
-    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
-    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
     masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
+    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
     statusKepemilikan?: StringFieldUpdateOperationsInput | string
-    urlFoto?: AsetUpdateurlFotoInput | string[]
+    lokasiId?: NullableStringFieldUpdateOperationsInput | string | null
     urlQR?: NullableStringFieldUpdateOperationsInput | string | null
+    urlFoto?: AsetUpdateurlFotoInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
     perpindahan?: PerpindahanUncheckedUpdateManyWithoutAsetNestedInput
-  }
-
-  export type SubAsetKategoriCreateWithoutLokasiInput = {
-    subAsetId?: string
-    nameSubAset: string
-    createdAt?: Date | string
-    asets?: AsetCreateNestedManyWithoutSubKategoriAsetInput
-  }
-
-  export type SubAsetKategoriUncheckedCreateWithoutLokasiInput = {
-    subAsetId?: string
-    nameSubAset: string
-    createdAt?: Date | string
-    asets?: AsetUncheckedCreateNestedManyWithoutSubKategoriAsetInput
-  }
-
-  export type SubAsetKategoriCreateOrConnectWithoutLokasiInput = {
-    where: SubAsetKategoriWhereUniqueInput
-    create: XOR<SubAsetKategoriCreateWithoutLokasiInput, SubAsetKategoriUncheckedCreateWithoutLokasiInput>
   }
 
   export type AsetCreateWithoutLokasiInput = {
     asetId?: string
-    kategoriAset: $Enums.AsetKategori
     merkDanTipe: string
     tahun?: number | null
     kondisiAset?: $Enums.AsetKondisi | null
-    statusAset: $Enums.AsetStatus
-    nomorSeri?: string | null
     masaBerlaku?: Date | string | null
+    nomorSeri?: string | null
+    statusAset: $Enums.AsetStatus
     statusKepemilikan: string
-    urlFoto?: AsetCreateurlFotoInput | string[]
     urlQR?: string | null
+    urlFoto?: AsetCreateurlFotoInput | string[]
     createdAt?: Date | string
     pic?: string | null
+    kategoriAset: $Enums.AsetKategori
     subKategoriAset?: SubAsetKategoriCreateNestedOneWithoutAsetsInput
     maintenances?: MaintenanceCreateNestedManyWithoutAsetInput
     perpindahan?: PerpindahanCreateNestedManyWithoutAsetInput
@@ -15291,19 +15273,19 @@ export namespace Prisma {
 
   export type AsetUncheckedCreateWithoutLokasiInput = {
     asetId?: string
-    subKategoriAsetId?: string | null
-    kategoriAset: $Enums.AsetKategori
     merkDanTipe: string
     tahun?: number | null
     kondisiAset?: $Enums.AsetKondisi | null
-    statusAset: $Enums.AsetStatus
-    nomorSeri?: string | null
     masaBerlaku?: Date | string | null
+    nomorSeri?: string | null
+    statusAset: $Enums.AsetStatus
     statusKepemilikan: string
-    urlFoto?: AsetCreateurlFotoInput | string[]
     urlQR?: string | null
+    urlFoto?: AsetCreateurlFotoInput | string[]
     createdAt?: Date | string
     pic?: string | null
+    kategoriAset: $Enums.AsetKategori
+    subKategoriAsetId?: string | null
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAsetInput
     perpindahan?: PerpindahanUncheckedCreateNestedManyWithoutAsetInput
   }
@@ -15315,34 +15297,6 @@ export namespace Prisma {
 
   export type AsetCreateManyLokasiInputEnvelope = {
     data: AsetCreateManyLokasiInput | AsetCreateManyLokasiInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type PerpindahanCreateWithoutLokasiInput = {
-    idPindahan?: string
-    tempatLama: string
-    tempatBaru: string
-    tanggalPindah: Date | string
-    createdAt?: Date | string
-    aset: AsetCreateNestedOneWithoutPerpindahanInput
-  }
-
-  export type PerpindahanUncheckedCreateWithoutLokasiInput = {
-    idPindahan?: string
-    idAset: string
-    tempatLama: string
-    tempatBaru: string
-    tanggalPindah: Date | string
-    createdAt?: Date | string
-  }
-
-  export type PerpindahanCreateOrConnectWithoutLokasiInput = {
-    where: PerpindahanWhereUniqueInput
-    create: XOR<PerpindahanCreateWithoutLokasiInput, PerpindahanUncheckedCreateWithoutLokasiInput>
-  }
-
-  export type PerpindahanCreateManyLokasiInputEnvelope = {
-    data: PerpindahanCreateManyLokasiInput | PerpindahanCreateManyLokasiInput[]
     skipDuplicates?: boolean
   }
 
@@ -15380,29 +15334,51 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type SubAsetKategoriUpsertWithWhereUniqueWithoutLokasiInput = {
+  export type PerpindahanCreateWithoutLokasiInput = {
+    idPindahan?: string
+    tempatBaru: string
+    tanggalPindah: Date | string
+    createdAt?: Date | string
+    tempatLama: string
+    aset: AsetCreateNestedOneWithoutPerpindahanInput
+  }
+
+  export type PerpindahanUncheckedCreateWithoutLokasiInput = {
+    idPindahan?: string
+    idAset: string
+    tempatBaru: string
+    tanggalPindah: Date | string
+    createdAt?: Date | string
+    tempatLama: string
+  }
+
+  export type PerpindahanCreateOrConnectWithoutLokasiInput = {
+    where: PerpindahanWhereUniqueInput
+    create: XOR<PerpindahanCreateWithoutLokasiInput, PerpindahanUncheckedCreateWithoutLokasiInput>
+  }
+
+  export type PerpindahanCreateManyLokasiInputEnvelope = {
+    data: PerpindahanCreateManyLokasiInput | PerpindahanCreateManyLokasiInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SubAsetKategoriCreateWithoutLokasiInput = {
+    subAsetId?: string
+    nameSubAset: string
+    createdAt?: Date | string
+    asets?: AsetCreateNestedManyWithoutSubKategoriAsetInput
+  }
+
+  export type SubAsetKategoriUncheckedCreateWithoutLokasiInput = {
+    subAsetId?: string
+    nameSubAset: string
+    createdAt?: Date | string
+    asets?: AsetUncheckedCreateNestedManyWithoutSubKategoriAsetInput
+  }
+
+  export type SubAsetKategoriCreateOrConnectWithoutLokasiInput = {
     where: SubAsetKategoriWhereUniqueInput
-    update: XOR<SubAsetKategoriUpdateWithoutLokasiInput, SubAsetKategoriUncheckedUpdateWithoutLokasiInput>
     create: XOR<SubAsetKategoriCreateWithoutLokasiInput, SubAsetKategoriUncheckedCreateWithoutLokasiInput>
-  }
-
-  export type SubAsetKategoriUpdateWithWhereUniqueWithoutLokasiInput = {
-    where: SubAsetKategoriWhereUniqueInput
-    data: XOR<SubAsetKategoriUpdateWithoutLokasiInput, SubAsetKategoriUncheckedUpdateWithoutLokasiInput>
-  }
-
-  export type SubAsetKategoriUpdateManyWithWhereWithoutLokasiInput = {
-    where: SubAsetKategoriScalarWhereInput
-    data: XOR<SubAsetKategoriUpdateManyMutationInput, SubAsetKategoriUncheckedUpdateManyWithoutLokasiInput>
-  }
-
-  export type SubAsetKategoriScalarWhereInput = {
-    AND?: SubAsetKategoriScalarWhereInput | SubAsetKategoriScalarWhereInput[]
-    OR?: SubAsetKategoriScalarWhereInput[]
-    NOT?: SubAsetKategoriScalarWhereInput | SubAsetKategoriScalarWhereInput[]
-    subAsetId?: StringFilter<"SubAsetKategori"> | string
-    nameSubAset?: StringFilter<"SubAsetKategori"> | string
-    createdAt?: DateTimeFilter<"SubAsetKategori"> | Date | string
   }
 
   export type AsetUpsertWithWhereUniqueWithoutLokasiInput = {
@@ -15426,36 +15402,20 @@ export namespace Prisma {
     OR?: AsetScalarWhereInput[]
     NOT?: AsetScalarWhereInput | AsetScalarWhereInput[]
     asetId?: StringFilter<"Aset"> | string
-    lokasiId?: StringNullableFilter<"Aset"> | string | null
-    subKategoriAsetId?: StringNullableFilter<"Aset"> | string | null
-    kategoriAset?: EnumAsetKategoriFilter<"Aset"> | $Enums.AsetKategori
     merkDanTipe?: StringFilter<"Aset"> | string
     tahun?: IntNullableFilter<"Aset"> | number | null
     kondisiAset?: EnumAsetKondisiNullableFilter<"Aset"> | $Enums.AsetKondisi | null
-    statusAset?: EnumAsetStatusFilter<"Aset"> | $Enums.AsetStatus
-    nomorSeri?: StringNullableFilter<"Aset"> | string | null
     masaBerlaku?: DateTimeNullableFilter<"Aset"> | Date | string | null
+    nomorSeri?: StringNullableFilter<"Aset"> | string | null
+    statusAset?: EnumAsetStatusFilter<"Aset"> | $Enums.AsetStatus
     statusKepemilikan?: StringFilter<"Aset"> | string
-    urlFoto?: StringNullableListFilter<"Aset">
+    lokasiId?: StringNullableFilter<"Aset"> | string | null
     urlQR?: StringNullableFilter<"Aset"> | string | null
+    urlFoto?: StringNullableListFilter<"Aset">
     createdAt?: DateTimeFilter<"Aset"> | Date | string
     pic?: StringNullableFilter<"Aset"> | string | null
-  }
-
-  export type PerpindahanUpsertWithWhereUniqueWithoutLokasiInput = {
-    where: PerpindahanWhereUniqueInput
-    update: XOR<PerpindahanUpdateWithoutLokasiInput, PerpindahanUncheckedUpdateWithoutLokasiInput>
-    create: XOR<PerpindahanCreateWithoutLokasiInput, PerpindahanUncheckedCreateWithoutLokasiInput>
-  }
-
-  export type PerpindahanUpdateWithWhereUniqueWithoutLokasiInput = {
-    where: PerpindahanWhereUniqueInput
-    data: XOR<PerpindahanUpdateWithoutLokasiInput, PerpindahanUncheckedUpdateWithoutLokasiInput>
-  }
-
-  export type PerpindahanUpdateManyWithWhereWithoutLokasiInput = {
-    where: PerpindahanScalarWhereInput
-    data: XOR<PerpindahanUpdateManyMutationInput, PerpindahanUncheckedUpdateManyWithoutLokasiInput>
+    kategoriAset?: EnumAsetKategoriFilter<"Aset"> | $Enums.AsetKategori
+    subKategoriAsetId?: StringNullableFilter<"Aset"> | string | null
   }
 
   export type PengadaanUpsertWithWhereUniqueWithoutLokasiInput = {
@@ -15490,45 +15450,61 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Pengadaan"> | Date | string
   }
 
-  export type LokasiCreateWithoutPerpindahanInput = {
-    idLokasi?: string
-    lokasi: string
-    kategoriAset: $Enums.AsetKategori
-    createdAt?: Date | string
-    subKategoriAset?: SubAsetKategoriCreateNestedManyWithoutLokasiInput
-    aset?: AsetCreateNestedManyWithoutLokasiInput
-    pengadaan?: PengadaanCreateNestedManyWithoutLokasiInput
+  export type PerpindahanUpsertWithWhereUniqueWithoutLokasiInput = {
+    where: PerpindahanWhereUniqueInput
+    update: XOR<PerpindahanUpdateWithoutLokasiInput, PerpindahanUncheckedUpdateWithoutLokasiInput>
+    create: XOR<PerpindahanCreateWithoutLokasiInput, PerpindahanUncheckedCreateWithoutLokasiInput>
   }
 
-  export type LokasiUncheckedCreateWithoutPerpindahanInput = {
-    idLokasi?: string
-    lokasi: string
-    kategoriAset: $Enums.AsetKategori
-    createdAt?: Date | string
-    subKategoriAset?: SubAsetKategoriUncheckedCreateNestedManyWithoutLokasiInput
-    aset?: AsetUncheckedCreateNestedManyWithoutLokasiInput
-    pengadaan?: PengadaanUncheckedCreateNestedManyWithoutLokasiInput
+  export type PerpindahanUpdateWithWhereUniqueWithoutLokasiInput = {
+    where: PerpindahanWhereUniqueInput
+    data: XOR<PerpindahanUpdateWithoutLokasiInput, PerpindahanUncheckedUpdateWithoutLokasiInput>
   }
 
-  export type LokasiCreateOrConnectWithoutPerpindahanInput = {
-    where: LokasiWhereUniqueInput
-    create: XOR<LokasiCreateWithoutPerpindahanInput, LokasiUncheckedCreateWithoutPerpindahanInput>
+  export type PerpindahanUpdateManyWithWhereWithoutLokasiInput = {
+    where: PerpindahanScalarWhereInput
+    data: XOR<PerpindahanUpdateManyMutationInput, PerpindahanUncheckedUpdateManyWithoutLokasiInput>
+  }
+
+  export type SubAsetKategoriUpsertWithWhereUniqueWithoutLokasiInput = {
+    where: SubAsetKategoriWhereUniqueInput
+    update: XOR<SubAsetKategoriUpdateWithoutLokasiInput, SubAsetKategoriUncheckedUpdateWithoutLokasiInput>
+    create: XOR<SubAsetKategoriCreateWithoutLokasiInput, SubAsetKategoriUncheckedCreateWithoutLokasiInput>
+  }
+
+  export type SubAsetKategoriUpdateWithWhereUniqueWithoutLokasiInput = {
+    where: SubAsetKategoriWhereUniqueInput
+    data: XOR<SubAsetKategoriUpdateWithoutLokasiInput, SubAsetKategoriUncheckedUpdateWithoutLokasiInput>
+  }
+
+  export type SubAsetKategoriUpdateManyWithWhereWithoutLokasiInput = {
+    where: SubAsetKategoriScalarWhereInput
+    data: XOR<SubAsetKategoriUpdateManyMutationInput, SubAsetKategoriUncheckedUpdateManyWithoutLokasiInput>
+  }
+
+  export type SubAsetKategoriScalarWhereInput = {
+    AND?: SubAsetKategoriScalarWhereInput | SubAsetKategoriScalarWhereInput[]
+    OR?: SubAsetKategoriScalarWhereInput[]
+    NOT?: SubAsetKategoriScalarWhereInput | SubAsetKategoriScalarWhereInput[]
+    subAsetId?: StringFilter<"SubAsetKategori"> | string
+    nameSubAset?: StringFilter<"SubAsetKategori"> | string
+    createdAt?: DateTimeFilter<"SubAsetKategori"> | Date | string
   }
 
   export type AsetCreateWithoutPerpindahanInput = {
     asetId?: string
-    kategoriAset: $Enums.AsetKategori
     merkDanTipe: string
     tahun?: number | null
     kondisiAset?: $Enums.AsetKondisi | null
-    statusAset: $Enums.AsetStatus
-    nomorSeri?: string | null
     masaBerlaku?: Date | string | null
+    nomorSeri?: string | null
+    statusAset: $Enums.AsetStatus
     statusKepemilikan: string
-    urlFoto?: AsetCreateurlFotoInput | string[]
     urlQR?: string | null
+    urlFoto?: AsetCreateurlFotoInput | string[]
     createdAt?: Date | string
     pic?: string | null
+    kategoriAset: $Enums.AsetKategori
     lokasi?: LokasiCreateNestedOneWithoutAsetInput
     subKategoriAset?: SubAsetKategoriCreateNestedOneWithoutAsetsInput
     maintenances?: MaintenanceCreateNestedManyWithoutAsetInput
@@ -15536,26 +15512,100 @@ export namespace Prisma {
 
   export type AsetUncheckedCreateWithoutPerpindahanInput = {
     asetId?: string
-    lokasiId?: string | null
-    subKategoriAsetId?: string | null
-    kategoriAset: $Enums.AsetKategori
     merkDanTipe: string
     tahun?: number | null
     kondisiAset?: $Enums.AsetKondisi | null
-    statusAset: $Enums.AsetStatus
-    nomorSeri?: string | null
     masaBerlaku?: Date | string | null
+    nomorSeri?: string | null
+    statusAset: $Enums.AsetStatus
     statusKepemilikan: string
-    urlFoto?: AsetCreateurlFotoInput | string[]
+    lokasiId?: string | null
     urlQR?: string | null
+    urlFoto?: AsetCreateurlFotoInput | string[]
     createdAt?: Date | string
     pic?: string | null
+    kategoriAset: $Enums.AsetKategori
+    subKategoriAsetId?: string | null
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAsetInput
   }
 
   export type AsetCreateOrConnectWithoutPerpindahanInput = {
     where: AsetWhereUniqueInput
     create: XOR<AsetCreateWithoutPerpindahanInput, AsetUncheckedCreateWithoutPerpindahanInput>
+  }
+
+  export type LokasiCreateWithoutPerpindahanInput = {
+    idLokasi?: string
+    lokasi: string
+    createdAt?: Date | string
+    kategoriAset: $Enums.AsetKategori
+    aset?: AsetCreateNestedManyWithoutLokasiInput
+    pengadaan?: PengadaanCreateNestedManyWithoutLokasiInput
+    subKategoriAset?: SubAsetKategoriCreateNestedManyWithoutLokasiInput
+  }
+
+  export type LokasiUncheckedCreateWithoutPerpindahanInput = {
+    idLokasi?: string
+    lokasi: string
+    createdAt?: Date | string
+    kategoriAset: $Enums.AsetKategori
+    aset?: AsetUncheckedCreateNestedManyWithoutLokasiInput
+    pengadaan?: PengadaanUncheckedCreateNestedManyWithoutLokasiInput
+    subKategoriAset?: SubAsetKategoriUncheckedCreateNestedManyWithoutLokasiInput
+  }
+
+  export type LokasiCreateOrConnectWithoutPerpindahanInput = {
+    where: LokasiWhereUniqueInput
+    create: XOR<LokasiCreateWithoutPerpindahanInput, LokasiUncheckedCreateWithoutPerpindahanInput>
+  }
+
+  export type AsetUpsertWithoutPerpindahanInput = {
+    update: XOR<AsetUpdateWithoutPerpindahanInput, AsetUncheckedUpdateWithoutPerpindahanInput>
+    create: XOR<AsetCreateWithoutPerpindahanInput, AsetUncheckedCreateWithoutPerpindahanInput>
+    where?: AsetWhereInput
+  }
+
+  export type AsetUpdateToOneWithWhereWithoutPerpindahanInput = {
+    where?: AsetWhereInput
+    data: XOR<AsetUpdateWithoutPerpindahanInput, AsetUncheckedUpdateWithoutPerpindahanInput>
+  }
+
+  export type AsetUpdateWithoutPerpindahanInput = {
+    asetId?: StringFieldUpdateOperationsInput | string
+    merkDanTipe?: StringFieldUpdateOperationsInput | string
+    tahun?: NullableIntFieldUpdateOperationsInput | number | null
+    kondisiAset?: NullableEnumAsetKondisiFieldUpdateOperationsInput | $Enums.AsetKondisi | null
+    masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
+    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
+    statusKepemilikan?: StringFieldUpdateOperationsInput | string
+    urlQR?: NullableStringFieldUpdateOperationsInput | string | null
+    urlFoto?: AsetUpdateurlFotoInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pic?: NullableStringFieldUpdateOperationsInput | string | null
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    lokasi?: LokasiUpdateOneWithoutAsetNestedInput
+    subKategoriAset?: SubAsetKategoriUpdateOneWithoutAsetsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutAsetNestedInput
+  }
+
+  export type AsetUncheckedUpdateWithoutPerpindahanInput = {
+    asetId?: StringFieldUpdateOperationsInput | string
+    merkDanTipe?: StringFieldUpdateOperationsInput | string
+    tahun?: NullableIntFieldUpdateOperationsInput | number | null
+    kondisiAset?: NullableEnumAsetKondisiFieldUpdateOperationsInput | $Enums.AsetKondisi | null
+    masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
+    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
+    statusKepemilikan?: StringFieldUpdateOperationsInput | string
+    lokasiId?: NullableStringFieldUpdateOperationsInput | string | null
+    urlQR?: NullableStringFieldUpdateOperationsInput | string | null
+    urlFoto?: AsetUpdateurlFotoInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pic?: NullableStringFieldUpdateOperationsInput | string | null
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutAsetNestedInput
   }
 
   export type LokasiUpsertWithoutPerpindahanInput = {
@@ -15572,90 +15622,41 @@ export namespace Prisma {
   export type LokasiUpdateWithoutPerpindahanInput = {
     idLokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    subKategoriAset?: SubAsetKategoriUpdateManyWithoutLokasiNestedInput
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     aset?: AsetUpdateManyWithoutLokasiNestedInput
     pengadaan?: PengadaanUpdateManyWithoutLokasiNestedInput
+    subKategoriAset?: SubAsetKategoriUpdateManyWithoutLokasiNestedInput
   }
 
   export type LokasiUncheckedUpdateWithoutPerpindahanInput = {
     idLokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    subKategoriAset?: SubAsetKategoriUncheckedUpdateManyWithoutLokasiNestedInput
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     aset?: AsetUncheckedUpdateManyWithoutLokasiNestedInput
     pengadaan?: PengadaanUncheckedUpdateManyWithoutLokasiNestedInput
-  }
-
-  export type AsetUpsertWithoutPerpindahanInput = {
-    update: XOR<AsetUpdateWithoutPerpindahanInput, AsetUncheckedUpdateWithoutPerpindahanInput>
-    create: XOR<AsetCreateWithoutPerpindahanInput, AsetUncheckedCreateWithoutPerpindahanInput>
-    where?: AsetWhereInput
-  }
-
-  export type AsetUpdateToOneWithWhereWithoutPerpindahanInput = {
-    where?: AsetWhereInput
-    data: XOR<AsetUpdateWithoutPerpindahanInput, AsetUncheckedUpdateWithoutPerpindahanInput>
-  }
-
-  export type AsetUpdateWithoutPerpindahanInput = {
-    asetId?: StringFieldUpdateOperationsInput | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
-    merkDanTipe?: StringFieldUpdateOperationsInput | string
-    tahun?: NullableIntFieldUpdateOperationsInput | number | null
-    kondisiAset?: NullableEnumAsetKondisiFieldUpdateOperationsInput | $Enums.AsetKondisi | null
-    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
-    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
-    masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    statusKepemilikan?: StringFieldUpdateOperationsInput | string
-    urlFoto?: AsetUpdateurlFotoInput | string[]
-    urlQR?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    pic?: NullableStringFieldUpdateOperationsInput | string | null
-    lokasi?: LokasiUpdateOneWithoutAsetNestedInput
-    subKategoriAset?: SubAsetKategoriUpdateOneWithoutAsetsNestedInput
-    maintenances?: MaintenanceUpdateManyWithoutAsetNestedInput
-  }
-
-  export type AsetUncheckedUpdateWithoutPerpindahanInput = {
-    asetId?: StringFieldUpdateOperationsInput | string
-    lokasiId?: NullableStringFieldUpdateOperationsInput | string | null
-    subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
-    merkDanTipe?: StringFieldUpdateOperationsInput | string
-    tahun?: NullableIntFieldUpdateOperationsInput | number | null
-    kondisiAset?: NullableEnumAsetKondisiFieldUpdateOperationsInput | $Enums.AsetKondisi | null
-    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
-    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
-    masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    statusKepemilikan?: StringFieldUpdateOperationsInput | string
-    urlFoto?: AsetUpdateurlFotoInput | string[]
-    urlQR?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    pic?: NullableStringFieldUpdateOperationsInput | string | null
-    maintenances?: MaintenanceUncheckedUpdateManyWithoutAsetNestedInput
+    subKategoriAset?: SubAsetKategoriUncheckedUpdateManyWithoutLokasiNestedInput
   }
 
   export type LokasiCreateWithoutPengadaanInput = {
     idLokasi?: string
     lokasi: string
-    kategoriAset: $Enums.AsetKategori
     createdAt?: Date | string
-    subKategoriAset?: SubAsetKategoriCreateNestedManyWithoutLokasiInput
+    kategoriAset: $Enums.AsetKategori
     aset?: AsetCreateNestedManyWithoutLokasiInput
     perpindahan?: PerpindahanCreateNestedManyWithoutLokasiInput
+    subKategoriAset?: SubAsetKategoriCreateNestedManyWithoutLokasiInput
   }
 
   export type LokasiUncheckedCreateWithoutPengadaanInput = {
     idLokasi?: string
     lokasi: string
-    kategoriAset: $Enums.AsetKategori
     createdAt?: Date | string
-    subKategoriAset?: SubAsetKategoriUncheckedCreateNestedManyWithoutLokasiInput
+    kategoriAset: $Enums.AsetKategori
     aset?: AsetUncheckedCreateNestedManyWithoutLokasiInput
     perpindahan?: PerpindahanUncheckedCreateNestedManyWithoutLokasiInput
+    subKategoriAset?: SubAsetKategoriUncheckedCreateNestedManyWithoutLokasiInput
   }
 
   export type LokasiCreateOrConnectWithoutPengadaanInput = {
@@ -15677,37 +15678,37 @@ export namespace Prisma {
   export type LokasiUpdateWithoutPengadaanInput = {
     idLokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    subKategoriAset?: SubAsetKategoriUpdateManyWithoutLokasiNestedInput
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     aset?: AsetUpdateManyWithoutLokasiNestedInput
     perpindahan?: PerpindahanUpdateManyWithoutLokasiNestedInput
+    subKategoriAset?: SubAsetKategoriUpdateManyWithoutLokasiNestedInput
   }
 
   export type LokasiUncheckedUpdateWithoutPengadaanInput = {
     idLokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    subKategoriAset?: SubAsetKategoriUncheckedUpdateManyWithoutLokasiNestedInput
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     aset?: AsetUncheckedUpdateManyWithoutLokasiNestedInput
     perpindahan?: PerpindahanUncheckedUpdateManyWithoutLokasiNestedInput
+    subKategoriAset?: SubAsetKategoriUncheckedUpdateManyWithoutLokasiNestedInput
   }
 
   export type AsetCreateWithoutSubKategoriAsetInput = {
     asetId?: string
-    kategoriAset: $Enums.AsetKategori
     merkDanTipe: string
     tahun?: number | null
     kondisiAset?: $Enums.AsetKondisi | null
-    statusAset: $Enums.AsetStatus
-    nomorSeri?: string | null
     masaBerlaku?: Date | string | null
+    nomorSeri?: string | null
+    statusAset: $Enums.AsetStatus
     statusKepemilikan: string
-    urlFoto?: AsetCreateurlFotoInput | string[]
     urlQR?: string | null
+    urlFoto?: AsetCreateurlFotoInput | string[]
     createdAt?: Date | string
     pic?: string | null
+    kategoriAset: $Enums.AsetKategori
     lokasi?: LokasiCreateNestedOneWithoutAsetInput
     maintenances?: MaintenanceCreateNestedManyWithoutAsetInput
     perpindahan?: PerpindahanCreateNestedManyWithoutAsetInput
@@ -15715,19 +15716,19 @@ export namespace Prisma {
 
   export type AsetUncheckedCreateWithoutSubKategoriAsetInput = {
     asetId?: string
-    lokasiId?: string | null
-    kategoriAset: $Enums.AsetKategori
     merkDanTipe: string
     tahun?: number | null
     kondisiAset?: $Enums.AsetKondisi | null
-    statusAset: $Enums.AsetStatus
-    nomorSeri?: string | null
     masaBerlaku?: Date | string | null
+    nomorSeri?: string | null
+    statusAset: $Enums.AsetStatus
     statusKepemilikan: string
-    urlFoto?: AsetCreateurlFotoInput | string[]
+    lokasiId?: string | null
     urlQR?: string | null
+    urlFoto?: AsetCreateurlFotoInput | string[]
     createdAt?: Date | string
     pic?: string | null
+    kategoriAset: $Enums.AsetKategori
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAsetInput
     perpindahan?: PerpindahanUncheckedCreateNestedManyWithoutAsetInput
   }
@@ -15745,21 +15746,21 @@ export namespace Prisma {
   export type LokasiCreateWithoutSubKategoriAsetInput = {
     idLokasi?: string
     lokasi: string
-    kategoriAset: $Enums.AsetKategori
     createdAt?: Date | string
+    kategoriAset: $Enums.AsetKategori
     aset?: AsetCreateNestedManyWithoutLokasiInput
-    perpindahan?: PerpindahanCreateNestedManyWithoutLokasiInput
     pengadaan?: PengadaanCreateNestedManyWithoutLokasiInput
+    perpindahan?: PerpindahanCreateNestedManyWithoutLokasiInput
   }
 
   export type LokasiUncheckedCreateWithoutSubKategoriAsetInput = {
     idLokasi?: string
     lokasi: string
-    kategoriAset: $Enums.AsetKategori
     createdAt?: Date | string
+    kategoriAset: $Enums.AsetKategori
     aset?: AsetUncheckedCreateNestedManyWithoutLokasiInput
-    perpindahan?: PerpindahanUncheckedCreateNestedManyWithoutLokasiInput
     pengadaan?: PengadaanUncheckedCreateNestedManyWithoutLokasiInput
+    perpindahan?: PerpindahanUncheckedCreateNestedManyWithoutLokasiInput
   }
 
   export type LokasiCreateOrConnectWithoutSubKategoriAsetInput = {
@@ -15805,8 +15806,8 @@ export namespace Prisma {
     NOT?: LokasiScalarWhereInput | LokasiScalarWhereInput[]
     idLokasi?: StringFilter<"Lokasi"> | string
     lokasi?: StringFilter<"Lokasi"> | string
-    kategoriAset?: EnumAsetKategoriFilter<"Lokasi"> | $Enums.AsetKategori
     createdAt?: DateTimeFilter<"Lokasi"> | Date | string
+    kategoriAset?: EnumAsetKategoriFilter<"Lokasi"> | $Enums.AsetKategori
   }
 
   export type UserCreateWithoutRoleInput = {
@@ -15862,113 +15863,104 @@ export namespace Prisma {
     id?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
-    roleId?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     status?: EnumUserStatusFilter<"User"> | $Enums.UserStatus
+    roleId?: StringFilter<"User"> | string
   }
 
   export type MaintenanceCreateManyAsetInput = {
     maintenanceId?: string
-    deskripsi?: string | null
     tanggalMulai: Date | string
     perkiraanSelesai: Date | string
     tanggalSelesai?: Date | string | null
     statusMaintenance: $Enums.MaintenanceRequestStatus
     createdAt?: Date | string
+    deskripsi?: string | null
   }
 
   export type PerpindahanCreateManyAsetInput = {
     idPindahan?: string
     lokasiId: string
-    tempatLama: string
     tempatBaru: string
     tanggalPindah: Date | string
     createdAt?: Date | string
+    tempatLama: string
   }
 
   export type MaintenanceUpdateWithoutAsetInput = {
     maintenanceId?: StringFieldUpdateOperationsInput | string
-    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     tanggalMulai?: DateTimeFieldUpdateOperationsInput | Date | string
     perkiraanSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
     tanggalSelesai?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     statusMaintenance?: EnumMaintenanceRequestStatusFieldUpdateOperationsInput | $Enums.MaintenanceRequestStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MaintenanceUncheckedUpdateWithoutAsetInput = {
     maintenanceId?: StringFieldUpdateOperationsInput | string
-    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     tanggalMulai?: DateTimeFieldUpdateOperationsInput | Date | string
     perkiraanSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
     tanggalSelesai?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     statusMaintenance?: EnumMaintenanceRequestStatusFieldUpdateOperationsInput | $Enums.MaintenanceRequestStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MaintenanceUncheckedUpdateManyWithoutAsetInput = {
     maintenanceId?: StringFieldUpdateOperationsInput | string
-    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
     tanggalMulai?: DateTimeFieldUpdateOperationsInput | Date | string
     perkiraanSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
     tanggalSelesai?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     statusMaintenance?: EnumMaintenanceRequestStatusFieldUpdateOperationsInput | $Enums.MaintenanceRequestStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PerpindahanUpdateWithoutAsetInput = {
     idPindahan?: StringFieldUpdateOperationsInput | string
-    tempatLama?: StringFieldUpdateOperationsInput | string
     tempatBaru?: StringFieldUpdateOperationsInput | string
     tanggalPindah?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tempatLama?: StringFieldUpdateOperationsInput | string
     lokasi?: LokasiUpdateOneRequiredWithoutPerpindahanNestedInput
   }
 
   export type PerpindahanUncheckedUpdateWithoutAsetInput = {
     idPindahan?: StringFieldUpdateOperationsInput | string
     lokasiId?: StringFieldUpdateOperationsInput | string
-    tempatLama?: StringFieldUpdateOperationsInput | string
     tempatBaru?: StringFieldUpdateOperationsInput | string
     tanggalPindah?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tempatLama?: StringFieldUpdateOperationsInput | string
   }
 
   export type PerpindahanUncheckedUpdateManyWithoutAsetInput = {
     idPindahan?: StringFieldUpdateOperationsInput | string
     lokasiId?: StringFieldUpdateOperationsInput | string
-    tempatLama?: StringFieldUpdateOperationsInput | string
     tempatBaru?: StringFieldUpdateOperationsInput | string
     tanggalPindah?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tempatLama?: StringFieldUpdateOperationsInput | string
   }
 
   export type AsetCreateManyLokasiInput = {
     asetId?: string
-    subKategoriAsetId?: string | null
-    kategoriAset: $Enums.AsetKategori
     merkDanTipe: string
     tahun?: number | null
     kondisiAset?: $Enums.AsetKondisi | null
-    statusAset: $Enums.AsetStatus
-    nomorSeri?: string | null
     masaBerlaku?: Date | string | null
+    nomorSeri?: string | null
+    statusAset: $Enums.AsetStatus
     statusKepemilikan: string
-    urlFoto?: AsetCreateurlFotoInput | string[]
     urlQR?: string | null
+    urlFoto?: AsetCreateurlFotoInput | string[]
     createdAt?: Date | string
     pic?: string | null
-  }
-
-  export type PerpindahanCreateManyLokasiInput = {
-    idPindahan?: string
-    idAset: string
-    tempatLama: string
-    tempatBaru: string
-    tanggalPindah: Date | string
-    createdAt?: Date | string
+    kategoriAset: $Enums.AsetKategori
+    subKategoriAsetId?: string | null
   }
 
   export type PengadaanCreateManyLokasiInput = {
@@ -15983,40 +15975,29 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type SubAsetKategoriUpdateWithoutLokasiInput = {
-    subAsetId?: StringFieldUpdateOperationsInput | string
-    nameSubAset?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    asets?: AsetUpdateManyWithoutSubKategoriAsetNestedInput
-  }
-
-  export type SubAsetKategoriUncheckedUpdateWithoutLokasiInput = {
-    subAsetId?: StringFieldUpdateOperationsInput | string
-    nameSubAset?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    asets?: AsetUncheckedUpdateManyWithoutSubKategoriAsetNestedInput
-  }
-
-  export type SubAsetKategoriUncheckedUpdateManyWithoutLokasiInput = {
-    subAsetId?: StringFieldUpdateOperationsInput | string
-    nameSubAset?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type PerpindahanCreateManyLokasiInput = {
+    idPindahan?: string
+    idAset: string
+    tempatBaru: string
+    tanggalPindah: Date | string
+    createdAt?: Date | string
+    tempatLama: string
   }
 
   export type AsetUpdateWithoutLokasiInput = {
     asetId?: StringFieldUpdateOperationsInput | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     merkDanTipe?: StringFieldUpdateOperationsInput | string
     tahun?: NullableIntFieldUpdateOperationsInput | number | null
     kondisiAset?: NullableEnumAsetKondisiFieldUpdateOperationsInput | $Enums.AsetKondisi | null
-    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
-    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
     masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
+    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
     statusKepemilikan?: StringFieldUpdateOperationsInput | string
-    urlFoto?: AsetUpdateurlFotoInput | string[]
     urlQR?: NullableStringFieldUpdateOperationsInput | string | null
+    urlFoto?: AsetUpdateurlFotoInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     subKategoriAset?: SubAsetKategoriUpdateOneWithoutAsetsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutAsetNestedInput
     perpindahan?: PerpindahanUpdateManyWithoutAsetNestedInput
@@ -16024,65 +16005,38 @@ export namespace Prisma {
 
   export type AsetUncheckedUpdateWithoutLokasiInput = {
     asetId?: StringFieldUpdateOperationsInput | string
-    subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     merkDanTipe?: StringFieldUpdateOperationsInput | string
     tahun?: NullableIntFieldUpdateOperationsInput | number | null
     kondisiAset?: NullableEnumAsetKondisiFieldUpdateOperationsInput | $Enums.AsetKondisi | null
-    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
-    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
     masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
+    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
     statusKepemilikan?: StringFieldUpdateOperationsInput | string
-    urlFoto?: AsetUpdateurlFotoInput | string[]
     urlQR?: NullableStringFieldUpdateOperationsInput | string | null
+    urlFoto?: AsetUpdateurlFotoInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
     maintenances?: MaintenanceUncheckedUpdateManyWithoutAsetNestedInput
     perpindahan?: PerpindahanUncheckedUpdateManyWithoutAsetNestedInput
   }
 
   export type AsetUncheckedUpdateManyWithoutLokasiInput = {
     asetId?: StringFieldUpdateOperationsInput | string
-    subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     merkDanTipe?: StringFieldUpdateOperationsInput | string
     tahun?: NullableIntFieldUpdateOperationsInput | number | null
     kondisiAset?: NullableEnumAsetKondisiFieldUpdateOperationsInput | $Enums.AsetKondisi | null
-    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
-    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
     masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
+    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
     statusKepemilikan?: StringFieldUpdateOperationsInput | string
-    urlFoto?: AsetUpdateurlFotoInput | string[]
     urlQR?: NullableStringFieldUpdateOperationsInput | string | null
+    urlFoto?: AsetUpdateurlFotoInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type PerpindahanUpdateWithoutLokasiInput = {
-    idPindahan?: StringFieldUpdateOperationsInput | string
-    tempatLama?: StringFieldUpdateOperationsInput | string
-    tempatBaru?: StringFieldUpdateOperationsInput | string
-    tanggalPindah?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    aset?: AsetUpdateOneRequiredWithoutPerpindahanNestedInput
-  }
-
-  export type PerpindahanUncheckedUpdateWithoutLokasiInput = {
-    idPindahan?: StringFieldUpdateOperationsInput | string
-    idAset?: StringFieldUpdateOperationsInput | string
-    tempatLama?: StringFieldUpdateOperationsInput | string
-    tempatBaru?: StringFieldUpdateOperationsInput | string
-    tanggalPindah?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type PerpindahanUncheckedUpdateManyWithoutLokasiInput = {
-    idPindahan?: StringFieldUpdateOperationsInput | string
-    idAset?: StringFieldUpdateOperationsInput | string
-    tempatLama?: StringFieldUpdateOperationsInput | string
-    tempatBaru?: StringFieldUpdateOperationsInput | string
-    tanggalPindah?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PengadaanUpdateWithoutLokasiInput = {
@@ -16121,37 +16075,84 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PerpindahanUpdateWithoutLokasiInput = {
+    idPindahan?: StringFieldUpdateOperationsInput | string
+    tempatBaru?: StringFieldUpdateOperationsInput | string
+    tanggalPindah?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tempatLama?: StringFieldUpdateOperationsInput | string
+    aset?: AsetUpdateOneRequiredWithoutPerpindahanNestedInput
+  }
+
+  export type PerpindahanUncheckedUpdateWithoutLokasiInput = {
+    idPindahan?: StringFieldUpdateOperationsInput | string
+    idAset?: StringFieldUpdateOperationsInput | string
+    tempatBaru?: StringFieldUpdateOperationsInput | string
+    tanggalPindah?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tempatLama?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PerpindahanUncheckedUpdateManyWithoutLokasiInput = {
+    idPindahan?: StringFieldUpdateOperationsInput | string
+    idAset?: StringFieldUpdateOperationsInput | string
+    tempatBaru?: StringFieldUpdateOperationsInput | string
+    tanggalPindah?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tempatLama?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SubAsetKategoriUpdateWithoutLokasiInput = {
+    subAsetId?: StringFieldUpdateOperationsInput | string
+    nameSubAset?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    asets?: AsetUpdateManyWithoutSubKategoriAsetNestedInput
+  }
+
+  export type SubAsetKategoriUncheckedUpdateWithoutLokasiInput = {
+    subAsetId?: StringFieldUpdateOperationsInput | string
+    nameSubAset?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    asets?: AsetUncheckedUpdateManyWithoutSubKategoriAsetNestedInput
+  }
+
+  export type SubAsetKategoriUncheckedUpdateManyWithoutLokasiInput = {
+    subAsetId?: StringFieldUpdateOperationsInput | string
+    nameSubAset?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AsetCreateManySubKategoriAsetInput = {
     asetId?: string
-    lokasiId?: string | null
-    kategoriAset: $Enums.AsetKategori
     merkDanTipe: string
     tahun?: number | null
     kondisiAset?: $Enums.AsetKondisi | null
-    statusAset: $Enums.AsetStatus
-    nomorSeri?: string | null
     masaBerlaku?: Date | string | null
+    nomorSeri?: string | null
+    statusAset: $Enums.AsetStatus
     statusKepemilikan: string
-    urlFoto?: AsetCreateurlFotoInput | string[]
+    lokasiId?: string | null
     urlQR?: string | null
+    urlFoto?: AsetCreateurlFotoInput | string[]
     createdAt?: Date | string
     pic?: string | null
+    kategoriAset: $Enums.AsetKategori
   }
 
   export type AsetUpdateWithoutSubKategoriAsetInput = {
     asetId?: StringFieldUpdateOperationsInput | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     merkDanTipe?: StringFieldUpdateOperationsInput | string
     tahun?: NullableIntFieldUpdateOperationsInput | number | null
     kondisiAset?: NullableEnumAsetKondisiFieldUpdateOperationsInput | $Enums.AsetKondisi | null
-    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
-    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
     masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
+    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
     statusKepemilikan?: StringFieldUpdateOperationsInput | string
-    urlFoto?: AsetUpdateurlFotoInput | string[]
     urlQR?: NullableStringFieldUpdateOperationsInput | string | null
+    urlFoto?: AsetUpdateurlFotoInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     lokasi?: LokasiUpdateOneWithoutAsetNestedInput
     maintenances?: MaintenanceUpdateManyWithoutAsetNestedInput
     perpindahan?: PerpindahanUpdateManyWithoutAsetNestedInput
@@ -16159,65 +16160,65 @@ export namespace Prisma {
 
   export type AsetUncheckedUpdateWithoutSubKategoriAsetInput = {
     asetId?: StringFieldUpdateOperationsInput | string
-    lokasiId?: NullableStringFieldUpdateOperationsInput | string | null
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     merkDanTipe?: StringFieldUpdateOperationsInput | string
     tahun?: NullableIntFieldUpdateOperationsInput | number | null
     kondisiAset?: NullableEnumAsetKondisiFieldUpdateOperationsInput | $Enums.AsetKondisi | null
-    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
-    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
     masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
+    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
     statusKepemilikan?: StringFieldUpdateOperationsInput | string
-    urlFoto?: AsetUpdateurlFotoInput | string[]
+    lokasiId?: NullableStringFieldUpdateOperationsInput | string | null
     urlQR?: NullableStringFieldUpdateOperationsInput | string | null
+    urlFoto?: AsetUpdateurlFotoInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     maintenances?: MaintenanceUncheckedUpdateManyWithoutAsetNestedInput
     perpindahan?: PerpindahanUncheckedUpdateManyWithoutAsetNestedInput
   }
 
   export type AsetUncheckedUpdateManyWithoutSubKategoriAsetInput = {
     asetId?: StringFieldUpdateOperationsInput | string
-    lokasiId?: NullableStringFieldUpdateOperationsInput | string | null
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     merkDanTipe?: StringFieldUpdateOperationsInput | string
     tahun?: NullableIntFieldUpdateOperationsInput | number | null
     kondisiAset?: NullableEnumAsetKondisiFieldUpdateOperationsInput | $Enums.AsetKondisi | null
-    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
-    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
     masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
+    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
     statusKepemilikan?: StringFieldUpdateOperationsInput | string
-    urlFoto?: AsetUpdateurlFotoInput | string[]
+    lokasiId?: NullableStringFieldUpdateOperationsInput | string | null
     urlQR?: NullableStringFieldUpdateOperationsInput | string | null
+    urlFoto?: AsetUpdateurlFotoInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
   }
 
   export type LokasiUpdateWithoutSubKategoriAsetInput = {
     idLokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     aset?: AsetUpdateManyWithoutLokasiNestedInput
-    perpindahan?: PerpindahanUpdateManyWithoutLokasiNestedInput
     pengadaan?: PengadaanUpdateManyWithoutLokasiNestedInput
+    perpindahan?: PerpindahanUpdateManyWithoutLokasiNestedInput
   }
 
   export type LokasiUncheckedUpdateWithoutSubKategoriAsetInput = {
     idLokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     aset?: AsetUncheckedUpdateManyWithoutLokasiNestedInput
-    perpindahan?: PerpindahanUncheckedUpdateManyWithoutLokasiNestedInput
     pengadaan?: PengadaanUncheckedUpdateManyWithoutLokasiNestedInput
+    perpindahan?: PerpindahanUncheckedUpdateManyWithoutLokasiNestedInput
   }
 
   export type LokasiUncheckedUpdateManyWithoutSubKategoriAsetInput = {
     idLokasi?: StringFieldUpdateOperationsInput | string
     lokasi?: StringFieldUpdateOperationsInput | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
   }
 
   export type UserCreateManyRoleInput = {

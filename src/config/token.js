@@ -21,6 +21,17 @@ function generateUserId(length = 4) {
   return userId;
 }
 
+function generateSubKategori(length = 2) {
+  let result = '';
+  const digits = '0123456789';
+  for (let i = 0; i < length; i++) {
+    result += digits.charAt(Math.floor(Math.random() * digits.length));
+  }
+
+  const subId = `SUBKTGR-${result}`;
+  return subId;
+}
+
 function generateLokasiId(length = 3) {
   let result = '';
   const digits = '0123456789';
@@ -108,5 +119,6 @@ module.exports = {
     generatePengadaanId,
     generateMaintenanceId,
     generateLokasiId,
-    generatePindahId
+    generatePindahId,
+    generateSubKategori
 };
