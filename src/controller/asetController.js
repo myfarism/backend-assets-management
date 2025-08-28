@@ -289,6 +289,8 @@ class AsetController {
                 pic
             } = req.body;
 
+            console.log(req.body);
+
             const existingAset = await prisma.aset.findUnique({ where: { asetId } });
             if (!existingAset) {
                 return res.status(404).json({ success: false, message: 'Aset tidak ditemukan' });
@@ -301,6 +303,7 @@ class AsetController {
                 const statusValid = await getEnumValues("AsetStatus");
                 const hakValid = await getEnumValues("HakMilik");
                 const lokasiValid = await getLokasiList();
+                console.log('Update asset');
 
                 if(merkDanTipe || tahun) {
                     return res.status(400).json({
@@ -340,21 +343,56 @@ class AsetController {
                     pic: pic || existingAset.pic,
                 };
 
+                if (req.body.deletedFiles) {
+                    let deletedFiles;
+                    try {
+                        deletedFiles = JSON.parse(req.body.deletedFiles);
+                        if (!Array.isArray(deletedFiles)) {
+                            throw new Error("deletedFiles is not an array");
+                        }
+                        deleteOldPhotos(deletedFiles);
+                        console.log('🗑️ Hapus foto:', deletedFiles);
+
+                        const remainingPhotos = existingAset.urlFoto.filter(photo => !deletedFiles.includes(photo));
+
+                        await prisma.aset.update({
+                            where: { asetId },
+                            data: {
+                                urlFoto: remainingPhotos
+                            }
+                        });
+                    } catch (e) {
+                        console.error('❌ Error parsing deletedFiles:', e.message);
+                        return res.status(400).json({
+                            success: false,
+                            message: "Format deletedFiles tidak valid. Harus berupa array JSON."
+                        });
+                    }
+                }
+
                 if (req.files && req.files.length > 0) {
                     if (req.files.length > 5) {
                         return res.status(400).json({ success: false, message: "Maksimal 5 foto" });
                     }
 
                     // 🔥 Hapus foto lama sebelum ganti
-                    deleteOldPhotos(existingAset.urlFoto);
+                    //deleteOldPhotos(existingAset.urlFoto);
 
-                    urlFoto = req.files.map((file, index) => {
-                        const newFilename = `${asetId}_${index + 1}${path.extname(file.originalname)}`;
+                    const uploadedPhotos = req.files.map((file, index) => {
+                        const newFilename = `${asetId}_${Date.now()}_${index + 1}${path.extname(file.originalname)}`;
                         const newFilePath = path.join(uploadBasePath, newFilename);
                         fs.renameSync(file.path, newFilePath);
                         return `/uploads/${newFilename}`;
                     });
-                    dataUpdate.urlFoto = urlFoto;
+
+                    // Gabungkan foto lama yang belum dihapus dengan foto baru
+                    const currentPhotos = existingAset.urlFoto.filter(photo => {
+                        return !req.body.deletedFiles || !JSON.parse(req.body.deletedFiles).includes(photo);
+                    });
+
+                    const allPhotos = [...currentPhotos, ...uploadedPhotos];
+
+                    dataUpdate.urlFoto = allPhotos;
                 }
 
                 if (lokasiId) {
@@ -617,8 +655,15 @@ class AsetController {
                             lokasi: true
                         }
                     },
+                    subKategoriAset: {
+                        select: {
+                            subAsetId: true,
+                            nameSubAset: true
+                        }
+                    },
                     statusKepemilikan: true,
                     masaBerlaku: true,
+                    pic: true,
                     urlQR: true,
                     urlFoto: true
                 }
