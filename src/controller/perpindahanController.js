@@ -84,7 +84,15 @@ class PerpindahanController {
             // Ambil data perpindahan dengan filter & pagination
             const perpindahanList = await prisma.perpindahan.findMany({
                 include: {
-                    aset: true,
+                    aset: {
+                        include: {
+                            subKategoriAset: {
+                                select: {
+                                    nameSubAset: true
+                                }
+                            }
+                        }
+                    },
                     lokasi: true
                 },
                 orderBy: { createdAt: 'desc' }

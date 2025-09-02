@@ -190,6 +190,22 @@ exports.Prisma.PengadaanScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.RequestScalarFieldEnum = {
+  requestId: 'requestId',
+  namaAset: 'namaAset',
+  jumlah: 'jumlah',
+  kategoriAset: 'kategoriAset',
+  tipeKebutuhan: 'tipeKebutuhan',
+  tanggalButuh: 'tanggalButuh',
+  deskripsi: 'deskripsi',
+  status: 'status',
+  vendor: 'vendor',
+  unit: 'unit',
+  langganan: 'langganan',
+  durasi: 'durasi',
+  idUser: 'idUser'
+};
+
 exports.Prisma.NotifikasiScalarFieldEnum = {
   notifId: 'notifId'
 };
@@ -256,6 +272,7 @@ exports.Prisma.ModelName = {
   Lokasi: 'Lokasi',
   Perpindahan: 'Perpindahan',
   Pengadaan: 'Pengadaan',
+  Request: 'Request',
   Notifikasi: 'Notifikasi',
   SubAsetKategori: 'SubAsetKategori',
   UserRole: 'UserRole'

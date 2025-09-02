@@ -18,6 +18,7 @@ model User {
   status    UserStatus @default(nonaktif)
   roleId    String
   role      UserRole   @relation("UserToRole", fields: [roleId], references: [userRoleId])
+  Request   Request[]
 }
 
 model Aset {
@@ -51,7 +52,7 @@ model Maintenance {
   statusMaintenance MaintenanceRequestStatus
   createdAt         DateTime                 @default(now())
   deskripsi         String?
-  aset              Aset                     @relation(fields: [idAset], references: [asetId])
+  aset              Aset                     @relation(fields: [idAset], references: [asetId], onDelete: Cascade)
 }
 
 model Lokasi {
@@ -89,6 +90,23 @@ model Pengadaan {
   vendor       String
   createdAt    DateTime     @default(now())
   lokasi       Lokasi       @relation(fields: [lokasiId], references: [idLokasi])
+}
+
+model Request {
+  requestId     String   @id
+  namaAset      String
+  jumlah        BigInt
+  kategoriAset  String
+  tipeKebutuhan String
+  tanggalButuh  DateTime
+  deskripsi     String
+  status        String
+  vendor        String?
+  unit          String?
+  langganan     Int
+  durasi        String?
+  idUser        String
+  user          User     @relation(fields: [idUser], references: [id])
 }
 
 model Notifikasi {

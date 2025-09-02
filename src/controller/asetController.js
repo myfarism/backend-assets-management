@@ -5,8 +5,10 @@ const { generateAsetId } = require('../config/token');
 const { getEnumValues, getLokasiList } = require('../utils/asetUtils');
 const fs = require('fs');
 const path = require('path');
-const QRCode = require('qrcode');
 const { mapStatusAset, mapKondisiAset, mapHakMilik } = require('../utils/enumUtils');
+const nodeCanvas = require("canvas");
+const QRCodeStyling = require('qr-code-styling');
+const { JSDOM } = require("jsdom");
 
 class AsetController {
     static async getViewAddAsset(req, res) {
@@ -145,11 +147,47 @@ class AsetController {
                     tahun,
                 };
 
+                const logoPath = path.join(__dirname, "Asa--logo.png");
+
+                const options = {
+                    width: 300,
+                    height: 300,
+                    type: 'png',
+                    data: JSON.stringify(qrDataObj, null, 2), // Data Anda diubah menjadi string JSON
+                    image: fs.readFileSync(logoPath), // Buffer dari file logo Anda
+                    dotsOptions: {
+                        color: "#4267b2", // Warna titik QR Code
+                        type: "rounded"   // Bentuk titik (rounded, dots, classy, square)
+                    },
+                    backgroundOptions: {
+                        color: "#ffffff", // Warna latar belakang
+                    },
+                    imageOptions: {
+                        imageSize: 0.2, // Ukuran logo (20% dari ukuran QR Code)
+                        margin: 6       // Jarak putih di sekitar logo
+                    }
+                };
+
+                const qrCodeImage = new QRCodeStyling({
+                    jsdom: JSDOM, // this is required
+                    nodeCanvas, // this is required,
+                    ...options,
+                    imageOptions: {
+                        saveAsBlob: true,
+                        crossOrigin: "anonymous",
+                        margin: 20
+                    },
+                });
+
                 const qrPath = path.join(uploadBasePath, "qrcodes");
                 if (!fs.existsSync(qrPath)) fs.mkdirSync(qrPath, { recursive: true });
 
                 const qrFilePath = path.join(qrPath, `${asetId}.png`);
-                await QRCode.toFile(qrFilePath, JSON.stringify(qrDataObj, null, 2));
+                //await QRCode.toFile(qrFilePath, JSON.stringify(qrDataObj, null, 2));
+
+                const buffer = await qrCodeImage.getRawData();
+                fs.writeFileSync(qrFilePath, buffer);
+
 
                 // URL public
                 const urlQR = `/uploads/qrcodes/${asetId}.png`;
@@ -223,9 +261,8 @@ class AsetController {
                     message: 'Kategori Asset tidak valid'
                 });
             }
-
         } catch (error) {
-            console.error("Error addAsset:", err);
+            console.error("Error addAsset:", error);
 
             // 🔥 Rollback: hapus QR dan foto
             try {
@@ -243,7 +280,7 @@ class AsetController {
             return res.status(500).json({
                 success: false,
                 message: 'Gagal menambahkan aset',
-                error: err.message
+                error: error.message
             });
         }
     }
