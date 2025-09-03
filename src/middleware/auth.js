@@ -42,7 +42,17 @@ const verifyToken = async (req, res, next) => {
     }
 };
 
-// Middleware untuk cek apakah user adalah admin
+const isSuperAdmin = (req, res, next) => {
+    if (req.user && req.user.roleId === '1') {
+        next(); // Lanjut ke controller
+    } else {
+        return res.status(403).json({ 
+            success: false, 
+            message: 'Akses ditolak. Hanya Super Admin yang diperbolehkan.' 
+        });
+    }
+};
+
 const isAdmin = (req, res, next) => {
     if (req.user && req.user.roleId === '1') {
         next(); // Lanjut ke controller
@@ -54,7 +64,33 @@ const isAdmin = (req, res, next) => {
     }
 };
 
+const isMaintenance = (req, res, next) => {
+    if (req.user && req.user.roleId === '3') {
+        next(); // Lanjut ke controller
+    } else {
+        return res.status(403).json({ 
+            success: false, 
+            message: 'Akses ditolak. Hanya maintenance yang diperbolehkan.' 
+        });
+    }
+};
+
+const isUser = (req, res, next) => {
+    if (req.user && req.user.roleId === '4') {
+        next(); // Lanjut ke controller
+    } else {
+        return res.status(403).json({ 
+            success: false, 
+            message: 'Akses ditolak. Hanya maintenance yang diperbolehkan.' 
+        });
+    }
+};
+
+
 module.exports = {
     verifyToken,
-    isAdmin
+    isSuperAdmin,
+    isAdmin,
+    isMaintenance,
+    isUser
 };

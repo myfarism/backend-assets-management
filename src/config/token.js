@@ -112,6 +112,18 @@ function generateMaintenanceId(length = 5) {
   return maintenanceId;
 }
 
+function generateRequestId(length = 5) {
+  let result = '';
+  const digits = '0123456789';
+  for (let i = 0; i < length; i++) {
+    result += digits.charAt(Math.floor(Math.random() * digits.length));
+  }
+
+  const reqId = `REQ-${result}`;
+
+  return reqId;
+}
+
 module.exports = {
     generateJWT,
     generateUserId,
@@ -120,5 +132,6 @@ module.exports = {
     generateMaintenanceId,
     generateLokasiId,
     generatePindahId,
-    generateSubKategori
+    generateSubKategori,
+    generateRequestId
 };

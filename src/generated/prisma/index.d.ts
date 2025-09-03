@@ -105,7 +105,7 @@ export type AsetKategori = (typeof AsetKategori)[keyof typeof AsetKategori]
 
 
 export const HakMilik: {
-  pribadi: 'pribadi',
+  gunaPakai: 'gunaPakai',
   kantor: 'kantor'
 };
 
@@ -1913,11 +1913,13 @@ export namespace Prisma {
   export type SubAsetKategoriCountOutputType = {
     asets: number
     lokasi: number
+    pengadaan: number
   }
 
   export type SubAsetKategoriCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     asets?: boolean | SubAsetKategoriCountOutputTypeCountAsetsArgs
     lokasi?: boolean | SubAsetKategoriCountOutputTypeCountLokasiArgs
+    pengadaan?: boolean | SubAsetKategoriCountOutputTypeCountPengadaanArgs
   }
 
   // Custom InputTypes
@@ -1943,6 +1945,13 @@ export namespace Prisma {
    */
   export type SubAsetKategoriCountOutputTypeCountLokasiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LokasiWhereInput
+  }
+
+  /**
+   * SubAsetKategoriCountOutputType without action
+   */
+  export type SubAsetKategoriCountOutputTypeCountPengadaanArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PengadaanWhereInput
   }
 
 
@@ -7788,7 +7797,7 @@ export namespace Prisma {
     pengadaanId: string | null
     tanggalBeli: Date | null
     lokasiId: string | null
-    kategoriAset: $Enums.AsetKategori | null
+    subKategoriAsetId: string | null
     namaAset: string | null
     jumlahAset: number | null
     hargaSatuan: bigint | null
@@ -7801,7 +7810,7 @@ export namespace Prisma {
     pengadaanId: string | null
     tanggalBeli: Date | null
     lokasiId: string | null
-    kategoriAset: $Enums.AsetKategori | null
+    subKategoriAsetId: string | null
     namaAset: string | null
     jumlahAset: number | null
     hargaSatuan: bigint | null
@@ -7814,7 +7823,7 @@ export namespace Prisma {
     pengadaanId: number
     tanggalBeli: number
     lokasiId: number
-    kategoriAset: number
+    subKategoriAsetId: number
     namaAset: number
     jumlahAset: number
     hargaSatuan: number
@@ -7841,7 +7850,7 @@ export namespace Prisma {
     pengadaanId?: true
     tanggalBeli?: true
     lokasiId?: true
-    kategoriAset?: true
+    subKategoriAsetId?: true
     namaAset?: true
     jumlahAset?: true
     hargaSatuan?: true
@@ -7854,7 +7863,7 @@ export namespace Prisma {
     pengadaanId?: true
     tanggalBeli?: true
     lokasiId?: true
-    kategoriAset?: true
+    subKategoriAsetId?: true
     namaAset?: true
     jumlahAset?: true
     hargaSatuan?: true
@@ -7867,7 +7876,7 @@ export namespace Prisma {
     pengadaanId?: true
     tanggalBeli?: true
     lokasiId?: true
-    kategoriAset?: true
+    subKategoriAsetId?: true
     namaAset?: true
     jumlahAset?: true
     hargaSatuan?: true
@@ -7967,7 +7976,7 @@ export namespace Prisma {
     pengadaanId: string
     tanggalBeli: Date
     lokasiId: string
-    kategoriAset: $Enums.AsetKategori
+    subKategoriAsetId: string | null
     namaAset: string
     jumlahAset: number
     hargaSatuan: bigint
@@ -7999,13 +8008,14 @@ export namespace Prisma {
     pengadaanId?: boolean
     tanggalBeli?: boolean
     lokasiId?: boolean
-    kategoriAset?: boolean
+    subKategoriAsetId?: boolean
     namaAset?: boolean
     jumlahAset?: boolean
     hargaSatuan?: boolean
     totalHarga?: boolean
     vendor?: boolean
     createdAt?: boolean
+    subKategoriAset?: boolean | Pengadaan$subKategoriAsetArgs<ExtArgs>
     lokasi?: boolean | LokasiDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pengadaan"]>
 
@@ -8013,13 +8023,14 @@ export namespace Prisma {
     pengadaanId?: boolean
     tanggalBeli?: boolean
     lokasiId?: boolean
-    kategoriAset?: boolean
+    subKategoriAsetId?: boolean
     namaAset?: boolean
     jumlahAset?: boolean
     hargaSatuan?: boolean
     totalHarga?: boolean
     vendor?: boolean
     createdAt?: boolean
+    subKategoriAset?: boolean | Pengadaan$subKategoriAsetArgs<ExtArgs>
     lokasi?: boolean | LokasiDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pengadaan"]>
 
@@ -8027,13 +8038,14 @@ export namespace Prisma {
     pengadaanId?: boolean
     tanggalBeli?: boolean
     lokasiId?: boolean
-    kategoriAset?: boolean
+    subKategoriAsetId?: boolean
     namaAset?: boolean
     jumlahAset?: boolean
     hargaSatuan?: boolean
     totalHarga?: boolean
     vendor?: boolean
     createdAt?: boolean
+    subKategoriAset?: boolean | Pengadaan$subKategoriAsetArgs<ExtArgs>
     lokasi?: boolean | LokasiDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pengadaan"]>
 
@@ -8041,7 +8053,7 @@ export namespace Prisma {
     pengadaanId?: boolean
     tanggalBeli?: boolean
     lokasiId?: boolean
-    kategoriAset?: boolean
+    subKategoriAsetId?: boolean
     namaAset?: boolean
     jumlahAset?: boolean
     hargaSatuan?: boolean
@@ -8050,27 +8062,31 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type PengadaanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"pengadaanId" | "tanggalBeli" | "lokasiId" | "kategoriAset" | "namaAset" | "jumlahAset" | "hargaSatuan" | "totalHarga" | "vendor" | "createdAt", ExtArgs["result"]["pengadaan"]>
+  export type PengadaanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"pengadaanId" | "tanggalBeli" | "lokasiId" | "subKategoriAsetId" | "namaAset" | "jumlahAset" | "hargaSatuan" | "totalHarga" | "vendor" | "createdAt", ExtArgs["result"]["pengadaan"]>
   export type PengadaanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    subKategoriAset?: boolean | Pengadaan$subKategoriAsetArgs<ExtArgs>
     lokasi?: boolean | LokasiDefaultArgs<ExtArgs>
   }
   export type PengadaanIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    subKategoriAset?: boolean | Pengadaan$subKategoriAsetArgs<ExtArgs>
     lokasi?: boolean | LokasiDefaultArgs<ExtArgs>
   }
   export type PengadaanIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    subKategoriAset?: boolean | Pengadaan$subKategoriAsetArgs<ExtArgs>
     lokasi?: boolean | LokasiDefaultArgs<ExtArgs>
   }
 
   export type $PengadaanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Pengadaan"
     objects: {
+      subKategoriAset: Prisma.$SubAsetKategoriPayload<ExtArgs> | null
       lokasi: Prisma.$LokasiPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       pengadaanId: string
       tanggalBeli: Date
       lokasiId: string
-      kategoriAset: $Enums.AsetKategori
+      subKategoriAsetId: string | null
       namaAset: string
       jumlahAset: number
       hargaSatuan: bigint
@@ -8471,6 +8487,7 @@ export namespace Prisma {
    */
   export interface Prisma__PengadaanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    subKategoriAset<T extends Pengadaan$subKategoriAsetArgs<ExtArgs> = {}>(args?: Subset<T, Pengadaan$subKategoriAsetArgs<ExtArgs>>): Prisma__SubAsetKategoriClient<$Result.GetResult<Prisma.$SubAsetKategoriPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     lokasi<T extends LokasiDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LokasiDefaultArgs<ExtArgs>>): Prisma__LokasiClient<$Result.GetResult<Prisma.$LokasiPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -8504,7 +8521,7 @@ export namespace Prisma {
     readonly pengadaanId: FieldRef<"Pengadaan", 'String'>
     readonly tanggalBeli: FieldRef<"Pengadaan", 'DateTime'>
     readonly lokasiId: FieldRef<"Pengadaan", 'String'>
-    readonly kategoriAset: FieldRef<"Pengadaan", 'AsetKategori'>
+    readonly subKategoriAsetId: FieldRef<"Pengadaan", 'String'>
     readonly namaAset: FieldRef<"Pengadaan", 'String'>
     readonly jumlahAset: FieldRef<"Pengadaan", 'Int'>
     readonly hargaSatuan: FieldRef<"Pengadaan", 'BigInt'>
@@ -8907,6 +8924,25 @@ export namespace Prisma {
   }
 
   /**
+   * Pengadaan.subKategoriAset
+   */
+  export type Pengadaan$subKategoriAsetArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubAsetKategori
+     */
+    select?: SubAsetKategoriSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubAsetKategori
+     */
+    omit?: SubAsetKategoriOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubAsetKategoriInclude<ExtArgs> | null
+    where?: SubAsetKategoriWhereInput
+  }
+
+  /**
    * Pengadaan without action
    */
   export type PengadaanDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8961,6 +8997,8 @@ export namespace Prisma {
     langganan: number | null
     durasi: string | null
     idUser: string | null
+    requestBy: string | null
+    approvedBy: string | null
   }
 
   export type RequestMaxAggregateOutputType = {
@@ -8977,6 +9015,8 @@ export namespace Prisma {
     langganan: number | null
     durasi: string | null
     idUser: string | null
+    requestBy: string | null
+    approvedBy: string | null
   }
 
   export type RequestCountAggregateOutputType = {
@@ -8993,6 +9033,8 @@ export namespace Prisma {
     langganan: number
     durasi: number
     idUser: number
+    requestBy: number
+    approvedBy: number
     _all: number
   }
 
@@ -9021,6 +9063,8 @@ export namespace Prisma {
     langganan?: true
     durasi?: true
     idUser?: true
+    requestBy?: true
+    approvedBy?: true
   }
 
   export type RequestMaxAggregateInputType = {
@@ -9037,6 +9081,8 @@ export namespace Prisma {
     langganan?: true
     durasi?: true
     idUser?: true
+    requestBy?: true
+    approvedBy?: true
   }
 
   export type RequestCountAggregateInputType = {
@@ -9053,6 +9099,8 @@ export namespace Prisma {
     langganan?: true
     durasi?: true
     idUser?: true
+    requestBy?: true
+    approvedBy?: true
     _all?: true
   }
 
@@ -9153,9 +9201,11 @@ export namespace Prisma {
     status: string
     vendor: string | null
     unit: string | null
-    langganan: number
+    langganan: number | null
     durasi: string | null
     idUser: string
+    requestBy: string
+    approvedBy: string | null
     _count: RequestCountAggregateOutputType | null
     _avg: RequestAvgAggregateOutputType | null
     _sum: RequestSumAggregateOutputType | null
@@ -9191,6 +9241,8 @@ export namespace Prisma {
     langganan?: boolean
     durasi?: boolean
     idUser?: boolean
+    requestBy?: boolean
+    approvedBy?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["request"]>
 
@@ -9208,6 +9260,8 @@ export namespace Prisma {
     langganan?: boolean
     durasi?: boolean
     idUser?: boolean
+    requestBy?: boolean
+    approvedBy?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["request"]>
 
@@ -9225,6 +9279,8 @@ export namespace Prisma {
     langganan?: boolean
     durasi?: boolean
     idUser?: boolean
+    requestBy?: boolean
+    approvedBy?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["request"]>
 
@@ -9242,9 +9298,11 @@ export namespace Prisma {
     langganan?: boolean
     durasi?: boolean
     idUser?: boolean
+    requestBy?: boolean
+    approvedBy?: boolean
   }
 
-  export type RequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"requestId" | "namaAset" | "jumlah" | "kategoriAset" | "tipeKebutuhan" | "tanggalButuh" | "deskripsi" | "status" | "vendor" | "unit" | "langganan" | "durasi" | "idUser", ExtArgs["result"]["request"]>
+  export type RequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"requestId" | "namaAset" | "jumlah" | "kategoriAset" | "tipeKebutuhan" | "tanggalButuh" | "deskripsi" | "status" | "vendor" | "unit" | "langganan" | "durasi" | "idUser" | "requestBy" | "approvedBy", ExtArgs["result"]["request"]>
   export type RequestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -9271,9 +9329,11 @@ export namespace Prisma {
       status: string
       vendor: string | null
       unit: string | null
-      langganan: number
+      langganan: number | null
       durasi: string | null
       idUser: string
+      requestBy: string
+      approvedBy: string | null
     }, ExtArgs["result"]["request"]>
     composites: {}
   }
@@ -9711,6 +9771,8 @@ export namespace Prisma {
     readonly langganan: FieldRef<"Request", 'Int'>
     readonly durasi: FieldRef<"Request", 'String'>
     readonly idUser: FieldRef<"Request", 'String'>
+    readonly requestBy: FieldRef<"Request", 'String'>
+    readonly approvedBy: FieldRef<"Request", 'String'>
   }
     
 
@@ -11252,6 +11314,7 @@ export namespace Prisma {
     createdAt?: boolean
     asets?: boolean | SubAsetKategori$asetsArgs<ExtArgs>
     lokasi?: boolean | SubAsetKategori$lokasiArgs<ExtArgs>
+    pengadaan?: boolean | SubAsetKategori$pengadaanArgs<ExtArgs>
     _count?: boolean | SubAsetKategoriCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["subAsetKategori"]>
 
@@ -11277,6 +11340,7 @@ export namespace Prisma {
   export type SubAsetKategoriInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     asets?: boolean | SubAsetKategori$asetsArgs<ExtArgs>
     lokasi?: boolean | SubAsetKategori$lokasiArgs<ExtArgs>
+    pengadaan?: boolean | SubAsetKategori$pengadaanArgs<ExtArgs>
     _count?: boolean | SubAsetKategoriCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SubAsetKategoriIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -11287,6 +11351,7 @@ export namespace Prisma {
     objects: {
       asets: Prisma.$AsetPayload<ExtArgs>[]
       lokasi: Prisma.$LokasiPayload<ExtArgs>[]
+      pengadaan: Prisma.$PengadaanPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       subAsetId: string
@@ -11688,6 +11753,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     asets<T extends SubAsetKategori$asetsArgs<ExtArgs> = {}>(args?: Subset<T, SubAsetKategori$asetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AsetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     lokasi<T extends SubAsetKategori$lokasiArgs<ExtArgs> = {}>(args?: Subset<T, SubAsetKategori$lokasiArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LokasiPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    pengadaan<T extends SubAsetKategori$pengadaanArgs<ExtArgs> = {}>(args?: Subset<T, SubAsetKategori$pengadaanArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PengadaanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12153,6 +12219,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LokasiScalarFieldEnum | LokasiScalarFieldEnum[]
+  }
+
+  /**
+   * SubAsetKategori.pengadaan
+   */
+  export type SubAsetKategori$pengadaanArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengadaan
+     */
+    select?: PengadaanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengadaan
+     */
+    omit?: PengadaanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengadaanInclude<ExtArgs> | null
+    where?: PengadaanWhereInput
+    orderBy?: PengadaanOrderByWithRelationInput | PengadaanOrderByWithRelationInput[]
+    cursor?: PengadaanWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PengadaanScalarFieldEnum | PengadaanScalarFieldEnum[]
   }
 
   /**
@@ -13308,7 +13398,7 @@ export namespace Prisma {
     pengadaanId: 'pengadaanId',
     tanggalBeli: 'tanggalBeli',
     lokasiId: 'lokasiId',
-    kategoriAset: 'kategoriAset',
+    subKategoriAsetId: 'subKategoriAsetId',
     namaAset: 'namaAset',
     jumlahAset: 'jumlahAset',
     hargaSatuan: 'hargaSatuan',
@@ -13333,7 +13423,9 @@ export namespace Prisma {
     unit: 'unit',
     langganan: 'langganan',
     durasi: 'durasi',
-    idUser: 'idUser'
+    idUser: 'idUser',
+    requestBy: 'requestBy',
+    approvedBy: 'approvedBy'
   };
 
   export type RequestScalarFieldEnum = (typeof RequestScalarFieldEnum)[keyof typeof RequestScalarFieldEnum]
@@ -13929,13 +14021,14 @@ export namespace Prisma {
     pengadaanId?: StringFilter<"Pengadaan"> | string
     tanggalBeli?: DateTimeFilter<"Pengadaan"> | Date | string
     lokasiId?: StringFilter<"Pengadaan"> | string
-    kategoriAset?: EnumAsetKategoriFilter<"Pengadaan"> | $Enums.AsetKategori
+    subKategoriAsetId?: StringNullableFilter<"Pengadaan"> | string | null
     namaAset?: StringFilter<"Pengadaan"> | string
     jumlahAset?: IntFilter<"Pengadaan"> | number
     hargaSatuan?: BigIntFilter<"Pengadaan"> | bigint | number
     totalHarga?: BigIntFilter<"Pengadaan"> | bigint | number
     vendor?: StringFilter<"Pengadaan"> | string
     createdAt?: DateTimeFilter<"Pengadaan"> | Date | string
+    subKategoriAset?: XOR<SubAsetKategoriNullableScalarRelationFilter, SubAsetKategoriWhereInput> | null
     lokasi?: XOR<LokasiScalarRelationFilter, LokasiWhereInput>
   }
 
@@ -13943,13 +14036,14 @@ export namespace Prisma {
     pengadaanId?: SortOrder
     tanggalBeli?: SortOrder
     lokasiId?: SortOrder
-    kategoriAset?: SortOrder
+    subKategoriAsetId?: SortOrderInput | SortOrder
     namaAset?: SortOrder
     jumlahAset?: SortOrder
     hargaSatuan?: SortOrder
     totalHarga?: SortOrder
     vendor?: SortOrder
     createdAt?: SortOrder
+    subKategoriAset?: SubAsetKategoriOrderByWithRelationInput
     lokasi?: LokasiOrderByWithRelationInput
   }
 
@@ -13960,13 +14054,14 @@ export namespace Prisma {
     NOT?: PengadaanWhereInput | PengadaanWhereInput[]
     tanggalBeli?: DateTimeFilter<"Pengadaan"> | Date | string
     lokasiId?: StringFilter<"Pengadaan"> | string
-    kategoriAset?: EnumAsetKategoriFilter<"Pengadaan"> | $Enums.AsetKategori
+    subKategoriAsetId?: StringNullableFilter<"Pengadaan"> | string | null
     namaAset?: StringFilter<"Pengadaan"> | string
     jumlahAset?: IntFilter<"Pengadaan"> | number
     hargaSatuan?: BigIntFilter<"Pengadaan"> | bigint | number
     totalHarga?: BigIntFilter<"Pengadaan"> | bigint | number
     vendor?: StringFilter<"Pengadaan"> | string
     createdAt?: DateTimeFilter<"Pengadaan"> | Date | string
+    subKategoriAset?: XOR<SubAsetKategoriNullableScalarRelationFilter, SubAsetKategoriWhereInput> | null
     lokasi?: XOR<LokasiScalarRelationFilter, LokasiWhereInput>
   }, "pengadaanId">
 
@@ -13974,7 +14069,7 @@ export namespace Prisma {
     pengadaanId?: SortOrder
     tanggalBeli?: SortOrder
     lokasiId?: SortOrder
-    kategoriAset?: SortOrder
+    subKategoriAsetId?: SortOrderInput | SortOrder
     namaAset?: SortOrder
     jumlahAset?: SortOrder
     hargaSatuan?: SortOrder
@@ -13995,7 +14090,7 @@ export namespace Prisma {
     pengadaanId?: StringWithAggregatesFilter<"Pengadaan"> | string
     tanggalBeli?: DateTimeWithAggregatesFilter<"Pengadaan"> | Date | string
     lokasiId?: StringWithAggregatesFilter<"Pengadaan"> | string
-    kategoriAset?: EnumAsetKategoriWithAggregatesFilter<"Pengadaan"> | $Enums.AsetKategori
+    subKategoriAsetId?: StringNullableWithAggregatesFilter<"Pengadaan"> | string | null
     namaAset?: StringWithAggregatesFilter<"Pengadaan"> | string
     jumlahAset?: IntWithAggregatesFilter<"Pengadaan"> | number
     hargaSatuan?: BigIntWithAggregatesFilter<"Pengadaan"> | bigint | number
@@ -14018,9 +14113,11 @@ export namespace Prisma {
     status?: StringFilter<"Request"> | string
     vendor?: StringNullableFilter<"Request"> | string | null
     unit?: StringNullableFilter<"Request"> | string | null
-    langganan?: IntFilter<"Request"> | number
+    langganan?: IntNullableFilter<"Request"> | number | null
     durasi?: StringNullableFilter<"Request"> | string | null
     idUser?: StringFilter<"Request"> | string
+    requestBy?: StringFilter<"Request"> | string
+    approvedBy?: StringNullableFilter<"Request"> | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
@@ -14035,9 +14132,11 @@ export namespace Prisma {
     status?: SortOrder
     vendor?: SortOrderInput | SortOrder
     unit?: SortOrderInput | SortOrder
-    langganan?: SortOrder
+    langganan?: SortOrderInput | SortOrder
     durasi?: SortOrderInput | SortOrder
     idUser?: SortOrder
+    requestBy?: SortOrder
+    approvedBy?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
   }
 
@@ -14055,9 +14154,11 @@ export namespace Prisma {
     status?: StringFilter<"Request"> | string
     vendor?: StringNullableFilter<"Request"> | string | null
     unit?: StringNullableFilter<"Request"> | string | null
-    langganan?: IntFilter<"Request"> | number
+    langganan?: IntNullableFilter<"Request"> | number | null
     durasi?: StringNullableFilter<"Request"> | string | null
     idUser?: StringFilter<"Request"> | string
+    requestBy?: StringFilter<"Request"> | string
+    approvedBy?: StringNullableFilter<"Request"> | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "requestId">
 
@@ -14072,9 +14173,11 @@ export namespace Prisma {
     status?: SortOrder
     vendor?: SortOrderInput | SortOrder
     unit?: SortOrderInput | SortOrder
-    langganan?: SortOrder
+    langganan?: SortOrderInput | SortOrder
     durasi?: SortOrderInput | SortOrder
     idUser?: SortOrder
+    requestBy?: SortOrder
+    approvedBy?: SortOrderInput | SortOrder
     _count?: RequestCountOrderByAggregateInput
     _avg?: RequestAvgOrderByAggregateInput
     _max?: RequestMaxOrderByAggregateInput
@@ -14096,9 +14199,11 @@ export namespace Prisma {
     status?: StringWithAggregatesFilter<"Request"> | string
     vendor?: StringNullableWithAggregatesFilter<"Request"> | string | null
     unit?: StringNullableWithAggregatesFilter<"Request"> | string | null
-    langganan?: IntWithAggregatesFilter<"Request"> | number
+    langganan?: IntNullableWithAggregatesFilter<"Request"> | number | null
     durasi?: StringNullableWithAggregatesFilter<"Request"> | string | null
     idUser?: StringWithAggregatesFilter<"Request"> | string
+    requestBy?: StringWithAggregatesFilter<"Request"> | string
+    approvedBy?: StringNullableWithAggregatesFilter<"Request"> | string | null
   }
 
   export type NotifikasiWhereInput = {
@@ -14144,6 +14249,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"SubAsetKategori"> | Date | string
     asets?: AsetListRelationFilter
     lokasi?: LokasiListRelationFilter
+    pengadaan?: PengadaanListRelationFilter
   }
 
   export type SubAsetKategoriOrderByWithRelationInput = {
@@ -14152,6 +14258,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     asets?: AsetOrderByRelationAggregateInput
     lokasi?: LokasiOrderByRelationAggregateInput
+    pengadaan?: PengadaanOrderByRelationAggregateInput
   }
 
   export type SubAsetKategoriWhereUniqueInput = Prisma.AtLeast<{
@@ -14163,6 +14270,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"SubAsetKategori"> | Date | string
     asets?: AsetListRelationFilter
     lokasi?: LokasiListRelationFilter
+    pengadaan?: PengadaanListRelationFilter
   }, "subAsetId" | "nameSubAset">
 
   export type SubAsetKategoriOrderByWithAggregationInput = {
@@ -14652,13 +14760,13 @@ export namespace Prisma {
   export type PengadaanCreateInput = {
     pengadaanId?: string
     tanggalBeli: Date | string
-    kategoriAset: $Enums.AsetKategori
     namaAset: string
     jumlahAset: number
     hargaSatuan: bigint | number
     totalHarga: bigint | number
     vendor: string
     createdAt?: Date | string
+    subKategoriAset?: SubAsetKategoriCreateNestedOneWithoutPengadaanInput
     lokasi: LokasiCreateNestedOneWithoutPengadaanInput
   }
 
@@ -14666,7 +14774,7 @@ export namespace Prisma {
     pengadaanId?: string
     tanggalBeli: Date | string
     lokasiId: string
-    kategoriAset: $Enums.AsetKategori
+    subKategoriAsetId?: string | null
     namaAset: string
     jumlahAset: number
     hargaSatuan: bigint | number
@@ -14678,13 +14786,13 @@ export namespace Prisma {
   export type PengadaanUpdateInput = {
     pengadaanId?: StringFieldUpdateOperationsInput | string
     tanggalBeli?: DateTimeFieldUpdateOperationsInput | Date | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     namaAset?: StringFieldUpdateOperationsInput | string
     jumlahAset?: IntFieldUpdateOperationsInput | number
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
     totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
     vendor?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subKategoriAset?: SubAsetKategoriUpdateOneWithoutPengadaanNestedInput
     lokasi?: LokasiUpdateOneRequiredWithoutPengadaanNestedInput
   }
 
@@ -14692,7 +14800,7 @@ export namespace Prisma {
     pengadaanId?: StringFieldUpdateOperationsInput | string
     tanggalBeli?: DateTimeFieldUpdateOperationsInput | Date | string
     lokasiId?: StringFieldUpdateOperationsInput | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
     namaAset?: StringFieldUpdateOperationsInput | string
     jumlahAset?: IntFieldUpdateOperationsInput | number
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
@@ -14705,7 +14813,7 @@ export namespace Prisma {
     pengadaanId?: string
     tanggalBeli: Date | string
     lokasiId: string
-    kategoriAset: $Enums.AsetKategori
+    subKategoriAsetId?: string | null
     namaAset: string
     jumlahAset: number
     hargaSatuan: bigint | number
@@ -14717,7 +14825,6 @@ export namespace Prisma {
   export type PengadaanUpdateManyMutationInput = {
     pengadaanId?: StringFieldUpdateOperationsInput | string
     tanggalBeli?: DateTimeFieldUpdateOperationsInput | Date | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     namaAset?: StringFieldUpdateOperationsInput | string
     jumlahAset?: IntFieldUpdateOperationsInput | number
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
@@ -14730,7 +14837,7 @@ export namespace Prisma {
     pengadaanId?: StringFieldUpdateOperationsInput | string
     tanggalBeli?: DateTimeFieldUpdateOperationsInput | Date | string
     lokasiId?: StringFieldUpdateOperationsInput | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
     namaAset?: StringFieldUpdateOperationsInput | string
     jumlahAset?: IntFieldUpdateOperationsInput | number
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
@@ -14750,8 +14857,10 @@ export namespace Prisma {
     status: string
     vendor?: string | null
     unit?: string | null
-    langganan: number
+    langganan?: number | null
     durasi?: string | null
+    requestBy: string
+    approvedBy?: string | null
     user: UserCreateNestedOneWithoutRequestInput
   }
 
@@ -14766,9 +14875,11 @@ export namespace Prisma {
     status: string
     vendor?: string | null
     unit?: string | null
-    langganan: number
+    langganan?: number | null
     durasi?: string | null
     idUser: string
+    requestBy: string
+    approvedBy?: string | null
   }
 
   export type RequestUpdateInput = {
@@ -14782,8 +14893,10 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     vendor?: NullableStringFieldUpdateOperationsInput | string | null
     unit?: NullableStringFieldUpdateOperationsInput | string | null
-    langganan?: IntFieldUpdateOperationsInput | number
+    langganan?: NullableIntFieldUpdateOperationsInput | number | null
     durasi?: NullableStringFieldUpdateOperationsInput | string | null
+    requestBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneRequiredWithoutRequestNestedInput
   }
 
@@ -14798,9 +14911,11 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     vendor?: NullableStringFieldUpdateOperationsInput | string | null
     unit?: NullableStringFieldUpdateOperationsInput | string | null
-    langganan?: IntFieldUpdateOperationsInput | number
+    langganan?: NullableIntFieldUpdateOperationsInput | number | null
     durasi?: NullableStringFieldUpdateOperationsInput | string | null
     idUser?: StringFieldUpdateOperationsInput | string
+    requestBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type RequestCreateManyInput = {
@@ -14814,9 +14929,11 @@ export namespace Prisma {
     status: string
     vendor?: string | null
     unit?: string | null
-    langganan: number
+    langganan?: number | null
     durasi?: string | null
     idUser: string
+    requestBy: string
+    approvedBy?: string | null
   }
 
   export type RequestUpdateManyMutationInput = {
@@ -14830,8 +14947,10 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     vendor?: NullableStringFieldUpdateOperationsInput | string | null
     unit?: NullableStringFieldUpdateOperationsInput | string | null
-    langganan?: IntFieldUpdateOperationsInput | number
+    langganan?: NullableIntFieldUpdateOperationsInput | number | null
     durasi?: NullableStringFieldUpdateOperationsInput | string | null
+    requestBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type RequestUncheckedUpdateManyInput = {
@@ -14845,9 +14964,11 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     vendor?: NullableStringFieldUpdateOperationsInput | string | null
     unit?: NullableStringFieldUpdateOperationsInput | string | null
-    langganan?: IntFieldUpdateOperationsInput | number
+    langganan?: NullableIntFieldUpdateOperationsInput | number | null
     durasi?: NullableStringFieldUpdateOperationsInput | string | null
     idUser?: StringFieldUpdateOperationsInput | string
+    requestBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type NotifikasiCreateInput = {
@@ -14884,6 +15005,7 @@ export namespace Prisma {
     createdAt?: Date | string
     asets?: AsetCreateNestedManyWithoutSubKategoriAsetInput
     lokasi?: LokasiCreateNestedManyWithoutSubKategoriAsetInput
+    pengadaan?: PengadaanCreateNestedManyWithoutSubKategoriAsetInput
   }
 
   export type SubAsetKategoriUncheckedCreateInput = {
@@ -14892,6 +15014,7 @@ export namespace Prisma {
     createdAt?: Date | string
     asets?: AsetUncheckedCreateNestedManyWithoutSubKategoriAsetInput
     lokasi?: LokasiUncheckedCreateNestedManyWithoutSubKategoriAsetInput
+    pengadaan?: PengadaanUncheckedCreateNestedManyWithoutSubKategoriAsetInput
   }
 
   export type SubAsetKategoriUpdateInput = {
@@ -14900,6 +15023,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     asets?: AsetUpdateManyWithoutSubKategoriAsetNestedInput
     lokasi?: LokasiUpdateManyWithoutSubKategoriAsetNestedInput
+    pengadaan?: PengadaanUpdateManyWithoutSubKategoriAsetNestedInput
   }
 
   export type SubAsetKategoriUncheckedUpdateInput = {
@@ -14908,6 +15032,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     asets?: AsetUncheckedUpdateManyWithoutSubKategoriAsetNestedInput
     lokasi?: LokasiUncheckedUpdateManyWithoutSubKategoriAsetNestedInput
+    pengadaan?: PengadaanUncheckedUpdateManyWithoutSubKategoriAsetNestedInput
   }
 
   export type SubAsetKategoriCreateManyInput = {
@@ -15503,7 +15628,7 @@ export namespace Prisma {
     pengadaanId?: SortOrder
     tanggalBeli?: SortOrder
     lokasiId?: SortOrder
-    kategoriAset?: SortOrder
+    subKategoriAsetId?: SortOrder
     namaAset?: SortOrder
     jumlahAset?: SortOrder
     hargaSatuan?: SortOrder
@@ -15522,7 +15647,7 @@ export namespace Prisma {
     pengadaanId?: SortOrder
     tanggalBeli?: SortOrder
     lokasiId?: SortOrder
-    kategoriAset?: SortOrder
+    subKategoriAsetId?: SortOrder
     namaAset?: SortOrder
     jumlahAset?: SortOrder
     hargaSatuan?: SortOrder
@@ -15535,7 +15660,7 @@ export namespace Prisma {
     pengadaanId?: SortOrder
     tanggalBeli?: SortOrder
     lokasiId?: SortOrder
-    kategoriAset?: SortOrder
+    subKategoriAsetId?: SortOrder
     namaAset?: SortOrder
     jumlahAset?: SortOrder
     hargaSatuan?: SortOrder
@@ -15601,6 +15726,8 @@ export namespace Prisma {
     langganan?: SortOrder
     durasi?: SortOrder
     idUser?: SortOrder
+    requestBy?: SortOrder
+    approvedBy?: SortOrder
   }
 
   export type RequestAvgOrderByAggregateInput = {
@@ -15622,6 +15749,8 @@ export namespace Prisma {
     langganan?: SortOrder
     durasi?: SortOrder
     idUser?: SortOrder
+    requestBy?: SortOrder
+    approvedBy?: SortOrder
   }
 
   export type RequestMinOrderByAggregateInput = {
@@ -15638,6 +15767,8 @@ export namespace Prisma {
     langganan?: SortOrder
     durasi?: SortOrder
     idUser?: SortOrder
+    requestBy?: SortOrder
+    approvedBy?: SortOrder
   }
 
   export type RequestSumOrderByAggregateInput = {
@@ -16152,6 +16283,12 @@ export namespace Prisma {
     update?: XOR<XOR<LokasiUpdateToOneWithWhereWithoutPerpindahanInput, LokasiUpdateWithoutPerpindahanInput>, LokasiUncheckedUpdateWithoutPerpindahanInput>
   }
 
+  export type SubAsetKategoriCreateNestedOneWithoutPengadaanInput = {
+    create?: XOR<SubAsetKategoriCreateWithoutPengadaanInput, SubAsetKategoriUncheckedCreateWithoutPengadaanInput>
+    connectOrCreate?: SubAsetKategoriCreateOrConnectWithoutPengadaanInput
+    connect?: SubAsetKategoriWhereUniqueInput
+  }
+
   export type LokasiCreateNestedOneWithoutPengadaanInput = {
     create?: XOR<LokasiCreateWithoutPengadaanInput, LokasiUncheckedCreateWithoutPengadaanInput>
     connectOrCreate?: LokasiCreateOrConnectWithoutPengadaanInput
@@ -16172,6 +16309,16 @@ export namespace Prisma {
     decrement?: bigint | number
     multiply?: bigint | number
     divide?: bigint | number
+  }
+
+  export type SubAsetKategoriUpdateOneWithoutPengadaanNestedInput = {
+    create?: XOR<SubAsetKategoriCreateWithoutPengadaanInput, SubAsetKategoriUncheckedCreateWithoutPengadaanInput>
+    connectOrCreate?: SubAsetKategoriCreateOrConnectWithoutPengadaanInput
+    upsert?: SubAsetKategoriUpsertWithoutPengadaanInput
+    disconnect?: SubAsetKategoriWhereInput | boolean
+    delete?: SubAsetKategoriWhereInput | boolean
+    connect?: SubAsetKategoriWhereUniqueInput
+    update?: XOR<XOR<SubAsetKategoriUpdateToOneWithWhereWithoutPengadaanInput, SubAsetKategoriUpdateWithoutPengadaanInput>, SubAsetKategoriUncheckedUpdateWithoutPengadaanInput>
   }
 
   export type LokasiUpdateOneRequiredWithoutPengadaanNestedInput = {
@@ -16209,6 +16356,13 @@ export namespace Prisma {
     connect?: LokasiWhereUniqueInput | LokasiWhereUniqueInput[]
   }
 
+  export type PengadaanCreateNestedManyWithoutSubKategoriAsetInput = {
+    create?: XOR<PengadaanCreateWithoutSubKategoriAsetInput, PengadaanUncheckedCreateWithoutSubKategoriAsetInput> | PengadaanCreateWithoutSubKategoriAsetInput[] | PengadaanUncheckedCreateWithoutSubKategoriAsetInput[]
+    connectOrCreate?: PengadaanCreateOrConnectWithoutSubKategoriAsetInput | PengadaanCreateOrConnectWithoutSubKategoriAsetInput[]
+    createMany?: PengadaanCreateManySubKategoriAsetInputEnvelope
+    connect?: PengadaanWhereUniqueInput | PengadaanWhereUniqueInput[]
+  }
+
   export type AsetUncheckedCreateNestedManyWithoutSubKategoriAsetInput = {
     create?: XOR<AsetCreateWithoutSubKategoriAsetInput, AsetUncheckedCreateWithoutSubKategoriAsetInput> | AsetCreateWithoutSubKategoriAsetInput[] | AsetUncheckedCreateWithoutSubKategoriAsetInput[]
     connectOrCreate?: AsetCreateOrConnectWithoutSubKategoriAsetInput | AsetCreateOrConnectWithoutSubKategoriAsetInput[]
@@ -16220,6 +16374,13 @@ export namespace Prisma {
     create?: XOR<LokasiCreateWithoutSubKategoriAsetInput, LokasiUncheckedCreateWithoutSubKategoriAsetInput> | LokasiCreateWithoutSubKategoriAsetInput[] | LokasiUncheckedCreateWithoutSubKategoriAsetInput[]
     connectOrCreate?: LokasiCreateOrConnectWithoutSubKategoriAsetInput | LokasiCreateOrConnectWithoutSubKategoriAsetInput[]
     connect?: LokasiWhereUniqueInput | LokasiWhereUniqueInput[]
+  }
+
+  export type PengadaanUncheckedCreateNestedManyWithoutSubKategoriAsetInput = {
+    create?: XOR<PengadaanCreateWithoutSubKategoriAsetInput, PengadaanUncheckedCreateWithoutSubKategoriAsetInput> | PengadaanCreateWithoutSubKategoriAsetInput[] | PengadaanUncheckedCreateWithoutSubKategoriAsetInput[]
+    connectOrCreate?: PengadaanCreateOrConnectWithoutSubKategoriAsetInput | PengadaanCreateOrConnectWithoutSubKategoriAsetInput[]
+    createMany?: PengadaanCreateManySubKategoriAsetInputEnvelope
+    connect?: PengadaanWhereUniqueInput | PengadaanWhereUniqueInput[]
   }
 
   export type AsetUpdateManyWithoutSubKategoriAsetNestedInput = {
@@ -16249,6 +16410,20 @@ export namespace Prisma {
     deleteMany?: LokasiScalarWhereInput | LokasiScalarWhereInput[]
   }
 
+  export type PengadaanUpdateManyWithoutSubKategoriAsetNestedInput = {
+    create?: XOR<PengadaanCreateWithoutSubKategoriAsetInput, PengadaanUncheckedCreateWithoutSubKategoriAsetInput> | PengadaanCreateWithoutSubKategoriAsetInput[] | PengadaanUncheckedCreateWithoutSubKategoriAsetInput[]
+    connectOrCreate?: PengadaanCreateOrConnectWithoutSubKategoriAsetInput | PengadaanCreateOrConnectWithoutSubKategoriAsetInput[]
+    upsert?: PengadaanUpsertWithWhereUniqueWithoutSubKategoriAsetInput | PengadaanUpsertWithWhereUniqueWithoutSubKategoriAsetInput[]
+    createMany?: PengadaanCreateManySubKategoriAsetInputEnvelope
+    set?: PengadaanWhereUniqueInput | PengadaanWhereUniqueInput[]
+    disconnect?: PengadaanWhereUniqueInput | PengadaanWhereUniqueInput[]
+    delete?: PengadaanWhereUniqueInput | PengadaanWhereUniqueInput[]
+    connect?: PengadaanWhereUniqueInput | PengadaanWhereUniqueInput[]
+    update?: PengadaanUpdateWithWhereUniqueWithoutSubKategoriAsetInput | PengadaanUpdateWithWhereUniqueWithoutSubKategoriAsetInput[]
+    updateMany?: PengadaanUpdateManyWithWhereWithoutSubKategoriAsetInput | PengadaanUpdateManyWithWhereWithoutSubKategoriAsetInput[]
+    deleteMany?: PengadaanScalarWhereInput | PengadaanScalarWhereInput[]
+  }
+
   export type AsetUncheckedUpdateManyWithoutSubKategoriAsetNestedInput = {
     create?: XOR<AsetCreateWithoutSubKategoriAsetInput, AsetUncheckedCreateWithoutSubKategoriAsetInput> | AsetCreateWithoutSubKategoriAsetInput[] | AsetUncheckedCreateWithoutSubKategoriAsetInput[]
     connectOrCreate?: AsetCreateOrConnectWithoutSubKategoriAsetInput | AsetCreateOrConnectWithoutSubKategoriAsetInput[]
@@ -16274,6 +16449,20 @@ export namespace Prisma {
     update?: LokasiUpdateWithWhereUniqueWithoutSubKategoriAsetInput | LokasiUpdateWithWhereUniqueWithoutSubKategoriAsetInput[]
     updateMany?: LokasiUpdateManyWithWhereWithoutSubKategoriAsetInput | LokasiUpdateManyWithWhereWithoutSubKategoriAsetInput[]
     deleteMany?: LokasiScalarWhereInput | LokasiScalarWhereInput[]
+  }
+
+  export type PengadaanUncheckedUpdateManyWithoutSubKategoriAsetNestedInput = {
+    create?: XOR<PengadaanCreateWithoutSubKategoriAsetInput, PengadaanUncheckedCreateWithoutSubKategoriAsetInput> | PengadaanCreateWithoutSubKategoriAsetInput[] | PengadaanUncheckedCreateWithoutSubKategoriAsetInput[]
+    connectOrCreate?: PengadaanCreateOrConnectWithoutSubKategoriAsetInput | PengadaanCreateOrConnectWithoutSubKategoriAsetInput[]
+    upsert?: PengadaanUpsertWithWhereUniqueWithoutSubKategoriAsetInput | PengadaanUpsertWithWhereUniqueWithoutSubKategoriAsetInput[]
+    createMany?: PengadaanCreateManySubKategoriAsetInputEnvelope
+    set?: PengadaanWhereUniqueInput | PengadaanWhereUniqueInput[]
+    disconnect?: PengadaanWhereUniqueInput | PengadaanWhereUniqueInput[]
+    delete?: PengadaanWhereUniqueInput | PengadaanWhereUniqueInput[]
+    connect?: PengadaanWhereUniqueInput | PengadaanWhereUniqueInput[]
+    update?: PengadaanUpdateWithWhereUniqueWithoutSubKategoriAsetInput | PengadaanUpdateWithWhereUniqueWithoutSubKategoriAsetInput[]
+    updateMany?: PengadaanUpdateManyWithWhereWithoutSubKategoriAsetInput | PengadaanUpdateManyWithWhereWithoutSubKategoriAsetInput[]
+    deleteMany?: PengadaanScalarWhereInput | PengadaanScalarWhereInput[]
   }
 
   export type UserCreateNestedManyWithoutRoleInput = {
@@ -16646,8 +16835,10 @@ export namespace Prisma {
     status: string
     vendor?: string | null
     unit?: string | null
-    langganan: number
+    langganan?: number | null
     durasi?: string | null
+    requestBy: string
+    approvedBy?: string | null
   }
 
   export type RequestUncheckedCreateWithoutUserInput = {
@@ -16661,8 +16852,10 @@ export namespace Prisma {
     status: string
     vendor?: string | null
     unit?: string | null
-    langganan: number
+    langganan?: number | null
     durasi?: string | null
+    requestBy: string
+    approvedBy?: string | null
   }
 
   export type RequestCreateOrConnectWithoutUserInput = {
@@ -16728,9 +16921,11 @@ export namespace Prisma {
     status?: StringFilter<"Request"> | string
     vendor?: StringNullableFilter<"Request"> | string | null
     unit?: StringNullableFilter<"Request"> | string | null
-    langganan?: IntFilter<"Request"> | number
+    langganan?: IntNullableFilter<"Request"> | number | null
     durasi?: StringNullableFilter<"Request"> | string | null
     idUser?: StringFilter<"Request"> | string
+    requestBy?: StringFilter<"Request"> | string
+    approvedBy?: StringNullableFilter<"Request"> | string | null
   }
 
   export type LokasiCreateWithoutAsetInput = {
@@ -16763,6 +16958,7 @@ export namespace Prisma {
     nameSubAset: string
     createdAt?: Date | string
     lokasi?: LokasiCreateNestedManyWithoutSubKategoriAsetInput
+    pengadaan?: PengadaanCreateNestedManyWithoutSubKategoriAsetInput
   }
 
   export type SubAsetKategoriUncheckedCreateWithoutAsetsInput = {
@@ -16770,6 +16966,7 @@ export namespace Prisma {
     nameSubAset: string
     createdAt?: Date | string
     lokasi?: LokasiUncheckedCreateNestedManyWithoutSubKategoriAsetInput
+    pengadaan?: PengadaanUncheckedCreateNestedManyWithoutSubKategoriAsetInput
   }
 
   export type SubAsetKategoriCreateOrConnectWithoutAsetsInput = {
@@ -16882,6 +17079,7 @@ export namespace Prisma {
     nameSubAset?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lokasi?: LokasiUpdateManyWithoutSubKategoriAsetNestedInput
+    pengadaan?: PengadaanUpdateManyWithoutSubKategoriAsetNestedInput
   }
 
   export type SubAsetKategoriUncheckedUpdateWithoutAsetsInput = {
@@ -16889,6 +17087,7 @@ export namespace Prisma {
     nameSubAset?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lokasi?: LokasiUncheckedUpdateManyWithoutSubKategoriAsetNestedInput
+    pengadaan?: PengadaanUncheckedUpdateManyWithoutSubKategoriAsetNestedInput
   }
 
   export type MaintenanceUpsertWithWhereUniqueWithoutAsetInput = {
@@ -17093,19 +17292,19 @@ export namespace Prisma {
   export type PengadaanCreateWithoutLokasiInput = {
     pengadaanId?: string
     tanggalBeli: Date | string
-    kategoriAset: $Enums.AsetKategori
     namaAset: string
     jumlahAset: number
     hargaSatuan: bigint | number
     totalHarga: bigint | number
     vendor: string
     createdAt?: Date | string
+    subKategoriAset?: SubAsetKategoriCreateNestedOneWithoutPengadaanInput
   }
 
   export type PengadaanUncheckedCreateWithoutLokasiInput = {
     pengadaanId?: string
     tanggalBeli: Date | string
-    kategoriAset: $Enums.AsetKategori
+    subKategoriAsetId?: string | null
     namaAset: string
     jumlahAset: number
     hargaSatuan: bigint | number
@@ -17157,6 +17356,7 @@ export namespace Prisma {
     nameSubAset: string
     createdAt?: Date | string
     asets?: AsetCreateNestedManyWithoutSubKategoriAsetInput
+    pengadaan?: PengadaanCreateNestedManyWithoutSubKategoriAsetInput
   }
 
   export type SubAsetKategoriUncheckedCreateWithoutLokasiInput = {
@@ -17164,6 +17364,7 @@ export namespace Prisma {
     nameSubAset: string
     createdAt?: Date | string
     asets?: AsetUncheckedCreateNestedManyWithoutSubKategoriAsetInput
+    pengadaan?: PengadaanUncheckedCreateNestedManyWithoutSubKategoriAsetInput
   }
 
   export type SubAsetKategoriCreateOrConnectWithoutLokasiInput = {
@@ -17231,7 +17432,7 @@ export namespace Prisma {
     pengadaanId?: StringFilter<"Pengadaan"> | string
     tanggalBeli?: DateTimeFilter<"Pengadaan"> | Date | string
     lokasiId?: StringFilter<"Pengadaan"> | string
-    kategoriAset?: EnumAsetKategoriFilter<"Pengadaan"> | $Enums.AsetKategori
+    subKategoriAsetId?: StringNullableFilter<"Pengadaan"> | string | null
     namaAset?: StringFilter<"Pengadaan"> | string
     jumlahAset?: IntFilter<"Pengadaan"> | number
     hargaSatuan?: BigIntFilter<"Pengadaan"> | bigint | number
@@ -17429,6 +17630,27 @@ export namespace Prisma {
     subKategoriAset?: SubAsetKategoriUncheckedUpdateManyWithoutLokasiNestedInput
   }
 
+  export type SubAsetKategoriCreateWithoutPengadaanInput = {
+    subAsetId?: string
+    nameSubAset: string
+    createdAt?: Date | string
+    asets?: AsetCreateNestedManyWithoutSubKategoriAsetInput
+    lokasi?: LokasiCreateNestedManyWithoutSubKategoriAsetInput
+  }
+
+  export type SubAsetKategoriUncheckedCreateWithoutPengadaanInput = {
+    subAsetId?: string
+    nameSubAset: string
+    createdAt?: Date | string
+    asets?: AsetUncheckedCreateNestedManyWithoutSubKategoriAsetInput
+    lokasi?: LokasiUncheckedCreateNestedManyWithoutSubKategoriAsetInput
+  }
+
+  export type SubAsetKategoriCreateOrConnectWithoutPengadaanInput = {
+    where: SubAsetKategoriWhereUniqueInput
+    create: XOR<SubAsetKategoriCreateWithoutPengadaanInput, SubAsetKategoriUncheckedCreateWithoutPengadaanInput>
+  }
+
   export type LokasiCreateWithoutPengadaanInput = {
     idLokasi?: string
     lokasi: string
@@ -17452,6 +17674,33 @@ export namespace Prisma {
   export type LokasiCreateOrConnectWithoutPengadaanInput = {
     where: LokasiWhereUniqueInput
     create: XOR<LokasiCreateWithoutPengadaanInput, LokasiUncheckedCreateWithoutPengadaanInput>
+  }
+
+  export type SubAsetKategoriUpsertWithoutPengadaanInput = {
+    update: XOR<SubAsetKategoriUpdateWithoutPengadaanInput, SubAsetKategoriUncheckedUpdateWithoutPengadaanInput>
+    create: XOR<SubAsetKategoriCreateWithoutPengadaanInput, SubAsetKategoriUncheckedCreateWithoutPengadaanInput>
+    where?: SubAsetKategoriWhereInput
+  }
+
+  export type SubAsetKategoriUpdateToOneWithWhereWithoutPengadaanInput = {
+    where?: SubAsetKategoriWhereInput
+    data: XOR<SubAsetKategoriUpdateWithoutPengadaanInput, SubAsetKategoriUncheckedUpdateWithoutPengadaanInput>
+  }
+
+  export type SubAsetKategoriUpdateWithoutPengadaanInput = {
+    subAsetId?: StringFieldUpdateOperationsInput | string
+    nameSubAset?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    asets?: AsetUpdateManyWithoutSubKategoriAsetNestedInput
+    lokasi?: LokasiUpdateManyWithoutSubKategoriAsetNestedInput
+  }
+
+  export type SubAsetKategoriUncheckedUpdateWithoutPengadaanInput = {
+    subAsetId?: StringFieldUpdateOperationsInput | string
+    nameSubAset?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    asets?: AsetUncheckedUpdateManyWithoutSubKategoriAsetNestedInput
+    lokasi?: LokasiUncheckedUpdateManyWithoutSubKategoriAsetNestedInput
   }
 
   export type LokasiUpsertWithoutPengadaanInput = {
@@ -17618,6 +17867,40 @@ export namespace Prisma {
     create: XOR<LokasiCreateWithoutSubKategoriAsetInput, LokasiUncheckedCreateWithoutSubKategoriAsetInput>
   }
 
+  export type PengadaanCreateWithoutSubKategoriAsetInput = {
+    pengadaanId?: string
+    tanggalBeli: Date | string
+    namaAset: string
+    jumlahAset: number
+    hargaSatuan: bigint | number
+    totalHarga: bigint | number
+    vendor: string
+    createdAt?: Date | string
+    lokasi: LokasiCreateNestedOneWithoutPengadaanInput
+  }
+
+  export type PengadaanUncheckedCreateWithoutSubKategoriAsetInput = {
+    pengadaanId?: string
+    tanggalBeli: Date | string
+    lokasiId: string
+    namaAset: string
+    jumlahAset: number
+    hargaSatuan: bigint | number
+    totalHarga: bigint | number
+    vendor: string
+    createdAt?: Date | string
+  }
+
+  export type PengadaanCreateOrConnectWithoutSubKategoriAsetInput = {
+    where: PengadaanWhereUniqueInput
+    create: XOR<PengadaanCreateWithoutSubKategoriAsetInput, PengadaanUncheckedCreateWithoutSubKategoriAsetInput>
+  }
+
+  export type PengadaanCreateManySubKategoriAsetInputEnvelope = {
+    data: PengadaanCreateManySubKategoriAsetInput | PengadaanCreateManySubKategoriAsetInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AsetUpsertWithWhereUniqueWithoutSubKategoriAsetInput = {
     where: AsetWhereUniqueInput
     update: XOR<AsetUpdateWithoutSubKategoriAsetInput, AsetUncheckedUpdateWithoutSubKategoriAsetInput>
@@ -17658,6 +17941,22 @@ export namespace Prisma {
     lokasi?: StringFilter<"Lokasi"> | string
     createdAt?: DateTimeFilter<"Lokasi"> | Date | string
     kategoriAset?: EnumAsetKategoriFilter<"Lokasi"> | $Enums.AsetKategori
+  }
+
+  export type PengadaanUpsertWithWhereUniqueWithoutSubKategoriAsetInput = {
+    where: PengadaanWhereUniqueInput
+    update: XOR<PengadaanUpdateWithoutSubKategoriAsetInput, PengadaanUncheckedUpdateWithoutSubKategoriAsetInput>
+    create: XOR<PengadaanCreateWithoutSubKategoriAsetInput, PengadaanUncheckedCreateWithoutSubKategoriAsetInput>
+  }
+
+  export type PengadaanUpdateWithWhereUniqueWithoutSubKategoriAsetInput = {
+    where: PengadaanWhereUniqueInput
+    data: XOR<PengadaanUpdateWithoutSubKategoriAsetInput, PengadaanUncheckedUpdateWithoutSubKategoriAsetInput>
+  }
+
+  export type PengadaanUpdateManyWithWhereWithoutSubKategoriAsetInput = {
+    where: PengadaanScalarWhereInput
+    data: XOR<PengadaanUpdateManyMutationInput, PengadaanUncheckedUpdateManyWithoutSubKategoriAsetInput>
   }
 
   export type UserCreateWithoutRoleInput = {
@@ -17733,8 +18032,10 @@ export namespace Prisma {
     status: string
     vendor?: string | null
     unit?: string | null
-    langganan: number
+    langganan?: number | null
     durasi?: string | null
+    requestBy: string
+    approvedBy?: string | null
   }
 
   export type RequestUpdateWithoutUserInput = {
@@ -17748,8 +18049,10 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     vendor?: NullableStringFieldUpdateOperationsInput | string | null
     unit?: NullableStringFieldUpdateOperationsInput | string | null
-    langganan?: IntFieldUpdateOperationsInput | number
+    langganan?: NullableIntFieldUpdateOperationsInput | number | null
     durasi?: NullableStringFieldUpdateOperationsInput | string | null
+    requestBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type RequestUncheckedUpdateWithoutUserInput = {
@@ -17763,8 +18066,10 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     vendor?: NullableStringFieldUpdateOperationsInput | string | null
     unit?: NullableStringFieldUpdateOperationsInput | string | null
-    langganan?: IntFieldUpdateOperationsInput | number
+    langganan?: NullableIntFieldUpdateOperationsInput | number | null
     durasi?: NullableStringFieldUpdateOperationsInput | string | null
+    requestBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type RequestUncheckedUpdateManyWithoutUserInput = {
@@ -17778,8 +18083,10 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     vendor?: NullableStringFieldUpdateOperationsInput | string | null
     unit?: NullableStringFieldUpdateOperationsInput | string | null
-    langganan?: IntFieldUpdateOperationsInput | number
+    langganan?: NullableIntFieldUpdateOperationsInput | number | null
     durasi?: NullableStringFieldUpdateOperationsInput | string | null
+    requestBy?: StringFieldUpdateOperationsInput | string
+    approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MaintenanceCreateManyAsetInput = {
@@ -17878,7 +18185,7 @@ export namespace Prisma {
   export type PengadaanCreateManyLokasiInput = {
     pengadaanId?: string
     tanggalBeli: Date | string
-    kategoriAset: $Enums.AsetKategori
+    subKategoriAsetId?: string | null
     namaAset: string
     jumlahAset: number
     hargaSatuan: bigint | number
@@ -17954,19 +18261,19 @@ export namespace Prisma {
   export type PengadaanUpdateWithoutLokasiInput = {
     pengadaanId?: StringFieldUpdateOperationsInput | string
     tanggalBeli?: DateTimeFieldUpdateOperationsInput | Date | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
     namaAset?: StringFieldUpdateOperationsInput | string
     jumlahAset?: IntFieldUpdateOperationsInput | number
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
     totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
     vendor?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    subKategoriAset?: SubAsetKategoriUpdateOneWithoutPengadaanNestedInput
   }
 
   export type PengadaanUncheckedUpdateWithoutLokasiInput = {
     pengadaanId?: StringFieldUpdateOperationsInput | string
     tanggalBeli?: DateTimeFieldUpdateOperationsInput | Date | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
     namaAset?: StringFieldUpdateOperationsInput | string
     jumlahAset?: IntFieldUpdateOperationsInput | number
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
@@ -17978,7 +18285,7 @@ export namespace Prisma {
   export type PengadaanUncheckedUpdateManyWithoutLokasiInput = {
     pengadaanId?: StringFieldUpdateOperationsInput | string
     tanggalBeli?: DateTimeFieldUpdateOperationsInput | Date | string
-    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
     namaAset?: StringFieldUpdateOperationsInput | string
     jumlahAset?: IntFieldUpdateOperationsInput | number
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
@@ -18019,6 +18326,7 @@ export namespace Prisma {
     nameSubAset?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     asets?: AsetUpdateManyWithoutSubKategoriAsetNestedInput
+    pengadaan?: PengadaanUpdateManyWithoutSubKategoriAsetNestedInput
   }
 
   export type SubAsetKategoriUncheckedUpdateWithoutLokasiInput = {
@@ -18026,6 +18334,7 @@ export namespace Prisma {
     nameSubAset?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     asets?: AsetUncheckedUpdateManyWithoutSubKategoriAsetNestedInput
+    pengadaan?: PengadaanUncheckedUpdateManyWithoutSubKategoriAsetNestedInput
   }
 
   export type SubAsetKategoriUncheckedUpdateManyWithoutLokasiInput = {
@@ -18049,6 +18358,18 @@ export namespace Prisma {
     createdAt?: Date | string
     pic?: string | null
     kategoriAset: $Enums.AsetKategori
+  }
+
+  export type PengadaanCreateManySubKategoriAsetInput = {
+    pengadaanId?: string
+    tanggalBeli: Date | string
+    lokasiId: string
+    namaAset: string
+    jumlahAset: number
+    hargaSatuan: bigint | number
+    totalHarga: bigint | number
+    vendor: string
+    createdAt?: Date | string
   }
 
   export type AsetUpdateWithoutSubKategoriAsetInput = {
@@ -18131,6 +18452,42 @@ export namespace Prisma {
     lokasi?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+  }
+
+  export type PengadaanUpdateWithoutSubKategoriAsetInput = {
+    pengadaanId?: StringFieldUpdateOperationsInput | string
+    tanggalBeli?: DateTimeFieldUpdateOperationsInput | Date | string
+    namaAset?: StringFieldUpdateOperationsInput | string
+    jumlahAset?: IntFieldUpdateOperationsInput | number
+    hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
+    totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
+    vendor?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lokasi?: LokasiUpdateOneRequiredWithoutPengadaanNestedInput
+  }
+
+  export type PengadaanUncheckedUpdateWithoutSubKategoriAsetInput = {
+    pengadaanId?: StringFieldUpdateOperationsInput | string
+    tanggalBeli?: DateTimeFieldUpdateOperationsInput | Date | string
+    lokasiId?: StringFieldUpdateOperationsInput | string
+    namaAset?: StringFieldUpdateOperationsInput | string
+    jumlahAset?: IntFieldUpdateOperationsInput | number
+    hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
+    totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
+    vendor?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PengadaanUncheckedUpdateManyWithoutSubKategoriAsetInput = {
+    pengadaanId?: StringFieldUpdateOperationsInput | string
+    tanggalBeli?: DateTimeFieldUpdateOperationsInput | Date | string
+    lokasiId?: StringFieldUpdateOperationsInput | string
+    namaAset?: StringFieldUpdateOperationsInput | string
+    jumlahAset?: IntFieldUpdateOperationsInput | number
+    hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
+    totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
+    vendor?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserCreateManyRoleInput = {

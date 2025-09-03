@@ -79,17 +79,18 @@ model Perpindahan {
 }
 
 model Pengadaan {
-  pengadaanId  String       @id @default(uuid())
-  tanggalBeli  DateTime
-  lokasiId     String
-  kategoriAset AsetKategori
-  namaAset     String
-  jumlahAset   Int
-  hargaSatuan  BigInt
-  totalHarga   BigInt
-  vendor       String
-  createdAt    DateTime     @default(now())
-  lokasi       Lokasi       @relation(fields: [lokasiId], references: [idLokasi])
+  pengadaanId       String           @id @default(uuid())
+  tanggalBeli       DateTime
+  lokasiId          String
+  subKategoriAsetId String?
+  subKategoriAset   SubAsetKategori? @relation(fields: [subKategoriAsetId], references: [subAsetId])
+  namaAset          String
+  jumlahAset        Int
+  hargaSatuan       BigInt
+  totalHarga        BigInt
+  vendor            String
+  createdAt         DateTime         @default(now())
+  lokasi            Lokasi           @relation(fields: [lokasiId], references: [idLokasi])
 }
 
 model Request {
@@ -103,10 +104,13 @@ model Request {
   status        String
   vendor        String?
   unit          String?
-  langganan     Int
+  langganan     Int?
   durasi        String?
   idUser        String
   user          User     @relation(fields: [idUser], references: [id])
+
+  requestBy  String
+  approvedBy String?
 }
 
 model Notifikasi {
@@ -114,11 +118,12 @@ model Notifikasi {
 }
 
 model SubAsetKategori {
-  subAsetId   String   @id @default(uuid())
-  nameSubAset String   @unique
-  createdAt   DateTime @default(now())
-  asets       Aset[]   @relation("AsetToSubKategori")
-  lokasi      Lokasi[] @relation("KategoriToLokasi")
+  subAsetId   String      @id @default(uuid())
+  nameSubAset String      @unique
+  createdAt   DateTime    @default(now())
+  asets       Aset[]      @relation("AsetToSubKategori")
+  lokasi      Lokasi[]    @relation("KategoriToLokasi")
+  pengadaan   Pengadaan[]
 }
 
 model UserRole {
@@ -153,8 +158,8 @@ enum AsetKategori {
 }
 
 enum HakMilik {
-  pribadi @map("Pribadi")
-  kantor  @map("Kantor")
+  gunaPakai @map("Guna Pakai")
+  kantor    @map("Kantor")
 }
 
 enum UserStatus {

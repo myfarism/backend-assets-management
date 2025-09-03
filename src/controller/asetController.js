@@ -569,11 +569,11 @@ class AsetController {
             }
 
             if (kondisi) {
-                where.kondisiAset = kondisi;
+                where.kondisiAset = mapKondisiAset(kondisi);
             }
 
             if (status) {
-                where.statusAset = status;
+                where.statusAset = mapStatusAset(status);
             }
 
             if (search) {

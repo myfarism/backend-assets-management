@@ -46,13 +46,30 @@ class AuthController {
             });
 
             const token = generateJWT(user);
+
+            const roleResult =  await prisma.user.findUnique({
+                where: { email },
+                select: {
+                    role: {
+                        select: {
+                            userRoleId: true,
+                            nameRole: true
+                        }   
+                    }
+                }
+            });
+
+            const role = roleResult?.role.nameRole;
+
+
+            console.log(role);
             
             res.status(200).json({
                 success: true,
                 data: {
                     email: user.email,
                     name: user.name,
-                    role: user.role,
+                    role,
                     status: user.status,
                     token
                 },
@@ -76,7 +93,7 @@ class AuthController {
             });
         }
 
-        const { email, password, name, roleId } = req.body;
+        const { email, password, name, role } = req.body;
         try {
             const userExists = await prisma.user.findUnique({ where: { email } });
 
@@ -96,7 +113,7 @@ class AuthController {
                     name,
                     email: email,
                     password: hashedPassword,
-                    roleId: roleId,
+                    roleId: role,
                     id: userId
                 }
             });

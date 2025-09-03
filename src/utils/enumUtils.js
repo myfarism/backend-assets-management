@@ -13,6 +13,15 @@ const mapStatusAset = (val) => {
     return mapping[val] || val.toLowerCase();
 };
 
+
+const mapKategoriAset = (val) => {
+    if (!val) return null;
+    const mapping = {
+        "Aset Fisik": "asetFisik",
+        "Aset Digital": "asetDigital",
+    };
+    return mapping[val] || val.toLowerCase();
+};
 /**
  * Mapping Kondisi Aset dari input user (string / label) ke enum Prisma
  */
@@ -32,7 +41,7 @@ const mapKondisiAset = (val) => {
 const mapHakMilik = (val) => {
     if (!val) return null;
     const mapping = {
-        "Pribadi": "pribadi",
+        "Guna Pakai": "gunaPakai",
         "Kantor": "kantor",
     };
     return mapping[val] || val.toLowerCase();
@@ -42,4 +51,5 @@ module.exports = {
     mapStatusAset,
     mapKondisiAset,
     mapHakMilik,
+    mapKategoriAset,
 };

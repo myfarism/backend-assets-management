@@ -78,30 +78,103 @@ class PerpindahanController {
 
     static async getDataPindah(req, res) {
         try {
-            // Hitung total data sesuai filter
-            const totalCount = await prisma.perpindahan.count();
+            let {
+                recent = 'desc',
+                thisWeek,
+                thisMonth,
+                search,
+                page = 1,
+                limit = 10
+            } = req.query;
 
-            // Ambil data perpindahan dengan filter & pagination
-            const perpindahanList = await prisma.perpindahan.findMany({
-                include: {
-                    aset: {
-                        include: {
-                            subKategoriAset: {
-                                select: {
-                                    nameSubAset: true
-                                }
-                            }
+            page = parseInt(page);
+            limit = parseInt(limit);
+
+            const where = {};
+
+            // 🔎 Filter search by merkDanTipe (aset) & lokasi (lokasi)
+            if (search) {
+                where.OR = [
+                    {
+                        aset: {
+                            is: { merkDanTipe: { contains: search, mode: 'insensitive' } }
                         }
                     },
-                    lokasi: true
+                    {
+                        lokasi: {
+                            is: { lokasi: { contains: search, mode: 'insensitive' } }
+                        }
+                    }
+                ];
+            }
+
+            // 📅 Filter minggu ini
+            if (thisWeek === "true") {
+                const now = new Date();
+                const firstDayOfWeek = new Date(now);
+                firstDayOfWeek.setDate(now.getDate() - now.getDay()); // Minggu
+                firstDayOfWeek.setHours(0, 0, 0, 0);
+
+                const lastDayOfWeek = new Date(firstDayOfWeek);
+                lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6);
+                lastDayOfWeek.setHours(23, 59, 59, 999);
+
+                where.createdAt = {
+                    gte: firstDayOfWeek,
+                    lte: lastDayOfWeek
+                };
+            }
+
+            // 📅 Filter bulan ini
+            if (thisMonth === "true") {
+                const now = new Date();
+                const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+                const lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+                lastDayOfMonth.setHours(23, 59, 59, 999);
+
+                where.createdAt = {
+                    gte: firstDayOfMonth,
+                    lte: lastDayOfMonth
+                };
+            }
+
+            // 🔢 Hitung total sesuai filter
+            const totalCount = await prisma.perpindahan.count({ where });
+
+            // 📥 Ambil data sesuai filter + pagination
+            const perpindahanList = await prisma.perpindahan.findMany({
+                where,
+                include: {
+                    aset: {
+                    select: {
+                        asetId: true,
+                        merkDanTipe: true,
+                        subKategoriAset: {
+                        select: {
+                            nameSubAset: true,
+                        },
+                        },
+                    },
+                    },
+                    lokasi: {
+                    select: {
+                        idLokasi: true,
+                        lokasi: true,
+                    },
+                    },
                 },
-                orderBy: { createdAt: 'desc' }
+                orderBy: { createdAt: recent.toLowerCase() === 'asc' ? 'asc' : 'desc' },
+                skip: (page - 1) * limit,
+                take: limit,
             });
 
             res.status(200).json({
                 success: true,
                 message: "Data perpindahan berhasil diambil",
                 totalData: totalCount,
+                currentPage: page,
+                totalPages: Math.ceil(totalCount / limit),
+                perPage: limit,
                 data: perpindahanList
             });
 

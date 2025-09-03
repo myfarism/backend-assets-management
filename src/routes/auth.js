@@ -2,28 +2,28 @@
 const express = require('express');
 const router = express.Router();
 const AuthController = require('../controller/authController');
-const { verifyToken, isAdmin } = require('../middleware/auth');
+const { verifyToken, isSuperAdmin,  } = require('../middleware/auth');
 
 
 // Register new user
-router.post('/register', verifyToken, isAdmin, AuthController.register);
+router.post('/register', verifyToken, isSuperAdmin, AuthController.register);
 
 // Login user
 router.post('/login', AuthController.login);
 
 // Logout user
-router.post('/logout', verifyToken, isAdmin, AuthController.logout);
+router.post('/logout', verifyToken, isSuperAdmin, AuthController.logout);
 
 // Update User
-router.put('/users/:id', verifyToken, isAdmin, AuthController.updateUser);
+router.put('/users/:id', verifyToken, isSuperAdmin, AuthController.updateUser);
 
 // Delete User
-router.delete('/users/:id', verifyToken, isAdmin, AuthController.deleteUser);
+router.delete('/users/:id', verifyToken, isSuperAdmin, AuthController.deleteUser);
 
 // Get ALl Users
-router.get('/users', verifyToken, isAdmin, AuthController.getAllUsers);
+router.get('/users', verifyToken, isSuperAdmin, AuthController.getAllUsers);
 
 // Get Detail User
-router.get('/users/:id', verifyToken, isAdmin, AuthController.getUserDetail);
+router.get('/users/:id', verifyToken, isSuperAdmin, AuthController.getUserDetail);
 
 module.exports = router;

@@ -82,7 +82,8 @@ model Pengadaan {
   pengadaanId  String       @id @default(uuid())
   tanggalBeli  DateTime
   lokasiId     String
-  kategoriAset AsetKategori
+  subKategoriAsetId String?
+  subKategoriAset   SubAsetKategori? @relation(fields: [subKategoriAsetId], references: [subAsetId])
   namaAset     String
   jumlahAset   Int
   hargaSatuan  BigInt
@@ -103,10 +104,13 @@ model Request {
   status        String
   vendor        String?
   unit          String?
-  langganan     Int
+  langganan     Int?
   durasi        String?
   idUser        String
   user          User     @relation(fields: [idUser], references: [id])
+
+  requestBy     String
+  approvedBy    String?
 }
 
 model Notifikasi {
@@ -119,6 +123,7 @@ model SubAsetKategori {
   createdAt   DateTime @default(now())
   asets       Aset[]   @relation("AsetToSubKategori")
   lokasi      Lokasi[] @relation("KategoriToLokasi")
+  pengadaan   Pengadaan[]
 }
 
 model UserRole {
@@ -153,7 +158,7 @@ enum AsetKategori {
 }
 
 enum HakMilik {
-  pribadi @map("Pribadi")
+  gunaPakai @map("Guna Pakai")
   kantor  @map("Kantor")
 }
 

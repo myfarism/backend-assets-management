@@ -181,7 +181,7 @@ exports.Prisma.PengadaanScalarFieldEnum = {
   pengadaanId: 'pengadaanId',
   tanggalBeli: 'tanggalBeli',
   lokasiId: 'lokasiId',
-  kategoriAset: 'kategoriAset',
+  subKategoriAsetId: 'subKategoriAsetId',
   namaAset: 'namaAset',
   jumlahAset: 'jumlahAset',
   hargaSatuan: 'hargaSatuan',
@@ -203,7 +203,9 @@ exports.Prisma.RequestScalarFieldEnum = {
   unit: 'unit',
   langganan: 'langganan',
   durasi: 'durasi',
-  idUser: 'idUser'
+  idUser: 'idUser',
+  requestBy: 'requestBy',
+  approvedBy: 'approvedBy'
 };
 
 exports.Prisma.NotifikasiScalarFieldEnum = {

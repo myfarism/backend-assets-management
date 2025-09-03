@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator");
 const prisma = require('../config/database');
 const { generatePengadaanId } = require('../config/token');
 const { getEnumValues, getLokasiList } = require('../utils/asetUtils');
+const { mapKategoriAset } = require("../utils/enumUtils");
 
 
 function convertBigInt(obj) {
@@ -26,25 +27,25 @@ class PengadaanController {
             const { 
                 tanggalBeli, 
                 lokasiId, 
-                kategoriAset, 
+                subKategoriAset, 
                 namaAset, 
                 jumlahAset, 
                 hargaSatuan, 
                 vendor 
             } = req.body;
 
-            const kategoriValid = await getEnumValues("SubAsetKategori");
+            //const kategoriValid = await getEnumValues("SubAsetKategori");
             const lokasiValid = await getLokasiList();
 
-            if (!kategoriValid.includes(kategoriAset)) {
-                return res.status(400).json({ success: false, message: "Kategori aset tidak valid" });
-            }
+            // if (!kategoriValid.includes(kategoriAset)) {
+            //     return res.status(400).json({ success: false, message: "Kategori aset tidak valid" });
+            // }
             if (!lokasiValid.some(l => l.idLokasi === String(lokasiId))) {
                 return res.status(400).json({ success: false, message: "Lokasi tidak ditemukan" });
             }
 
             const pengadaanId = generatePengadaanId();
-            const tanggalBeliFormatted = new Date(req.body.tanggalBeli);
+            const tanggalBeliFormatted = new Date(tanggalBeli);
             const totalHarga = parseInt(jumlahAset) * parseInt(hargaSatuan);
 
             const pengadaan = await prisma.pengadaan.create({
@@ -52,7 +53,7 @@ class PengadaanController {
                     pengadaanId,
                     tanggalBeli: tanggalBeliFormatted,
                     lokasiId,
-                    kategoriAset,
+                    subKategoriAsetId: subKategoriAset,
                     namaAset,
                     jumlahAset: parseInt(jumlahAset),
                     hargaSatuan,
@@ -90,7 +91,7 @@ class PengadaanController {
             const {
                 tanggalBeli,
                 lokasiId,
-                kategoriAset,
+                subKategoriAset,
                 namaAset,
                 jumlahAset,
                 hargaSatuan,
@@ -106,12 +107,7 @@ class PengadaanController {
                 });
             }
 
-            const kategoriValid = await getEnumValues("SubAsetKategori");
             const lokasiValid = await getLokasiList();
-
-            if (!kategoriValid.includes(kategoriAset || existingPengadaan.kategoriAset)) {
-                return res.status(400).json({ success: false, message: "Kategori aset tidak valid" });
-            }
 
             if (!lokasiValid.some(l => l.idLokasi === String(lokasiId || existingPengadaan.lokasiId))) {
                 return res.status(400).json({ success: false, message: "Lokasi tidak ditemukan" });
@@ -119,7 +115,7 @@ class PengadaanController {
 
             const dataUpdate = {
                 tanggalBeli: tanggalBeli || existingPengadaan.tanggalBeli,
-                kategoriAset: kategoriAset || existingPengadaan.kategoriAset,
+                subKategoriAsetId: subKategoriAset || existingPengadaan.subKategoriAsetId,
                 namaAset: namaAset || existingPengadaan.namaAset,
                 jumlahAset: jumlahAset || existingPengadaan.jumlahAset,
                 hargaSatuan: hargaSatuan || existingPengadaan.hargaSatuan,
@@ -228,7 +224,7 @@ class PengadaanController {
                     select: {
                         pengadaanId: true,
                         tanggalBeli: true,
-                        kategoriAset: true,
+                        //kategoriAset: true,
                         namaAset: true,
                         jumlahAset: true,
                         hargaSatuan: true,
@@ -239,6 +235,12 @@ class PengadaanController {
                             select: {
                                 idLokasi: true,
                                 lokasi: true
+                            }
+                        },
+                        subKategoriAset: {
+                            select: {
+                                subAsetId: true,
+                                nameSubAset: true
                             }
                         }
                     },
@@ -293,7 +295,7 @@ class PengadaanController {
                 select: {
                     pengadaanId: true,
                     tanggalBeli: true,
-                    kategoriAset: true,
+                    //kategoriAset: true,
                     namaAset: true,
                     jumlahAset: true,
                     hargaSatuan: true,
@@ -303,7 +305,13 @@ class PengadaanController {
                             idLokasi: true,
                             lokasi: true
                         }
-                    }
+                    },
+                    subKategoriAset: {
+                            select: {
+                                subAsetId: true,
+                                nameSubAset: true
+                            }
+                        }
                 }
             });
 
