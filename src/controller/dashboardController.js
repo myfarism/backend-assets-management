@@ -5,71 +5,65 @@ const { getEnumValues, getLokasiList } = require('../utils/asetUtils');
 class DashboardController {
     static async dashboard(req, res) {
         const errors = validationResult(req);
-        if (!errors.isEmpty) {
+        if (!errors.isEmpty()) {
             return res.status(400).json({
                 success: false,
                 error: errors.array()
             });
         }
+
         try {
-            // Query Data
-            const [asets, totalAsetsCount, statusCounts, kategoriValid, kategoriCounts] = await Promise.all([
-                prisma.aset.findMany({
-                    select: {
-                        asetId: true,
-                        lokasiId: true,
-                        kategoriAset: true,
-                        merkDanTipe: true,
-                        tahun: true,
-                        kondisiAset: true,
-                        statusAset: true,
-                        createdAt: true
-                    }
-                }),
+            // Query utama secara paralel
+            const [
+                totalAsetsCount,
+                totalRequestCount,
+                totalPengadaan,
+                statusCounts,
+                kondisiCounts
+            ] = await Promise.all([
                 prisma.aset.count(),
+                prisma.request.count(),
+                prisma.pengadaan.count(),
                 prisma.aset.groupBy({
                     by: ['statusAset'],
                     _count: { statusAset: true }
                 }),
-                getEnumValues("SubAsetKategori"),
                 prisma.aset.groupBy({
-                    by: ['kategoriAset'],
-                    _count: { kategoriAset: true }
-                })
+                    by: ['kondisiAset'],
+                    _count: { kondisiAset: true }
+                }),
             ]);
 
-            const totalPengadaan = await prisma.pengadaan.count();
-
+            // Buat summary berdasarkan hasil query
             const summary = {
                 totalAset: totalAsetsCount,
-                totalKategori: kategoriValid.length,
-                totalStatusAktif: statusCounts.find(r => r.statusAset === 'aktif')?._count.statusAset || 0,
-                totalStatusNonaktif: statusCounts.find(r => r.statusAset === 'nonaktif')?._count.statusAset || 0,
-                totalStatusMaintenance: statusCounts.find(r => r.statusAset === 'maintenance')?._count.statusAset || 0,
-                totalPengadaan
-            };
+                totalRequest: totalRequestCount,
+                totalPengadaan: totalPengadaan,
 
-            const kategoriSummary = {};
-            kategoriValid.forEach(k => {
-                kategoriSummary[k] = kategoriCounts.find(r => r.kategoriAset === k)?._count.kategoriAset || 0;
-            });
+                statusAktif: statusCounts.find(r => r.statusAset === 'aktif')?._count.statusAset || 0,
+                statusNonaktif: statusCounts.find(r => r.statusAset === 'nonaktif')?._count.statusAset || 0,
+                statusMaintenance: statusCounts.find(r => r.statusAset === 'maintenance')?._count.statusAset || 0,
+
+                kondisiBaik: kondisiCounts.find(r => r.kondisiAset === 'baik')?._count.kondisiAset || 0,
+                kondisiNormal: kondisiCounts.find(r => r.kondisiAset === 'normal')?._count.kondisiAset || 0,
+                kondisiBuruk: kondisiCounts.find(r => r.kondisiAset === 'buruk')?._count.kondisiAset || 0,
+            };
 
             return res.status(200).json({
                 success: true,
                 message: 'Data dashboard berhasil diambil',
-                //data: asets,
-                summary,
-                kategoriSummary
+                summary
             });
 
         } catch (error) {
-            console.error('Error saat mengambil daftar aset: ', error);
+            console.error('Error saat mengambil data dashboard: ', error);
             return res.status(500).json({
                 success: false,
-                message: 'Gagal mengambil daftar aset: ' + error.message
+                message: 'Gagal mengambil data dashboard: ' + error.message
             });
         }
     }
+
 }
 
 module.exports = DashboardController;

@@ -5,7 +5,7 @@ const { generateAsetId } = require('../config/token');
 const { getEnumValues, getLokasiList } = require('../utils/asetUtils');
 const fs = require('fs');
 const path = require('path');
-const { mapStatusAset, mapKondisiAset, mapHakMilik } = require('../utils/enumUtils');
+const { mapStatusAset, mapKondisiAset, mapHakMilik, mapStatusAsetView } = require('../utils/enumUtils');
 const nodeCanvas = require("canvas");
 const QRCodeStyling = require('qr-code-styling');
 const { JSDOM } = require("jsdom");
@@ -75,7 +75,7 @@ class AsetController {
                 statusKepemilikan,
                 pic
             } = req.body;
-            console.log(req.body);
+            // console.log(req.body);
 
             // Ambil data valid dari helper
             const kategoriValid = await prisma.subAsetKategori.findMany({
@@ -111,9 +111,9 @@ class AsetController {
                 if (!lokasiValid.some(l => l.idLokasi === String(lokasiId))) {
                     return res.status(400).json({ success: false, message: "Lokasi tidak ditemukan" });
                 }
-                if (!hakValid.includes(statusKepemilikan)) {
-                    return res.status(400).json({ success: false, message: "Hak Kepemilikan tidak valid" });
-                }
+                // if (!hakValid.includes(statusKepemilikan)) {
+                //     return res.status(400).json({ success: false, message: "Hak Kepemilikan tidak valid" });
+                // }
 
                 if (statusKepemilikan === 'pribadi' && !pic) {
                     return res.status(400).json({ success: false, message: "Hak Kepemilikan pribadi PIC tidak boleh kosong" });
@@ -156,11 +156,11 @@ class AsetController {
                     data: JSON.stringify(qrDataObj, null, 2), // Data Anda diubah menjadi string JSON
                     image: fs.readFileSync(logoPath), // Buffer dari file logo Anda
                     dotsOptions: {
-                        color: "#4267b2", // Warna titik QR Code
+                        color: "#163551", // Warna titik QR Code
                         type: "rounded"   // Bentuk titik (rounded, dots, classy, square)
                     },
                     backgroundOptions: {
-                        color: "#ffffff", // Warna latar belakang
+                        color: "#ffffffff", // Warna latar belakang
                     },
                     imageOptions: {
                         imageSize: 0.2, // Ukuran logo (20% dari ukuran QR Code)
@@ -213,7 +213,7 @@ class AsetController {
                         statusAset: mapStatusAset(statusAset),
                         nomorSeri,
                         masaBerlaku: masaBerlaku ? new Date(masaBerlaku) : null,
-                        statusKepemilikan: mapHakMilik(statusKepemilikan),
+                        statusKepemilikan,
                         urlFoto,
                         urlQR,
                         pic
@@ -592,7 +592,7 @@ class AsetController {
             }
 
             // Query Data
-            const [asets, totalAsetsCount, statusCounts, subKategoriValid] = await Promise.all([
+            const [asets, totalFilteredAsetsCount, totalAsetsCount, statusCounts, subKategoriValid] = await Promise.all([
                 prisma.aset.findMany({
                     where,
                     skip,
@@ -606,21 +606,22 @@ class AsetController {
                         kondisiAset: true,
                         statusAset: true,
                         createdAt: true,
-                        lokasi: { 
-                            select: { 
-                                idLokasi: true, 
-                                lokasi: true 
-                            } 
+                        lokasi: {
+                            select: {
+                                idLokasi: true,
+                                lokasi: true
+                            }
                         },
                         subKategoriAset: {
                             select: {
                                 subAsetId: true,
                                 nameSubAset: true
                             }
-                        },
+                        }
                     }
                 }),
-                prisma.aset.count(),
+                prisma.aset.count({ where }),     
+                prisma.aset.count(),              
                 prisma.aset.groupBy({
                     by: ['statusAset'],
                     _count: { statusAset: true }
@@ -631,10 +632,10 @@ class AsetController {
                         nameSubAset: true
                     }
                 }),
-            ]); 
+            ]);
 
             const summary = {
-                totalAset: totalAsetsCount,
+                totalAset: totalAsetsCount, 
                 totalKategori: subKategoriValid.length,
                 totalStatusAktif: statusCounts.find(r => r.statusAset === 'aktif')?._count.statusAset || 0,
                 totalStatusNonaktif: statusCounts.find(r => r.statusAset === 'nonaktif')?._count.statusAset || 0,
@@ -646,8 +647,8 @@ class AsetController {
                 message: 'Daftar aset berhasil diambil',
                 data: asets,
                 pagination: {
-                    totalItems: totalAsetsCount,
-                    totalPages: Math.ceil(totalAsetsCount / limit),
+                    totalItems: totalFilteredAsetsCount,  
+                    totalPages: Math.ceil(totalFilteredAsetsCount / limit),
                     currentPage: page,
                     pageSize: limit
                 },
@@ -705,6 +706,8 @@ class AsetController {
                     urlFoto: true
                 }
             });
+
+            aset.statusAset = mapStatusAsetView(aset.statusAset);
 
             if (!aset) {
                 return res.status(404).json({

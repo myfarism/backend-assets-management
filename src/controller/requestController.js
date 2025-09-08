@@ -97,8 +97,17 @@ class RequestController {
     static async getRequestsUser(req, res) {
         try {
             const { idUser } = req.params;
+            const currentUserId = req.user.id;
+
+            if (idUser !== currentUserId) {
+                return res.status(403).json({
+                    success: false,
+                    message: 'Akses ditolak: Anda tidak berhak mengakses data ini.'
+                });
+            }
 
             const data = await prisma.request.findMany({
+                where: { idUser },
                 include: {
                     user: {
                         select: {

@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const RequestController = require('../controller/requestController');
-const { verifyToken, isAdmin } = require('../middleware/auth');
+const { verifyToken, isSuperAdmin, isAdmin, isUser } = require('../middleware/auth');
 
 
 // Create Request
 
-router.post('/', verifyToken, isAdmin, RequestController.addRequest);
-router.get('/', verifyToken, isAdmin, RequestController.getAllRequests);
-router.get('/:idUser', verifyToken, RequestController.getRequestsUser);
+router.post('/', verifyToken, (isSuperAdmin || isAdmin || isUser), RequestController.addRequest);
+router.get('/', verifyToken, (isSuperAdmin || isAdmin), RequestController.getAllRequests);
+router.get('/:idUser', verifyToken, (isSuperAdmin || isAdmin || isUser), RequestController.getRequestsUser);
+router.get('/detail/:id', verifyToken, (isSuperAdmin || isAdmin || isUser), RequestController.getRequestById);
+
 
 module.exports = router;

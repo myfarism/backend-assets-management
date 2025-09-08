@@ -36,6 +36,8 @@ model Aset {
   createdAt         DateTime         @default(now())
   pic               String?
   kategoriAset      AsetKategori
+  unit              String?
+  jumlah            String?
   subKategoriAsetId String?
   lokasi            Lokasi?          @relation(fields: [lokasiId], references: [idLokasi])
   subKategoriAset   SubAsetKategori? @relation("AsetToSubKategori", fields: [subKategoriAsetId], references: [subAsetId])

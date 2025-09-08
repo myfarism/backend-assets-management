@@ -54,7 +54,7 @@ const isSuperAdmin = (req, res, next) => {
 };
 
 const isAdmin = (req, res, next) => {
-    if (req.user && req.user.roleId === '1') {
+    if (req.user && req.user.roleId === '2') {
         next(); // Lanjut ke controller
     } else {
         return res.status(403).json({ 
@@ -81,7 +81,7 @@ const isUser = (req, res, next) => {
     } else {
         return res.status(403).json({ 
             success: false, 
-            message: 'Akses ditolak. Hanya maintenance yang diperbolehkan.' 
+            message: 'Akses ditolak. Hanya user yang diperbolehkan.' 
         });
     }
 };

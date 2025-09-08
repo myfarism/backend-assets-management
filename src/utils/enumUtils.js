@@ -47,9 +47,25 @@ const mapHakMilik = (val) => {
     return mapping[val] || val.toLowerCase();
 };
 
+
+const mapStatusAsetView = (val) => {
+    if (!val) return null;
+
+    const cleanVal = val.trim().toLowerCase();
+
+    const mapping = {
+        "aktif": "Aktif",
+        "nonaktif": "Non Aktif",
+        "maintenance": "Maintenance",
+    };
+
+    return mapping[cleanVal] || val;
+}; 
+
 module.exports = {
     mapStatusAset,
     mapKondisiAset,
     mapHakMilik,
     mapKategoriAset,
+    mapStatusAsetView
 };

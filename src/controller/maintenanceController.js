@@ -23,6 +23,21 @@ class MaintenanceController {
                 });
             }
 
+            const existingMaintenance = await prisma.maintenance.findFirst({
+                where: {
+                    idAset: asetId,
+                    statusMaintenance: 'onprocess'
+                }
+            });
+
+            if (existingMaintenance) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Aset ini sedang dalam maintenance dan belum selesai'
+                });
+            }
+
+
             if(!tanggalMulai || !perkiraanSelesai) {
                 return res.status(400).json({
                     success: false,
@@ -90,6 +105,13 @@ class MaintenanceController {
                 }
             });
 
+            if (!maintain) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'Maintenance tidak ditemukan!'
+                });
+            }
+
             const asetId = maintain.aset.asetId;
 
             if(!maintain) {
@@ -148,12 +170,11 @@ class MaintenanceController {
                     perkiraanSelesai: true,
                     tanggalSelesai: true,
                     statusMaintenance: true
-                }
+                },
+                orderBy: { createdAt: 'desc' }
             });
 
             const totalStatusMaintenance = maintenance.length;
-            console.log(totalStatusMaintenance);
-
             const statusDone = await prisma.maintenance.findMany({ where: {statusMaintenance: 'done' } });
             const statusOnProcess = await prisma.maintenance.findMany({ where: {statusMaintenance: 'onprocess' } });
 
