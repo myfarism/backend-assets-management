@@ -192,6 +192,7 @@ exports.Prisma.PengadaanScalarFieldEnum = {
   hargaSatuan: 'hargaSatuan',
   totalHarga: 'totalHarga',
   vendor: 'vendor',
+  masaBerlaku: 'masaBerlaku',
   createdAt: 'createdAt'
 };
 

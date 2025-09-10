@@ -33,6 +33,7 @@ class PengadaanController {
                 namaAset, 
                 jumlahAset, 
                 hargaSatuan, 
+                masaBerlaku,
                 vendor 
             } = req.body;
 
@@ -60,6 +61,7 @@ class PengadaanController {
                     namaAset,
                     jumlahAset: parseInt(jumlahAset),
                     unit,
+                    masaBerlaku: masaBerlaku ? new Date(masaBerlaku) : null,
                     hargaSatuan,
                     totalHarga,
                     vendor
@@ -228,13 +230,15 @@ class PengadaanController {
                     select: {
                         pengadaanId: true,
                         tanggalBeli: true,
-                        //kategoriAset: true,
+                        kategoriAset: true, 
                         namaAset: true,
                         jumlahAset: true,
                         hargaSatuan: true,
                         totalHarga: true,
+                        unit: true,
                         vendor: true,
                         createdAt: true,
+                        masaBerlaku: true,
                         lokasi: {
                             select: {
                                 idLokasi: true,
@@ -299,11 +303,13 @@ class PengadaanController {
                 select: {
                     pengadaanId: true,
                     tanggalBeli: true,
-                    //kategoriAset: true,
+                    kategoriAset: true,
                     namaAset: true,
                     jumlahAset: true,
                     hargaSatuan: true,
+                    unit: true,
                     vendor: true,
+                    masaBerlaku: true,
                     lokasi: {
                         select: {
                             idLokasi: true,

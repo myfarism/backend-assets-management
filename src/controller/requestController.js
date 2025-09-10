@@ -96,28 +96,52 @@ class RequestController {
                 ];
             }
 
-            const data = await prisma.request.findMany({
-                where,
-                skip,
-                take: limit,
-                orderBy: { createdAt: recent.toLowerCase() === 'asc' ? 'asc' : 'desc' },
-                include: {
-                    user: {
-                        select: {
-                        id: true,
-                        name: true,
-                        email: true,
-                        roleId: true
+            const [data, totalFilteredRequest, totalRequestUser, statusCounts] = await Promise.all([
+                prisma.request.findMany({
+                    where,
+                    skip,
+                    take: limit,
+                    orderBy: { createdAt: recent.toLowerCase() === 'asc' ? 'asc' : 'desc' },
+                    include: {
+                        user: {
+                            select: {
+                            id: true,
+                            name: true,
+                            email: true,
+                            roleId: true
+                            }
                         }
-                    }
-                },
-            });
+                    },
+                }),
+                prisma.request.count({ where }),
+                prisma.request.count(),
+                prisma.request.groupBy({
+                    by: ['status'],
+                    _count: { status: true}
+                })
+            ]);
+
+            // console.log(data);
+
+            const summary = {
+                totalRequest: totalRequestUser,
+                totalStatusApproved: statusCounts.find(r => r.status === 'approved')?._count.status || 0,
+                totalStatusRejected: statusCounts.find(r => r.status === 'rejected')?._count.status || 0,
+                totalStatusPending: statusCounts.find(r => r.status === 'pending')?._count.status || 0
+            };
 
             // console.log(data);
 
             res.status(200).json(convertBigInt({
                 success: true,
-                data
+                data: data,
+                pagination: {
+                    totalItems: totalFilteredRequest,
+                    totalPages: Math.ceil(totalFilteredRequest / limit),
+                    currentPage: page,
+                    pageSize: limit
+                },
+                summary
             }));
         } catch (error) {
             console.error('Get All Request error: ', error);
@@ -175,28 +199,50 @@ class RequestController {
                 ];
             }            
 
-            const data = await prisma.request.findMany({
-                where,
-                skip,
-                take: limit,
-                orderBy: { createdAt: recent.toLowerCase() === 'asc' ? 'asc' : 'desc' },
-                include: {
-                    user: {
-                        select: {
-                        id: true,
-                        name: true,
-                        email: true,
-                        roleId: true
+            const [data, totalRequestUser, statusCounts] = await Promise.all([
+                prisma.request.findMany({
+                    where,
+                    skip,
+                    take: limit,
+                    orderBy: { createdAt: recent.toLowerCase() === 'asc' ? 'asc' : 'desc' },
+                    include: {
+                        user: {
+                            select: {
+                            id: true,
+                            name: true,
+                            email: true,
+                            roleId: true
+                            }
                         }
-                    }
-                },
-            });
+                    },
+                }),
+                prisma.request.count({ where }),
+                prisma.request.groupBy({
+                    where,
+                    by: ['status'],
+                    _count: { status: true}
+                })
+            ]);
 
             // console.log(data);
 
+            const summary = {
+                totalRequest: totalRequestUser,
+                totalStatusApproved: statusCounts.find(r => r.status === 'approved')?._count.status || 0,
+                totalStatusRejected: statusCounts.find(r => r.status === 'rejected')?._count.status || 0,
+                totalStatusPending: statusCounts.find(r => r.status === 'pending')?._count.status || 0
+            };
+
             res.status(200).json(convertBigInt({
                 success: true,
-                data
+                data: data,
+                pagination: {
+                    totalItems: totalRequestUser,
+                    totalPages: Math.ceil(totalRequestUser / limit),
+                    currentPage: page,
+                    pageSize: limit
+                },
+                summary
             }));
         } catch (error) {
             console.error('Get All Request error: ', error);
@@ -224,10 +270,10 @@ class RequestController {
                 });
             }
 
-            res.status(200).json({
+            res.status(200).json(convertBigInt({
                 success: true,
                 data
-            });
+            }));
         } catch (error) {
             console.error('Get Request By Id error: ', error);
             res.status(500).json({
@@ -241,11 +287,13 @@ class RequestController {
     static async approveRequest(req, res) {
         try {
             const { id } = req.params;
-            const { approveBy } = req.body;
+            const { approvedBy } = req.body;
 
             const existing = await prisma.request.findUnique({
                 where: { requestId: id }
             });
+
+            console.log(existing.status);
 
             if (!existing) {
                 return res.status(404).json({
@@ -254,19 +302,26 @@ class RequestController {
                 });
             }
 
+            if (existing.status === 'approved' || existing.status === 'rejected') {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Request sudah diapprove atau direject'
+                });
+            }
+
             const data = await prisma.request.update({
                 where: { requestId: id },
                 data: {
                     status: "approved",
-                    approveBy
+                    approvedBy
                 }
             });
 
-            res.status(200).json({
+            res.status(200).json(convertBigInt({
                 success: true,
                 message: 'Request berhasil disetujui',
                 data
-            });
+            }));
         } catch (error) {
             console.error('Approve Request error: ', error);
             res.status(500).json({
@@ -276,10 +331,10 @@ class RequestController {
         }
     }
 
-    // DELETE Request
-    static async deleteRequest(req, res) {
+    static async rejectRequest(req, res) {
         try {
             const { id } = req.params;
+            const { approvedBy } = req.body;
 
             const existing = await prisma.request.findUnique({
                 where: { requestId: id }
@@ -292,22 +347,67 @@ class RequestController {
                 });
             }
 
-            await prisma.request.delete({
-                where: { requestId: id }
+            if (existing.status === 'approved' || existing.status === 'rejected') {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Request sudah diapprove atau direject'
+                });
+            }
+
+            const data = await prisma.request.update({
+                where: { requestId: id },
+                data: {
+                    status: "rejected",
+                    approvedBy
+                }
             });
 
-            res.status(200).json({
+            res.status(200).json(convertBigInt({
                 success: true,
-                message: 'Request berhasil dihapus'
-            });
+                message: 'Request telah direjcet',
+                data
+            }));
         } catch (error) {
-            console.error('Delete Request error: ', error);
+            console.error('Reject Request error: ', error);
             res.status(500).json({
                 success: false,
-                message: 'Gagal menghapus request: ' + error.message
+                message: 'Error reject request: ' + error.message
             });
         }
     }
+
+    // DELETE Request
+    // static async deleteRequest(req, res) {
+    //     try {
+    //         const { id } = req.params;
+
+    //         const existing = await prisma.request.findUnique({
+    //             where: { requestId: id }
+    //         });
+
+    //         if (!existing) {
+    //             return res.status(404).json({
+    //                 success: false,
+    //                 message: 'Request tidak ditemukan'
+    //             });
+    //         }
+
+    //         await prisma.request.delete({
+    //             where: { requestId: id }
+    //         });
+
+    //         res.status(200).json({
+    //             success: true,
+    //             message: 'Request berhasil dihapus'
+    //         });
+    //     } catch (error) {
+    //         console.error('Delete Request error: ', error);
+    //         res.status(500).json({
+    //             success: false,
+    //             message: 'Gagal menghapus request: ' + error.message
+    //         });
+    //     }
+    // }
 }
 
 module.exports = RequestController;

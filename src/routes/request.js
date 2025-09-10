@@ -10,6 +10,8 @@ router.post('/', verifyToken, allowRoles('1', '2', '4'), RequestController.addRe
 router.get('/', verifyToken, allowRoles('1', '2', '4'), RequestController.getAllRequests);
 router.get('/user/:idUser', verifyToken, allowRoles('4'), RequestController.getRequestsUser);
 router.get('/detail/:id', verifyToken, allowRoles('1', '2', '4'), RequestController.getRequestById);
+router.post('/action/approved/:id', verifyToken, allowRoles('1', '2'), RequestController.approveRequest);
+router.post('/action/rejected/:id', verifyToken, allowRoles('1', '2'), RequestController.rejectRequest);
 
 
 

@@ -95,6 +95,7 @@ model Pengadaan {
   hargaSatuan  BigInt
   totalHarga   BigInt
   vendor       String
+  masaBerlaku  DateTime?
   createdAt    DateTime     @default(now())
   lokasi       Lokasi       @relation(fields: [lokasiId], references: [idLokasi])
 }

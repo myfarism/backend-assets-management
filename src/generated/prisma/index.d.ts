@@ -7976,6 +7976,7 @@ export namespace Prisma {
     hargaSatuan: bigint | null
     totalHarga: bigint | null
     vendor: string | null
+    masaBerlaku: Date | null
     createdAt: Date | null
   }
 
@@ -7991,6 +7992,7 @@ export namespace Prisma {
     hargaSatuan: bigint | null
     totalHarga: bigint | null
     vendor: string | null
+    masaBerlaku: Date | null
     createdAt: Date | null
   }
 
@@ -8006,6 +8008,7 @@ export namespace Prisma {
     hargaSatuan: number
     totalHarga: number
     vendor: number
+    masaBerlaku: number
     createdAt: number
     _all: number
   }
@@ -8035,6 +8038,7 @@ export namespace Prisma {
     hargaSatuan?: true
     totalHarga?: true
     vendor?: true
+    masaBerlaku?: true
     createdAt?: true
   }
 
@@ -8050,6 +8054,7 @@ export namespace Prisma {
     hargaSatuan?: true
     totalHarga?: true
     vendor?: true
+    masaBerlaku?: true
     createdAt?: true
   }
 
@@ -8065,6 +8070,7 @@ export namespace Prisma {
     hargaSatuan?: true
     totalHarga?: true
     vendor?: true
+    masaBerlaku?: true
     createdAt?: true
     _all?: true
   }
@@ -8167,6 +8173,7 @@ export namespace Prisma {
     hargaSatuan: bigint
     totalHarga: bigint
     vendor: string
+    masaBerlaku: Date | null
     createdAt: Date
     _count: PengadaanCountAggregateOutputType | null
     _avg: PengadaanAvgAggregateOutputType | null
@@ -8201,6 +8208,7 @@ export namespace Prisma {
     hargaSatuan?: boolean
     totalHarga?: boolean
     vendor?: boolean
+    masaBerlaku?: boolean
     createdAt?: boolean
     subKategoriAset?: boolean | Pengadaan$subKategoriAsetArgs<ExtArgs>
     lokasi?: boolean | LokasiDefaultArgs<ExtArgs>
@@ -8218,6 +8226,7 @@ export namespace Prisma {
     hargaSatuan?: boolean
     totalHarga?: boolean
     vendor?: boolean
+    masaBerlaku?: boolean
     createdAt?: boolean
     subKategoriAset?: boolean | Pengadaan$subKategoriAsetArgs<ExtArgs>
     lokasi?: boolean | LokasiDefaultArgs<ExtArgs>
@@ -8235,6 +8244,7 @@ export namespace Prisma {
     hargaSatuan?: boolean
     totalHarga?: boolean
     vendor?: boolean
+    masaBerlaku?: boolean
     createdAt?: boolean
     subKategoriAset?: boolean | Pengadaan$subKategoriAsetArgs<ExtArgs>
     lokasi?: boolean | LokasiDefaultArgs<ExtArgs>
@@ -8252,10 +8262,11 @@ export namespace Prisma {
     hargaSatuan?: boolean
     totalHarga?: boolean
     vendor?: boolean
+    masaBerlaku?: boolean
     createdAt?: boolean
   }
 
-  export type PengadaanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"pengadaanId" | "tanggalBeli" | "lokasiId" | "kategoriAset" | "subKategoriAsetId" | "namaAset" | "jumlahAset" | "unit" | "hargaSatuan" | "totalHarga" | "vendor" | "createdAt", ExtArgs["result"]["pengadaan"]>
+  export type PengadaanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"pengadaanId" | "tanggalBeli" | "lokasiId" | "kategoriAset" | "subKategoriAsetId" | "namaAset" | "jumlahAset" | "unit" | "hargaSatuan" | "totalHarga" | "vendor" | "masaBerlaku" | "createdAt", ExtArgs["result"]["pengadaan"]>
   export type PengadaanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     subKategoriAset?: boolean | Pengadaan$subKategoriAsetArgs<ExtArgs>
     lokasi?: boolean | LokasiDefaultArgs<ExtArgs>
@@ -8287,6 +8298,7 @@ export namespace Prisma {
       hargaSatuan: bigint
       totalHarga: bigint
       vendor: string
+      masaBerlaku: Date | null
       createdAt: Date
     }, ExtArgs["result"]["pengadaan"]>
     composites: {}
@@ -8724,6 +8736,7 @@ export namespace Prisma {
     readonly hargaSatuan: FieldRef<"Pengadaan", 'BigInt'>
     readonly totalHarga: FieldRef<"Pengadaan", 'BigInt'>
     readonly vendor: FieldRef<"Pengadaan", 'String'>
+    readonly masaBerlaku: FieldRef<"Pengadaan", 'DateTime'>
     readonly createdAt: FieldRef<"Pengadaan", 'DateTime'>
   }
     
@@ -14724,6 +14737,7 @@ export namespace Prisma {
     hargaSatuan: 'hargaSatuan',
     totalHarga: 'totalHarga',
     vendor: 'vendor',
+    masaBerlaku: 'masaBerlaku',
     createdAt: 'createdAt'
   };
 
@@ -15380,6 +15394,7 @@ export namespace Prisma {
     hargaSatuan?: BigIntFilter<"Pengadaan"> | bigint | number
     totalHarga?: BigIntFilter<"Pengadaan"> | bigint | number
     vendor?: StringFilter<"Pengadaan"> | string
+    masaBerlaku?: DateTimeNullableFilter<"Pengadaan"> | Date | string | null
     createdAt?: DateTimeFilter<"Pengadaan"> | Date | string
     subKategoriAset?: XOR<SubAsetKategoriNullableScalarRelationFilter, SubAsetKategoriWhereInput> | null
     lokasi?: XOR<LokasiScalarRelationFilter, LokasiWhereInput>
@@ -15397,6 +15412,7 @@ export namespace Prisma {
     hargaSatuan?: SortOrder
     totalHarga?: SortOrder
     vendor?: SortOrder
+    masaBerlaku?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     subKategoriAset?: SubAsetKategoriOrderByWithRelationInput
     lokasi?: LokasiOrderByWithRelationInput
@@ -15417,6 +15433,7 @@ export namespace Prisma {
     hargaSatuan?: BigIntFilter<"Pengadaan"> | bigint | number
     totalHarga?: BigIntFilter<"Pengadaan"> | bigint | number
     vendor?: StringFilter<"Pengadaan"> | string
+    masaBerlaku?: DateTimeNullableFilter<"Pengadaan"> | Date | string | null
     createdAt?: DateTimeFilter<"Pengadaan"> | Date | string
     subKategoriAset?: XOR<SubAsetKategoriNullableScalarRelationFilter, SubAsetKategoriWhereInput> | null
     lokasi?: XOR<LokasiScalarRelationFilter, LokasiWhereInput>
@@ -15434,6 +15451,7 @@ export namespace Prisma {
     hargaSatuan?: SortOrder
     totalHarga?: SortOrder
     vendor?: SortOrder
+    masaBerlaku?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: PengadaanCountOrderByAggregateInput
     _avg?: PengadaanAvgOrderByAggregateInput
@@ -15457,6 +15475,7 @@ export namespace Prisma {
     hargaSatuan?: BigIntWithAggregatesFilter<"Pengadaan"> | bigint | number
     totalHarga?: BigIntWithAggregatesFilter<"Pengadaan"> | bigint | number
     vendor?: StringWithAggregatesFilter<"Pengadaan"> | string
+    masaBerlaku?: DateTimeNullableWithAggregatesFilter<"Pengadaan"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Pengadaan"> | Date | string
   }
 
@@ -16220,6 +16239,7 @@ export namespace Prisma {
     hargaSatuan: bigint | number
     totalHarga: bigint | number
     vendor: string
+    masaBerlaku?: Date | string | null
     createdAt?: Date | string
     subKategoriAset?: SubAsetKategoriCreateNestedOneWithoutPengadaanInput
     lokasi: LokasiCreateNestedOneWithoutPengadaanInput
@@ -16237,6 +16257,7 @@ export namespace Prisma {
     hargaSatuan: bigint | number
     totalHarga: bigint | number
     vendor: string
+    masaBerlaku?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -16250,6 +16271,7 @@ export namespace Prisma {
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
     totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
     vendor?: StringFieldUpdateOperationsInput | string
+    masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subKategoriAset?: SubAsetKategoriUpdateOneWithoutPengadaanNestedInput
     lokasi?: LokasiUpdateOneRequiredWithoutPengadaanNestedInput
@@ -16267,6 +16289,7 @@ export namespace Prisma {
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
     totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
     vendor?: StringFieldUpdateOperationsInput | string
+    masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -16282,6 +16305,7 @@ export namespace Prisma {
     hargaSatuan: bigint | number
     totalHarga: bigint | number
     vendor: string
+    masaBerlaku?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -16295,6 +16319,7 @@ export namespace Prisma {
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
     totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
     vendor?: StringFieldUpdateOperationsInput | string
+    masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -16310,6 +16335,7 @@ export namespace Prisma {
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
     totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
     vendor?: StringFieldUpdateOperationsInput | string
+    masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -17209,6 +17235,7 @@ export namespace Prisma {
     hargaSatuan?: SortOrder
     totalHarga?: SortOrder
     vendor?: SortOrder
+    masaBerlaku?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -17230,6 +17257,7 @@ export namespace Prisma {
     hargaSatuan?: SortOrder
     totalHarga?: SortOrder
     vendor?: SortOrder
+    masaBerlaku?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -17245,6 +17273,7 @@ export namespace Prisma {
     hargaSatuan?: SortOrder
     totalHarga?: SortOrder
     vendor?: SortOrder
+    masaBerlaku?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -19037,6 +19066,7 @@ export namespace Prisma {
     hargaSatuan: bigint | number
     totalHarga: bigint | number
     vendor: string
+    masaBerlaku?: Date | string | null
     createdAt?: Date | string
     subKategoriAset?: SubAsetKategoriCreateNestedOneWithoutPengadaanInput
   }
@@ -19052,6 +19082,7 @@ export namespace Prisma {
     hargaSatuan: bigint | number
     totalHarga: bigint | number
     vendor: string
+    masaBerlaku?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -19185,6 +19216,7 @@ export namespace Prisma {
     hargaSatuan?: BigIntFilter<"Pengadaan"> | bigint | number
     totalHarga?: BigIntFilter<"Pengadaan"> | bigint | number
     vendor?: StringFilter<"Pengadaan"> | string
+    masaBerlaku?: DateTimeNullableFilter<"Pengadaan"> | Date | string | null
     createdAt?: DateTimeFilter<"Pengadaan"> | Date | string
   }
 
@@ -19648,6 +19680,7 @@ export namespace Prisma {
     hargaSatuan: bigint | number
     totalHarga: bigint | number
     vendor: string
+    masaBerlaku?: Date | string | null
     createdAt?: Date | string
     lokasi: LokasiCreateNestedOneWithoutPengadaanInput
   }
@@ -19663,6 +19696,7 @@ export namespace Prisma {
     hargaSatuan: bigint | number
     totalHarga: bigint | number
     vendor: string
+    masaBerlaku?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -20115,6 +20149,7 @@ export namespace Prisma {
     hargaSatuan: bigint | number
     totalHarga: bigint | number
     vendor: string
+    masaBerlaku?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -20203,6 +20238,7 @@ export namespace Prisma {
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
     totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
     vendor?: StringFieldUpdateOperationsInput | string
+    masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     subKategoriAset?: SubAsetKategoriUpdateOneWithoutPengadaanNestedInput
   }
@@ -20218,6 +20254,7 @@ export namespace Prisma {
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
     totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
     vendor?: StringFieldUpdateOperationsInput | string
+    masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -20232,6 +20269,7 @@ export namespace Prisma {
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
     totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
     vendor?: StringFieldUpdateOperationsInput | string
+    masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -20315,6 +20353,7 @@ export namespace Prisma {
     hargaSatuan: bigint | number
     totalHarga: bigint | number
     vendor: string
+    masaBerlaku?: Date | string | null
     createdAt?: Date | string
   }
 
@@ -20421,6 +20460,7 @@ export namespace Prisma {
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
     totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
     vendor?: StringFieldUpdateOperationsInput | string
+    masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lokasi?: LokasiUpdateOneRequiredWithoutPengadaanNestedInput
   }
@@ -20436,6 +20476,7 @@ export namespace Prisma {
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
     totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
     vendor?: StringFieldUpdateOperationsInput | string
+    masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -20450,6 +20491,7 @@ export namespace Prisma {
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
     totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
     vendor?: StringFieldUpdateOperationsInput | string
+    masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
