@@ -10,6 +10,14 @@ const nodeCanvas = require("canvas");
 const QRCodeStyling = require('qr-code-styling');
 const { JSDOM } = require("jsdom");
 
+function convertBigInt(obj) {
+    return JSON.parse(JSON.stringify(obj, (_, value) =>
+        typeof value === 'bigint'
+            ? Number(value) // atau value.toString()
+            : value
+    ));
+}
+
 class AsetController {
     static async getViewAddAsset(req, res) {
         try {
@@ -48,6 +56,7 @@ class AsetController {
     }
 
     static async addAsset(req, res) {
+        console.log('Menambahkan aset');
         const uploadBasePath = path.resolve(process.cwd(), "public", "uploads");
         if (!fs.existsSync(uploadBasePath)) {
             fs.mkdirSync(uploadBasePath, { recursive: true });
@@ -73,9 +82,12 @@ class AsetController {
                 nomorSeri,
                 masaBerlaku,
                 statusKepemilikan,
-                pic
+                pic,
+                unit, 
+                jumlah,
+                addedBy
             } = req.body;
-            // console.log(req.body);
+            console.log(req.body);
 
             // Ambil data valid dari helper
             const kategoriValid = await prisma.subAsetKategori.findMany({
@@ -92,6 +104,8 @@ class AsetController {
 
             // Generate ID unik
             const asetId = generateAsetId(kategoriAset);
+
+            const total = parseInt(jumlah);
 
             if (kategoriAset === 'asetFisik') {
                 //console.log(req.body);
@@ -153,18 +167,18 @@ class AsetController {
                     width: 300,
                     height: 300,
                     type: 'png',
-                    data: JSON.stringify(qrDataObj, null, 2), // Data Anda diubah menjadi string JSON
-                    image: fs.readFileSync(logoPath), // Buffer dari file logo Anda
+                    data: JSON.stringify(qrDataObj, null, 2), 
+                    image: fs.readFileSync(logoPath), 
                     dotsOptions: {
-                        color: "#163551", // Warna titik QR Code
-                        type: "rounded"   // Bentuk titik (rounded, dots, classy, square)
+                        color: "#163551", 
+                        type: "rounded"   
                     },
                     backgroundOptions: {
-                        color: "#ffffffff", // Warna latar belakang
+                        color: "#ffffffff", 
                     },
                     imageOptions: {
-                        imageSize: 0.2, // Ukuran logo (20% dari ukuran QR Code)
-                        margin: 6       // Jarak putih di sekitar logo
+                        imageSize: 0.2, 
+                        margin: 6       
                     }
                 };
 
@@ -216,15 +230,18 @@ class AsetController {
                         statusKepemilikan,
                         urlFoto,
                         urlQR,
-                        pic
+                        pic,
+                        jumlah: total,
+                        unit,
+                        addedBy
                     }
                 });
 
-                return res.status(200).json({
+                return res.status(200).json(convertBigInt({
                     success: true,
                     message: 'Aset Fisik berhasil ditambahkan',
                     data: newAssetFisik
-                });
+                }));
             } else if (kategoriAset === 'asetDigital'){
                 if (!hakValid.includes(statusKepemilikan)) {
                     return res.status(400).json({ success: false, message: "Hak Kepemilikan tidak valid" });
@@ -244,15 +261,18 @@ class AsetController {
                         masaBerlaku: masaBerlaku ? new Date(masaBerlaku) : null,
                         statusAset: newStatusAsetDigital,
                         statusKepemilikan: statusKepemilikan.toLowerCase(),
-                        pic
+                        pic,
+                        unit,
+                        jumlah: total,
+                        addedBy
                     }
                 });
 
-                return res.status(200).json({
+                return res.status(200).json(convertBigInt({
                     success: true,
                     message: 'Aset Digital berhasil ditambahkan',
                     data: newAsetDigital
-                });
+                }));
             } else {
                 console.log(req.body);
                 console.log('Error');
@@ -323,10 +343,12 @@ class AsetController {
                 nomorSeri,
                 masaBerlaku,
                 statusKepemilikan,
-                pic
+                pic,
+                unit,
+                jumlah
             } = req.body;
 
-            console.log(req.body);
+            // console.log(req.body);
 
             const existingAset = await prisma.aset.findUnique({ where: { asetId } });
             if (!existingAset) {
@@ -338,7 +360,7 @@ class AsetController {
                 const kategoriValid = await prisma.subAsetKategori.findMany({ select: { subAsetId: true } });
                 const kondisiValid = await getEnumValues("AsetKondisi");
                 const statusValid = await getEnumValues("AsetStatus");
-                const hakValid = await getEnumValues("HakMilik");
+                const hakValid = await getEnumValues("HakMilik");  
                 const lokasiValid = await getLokasiList();
                 console.log('Update asset');
 
@@ -378,6 +400,8 @@ class AsetController {
                     masaBerlaku: masaBerlaku ? new Date(masaBerlaku) : existingAset.masaBerlaku,
                     statusKepemilikan: statusKepemilikan ? mapHakMilik(statusKepemilikan) : existingAset.statusKepemilikan,
                     pic: pic || existingAset.pic,
+                    unit: unit || existingAset.unit,
+                    jumlah: jumlah || existingAset.jumlah
                 };
 
                 if (req.body.deletedFiles) {
@@ -444,10 +468,12 @@ class AsetController {
                 }
 
                 const updatedAsset = await prisma.aset.update({ where: { asetId }, data: dataUpdate });
-                return res.status(200).json({ success: true, message: "Aset Fisik berhasil diperbarui", data: updatedAsset });
+                return res.status(200).json(convertBigInt({ success: true, message: "Aset Fisik berhasil diperbarui", data: updatedAsset }));
 
             // --------- ASET DIGITAL ----------
             } else if (kategoriAset === "asetDigital") {
+                let updateStatus;
+
                 const hakValid = await getEnumValues("HakMilik");
                 if (statusKepemilikan && !hakValid.includes(statusKepemilikan)) {
                     return res.status(400).json({ success: false, message: "Hak Kepemilikan tidak valid" });
@@ -456,19 +482,29 @@ class AsetController {
                     return res.status(400).json({ success: false, message: "Hak Kepemilikan pribadi PIC tidak boleh kosong" });
                 }
 
+                if (new Date(masaBerlaku) > new Date()) {
+                    updateStatus = 'aktif';
+                }
+
+                console.log(updateStatus);
+
                 const dataUpdate = {
                     merkDanTipe: merkDanTipe || existingAset.merkDanTipe,
                     masaBerlaku: masaBerlaku ? new Date(masaBerlaku) : existingAset.masaBerlaku,
-                    statusAset: statusAset ? mapStatusAset(statusAset) : existingAset.statusAset,
+                    statusAset: updateStatus ? mapStatusAset(updateStatus) : existingAset.statusAset,
                     statusKepemilikan: statusKepemilikan ? mapHakMilik(statusKepemilikan) : existingAset.statusKepemilikan,
-                    pic: pic || existingAset.pic
+                    pic: pic || existingAset.pic,
+                    unit: unit || existingAset.unit,
+                    jumlah: jumlah || existingAset.jumlah
                 };
 
+                console.log(dataUpdate);
+
                 const updatedAsset = await prisma.aset.update({ where: { asetId }, data: dataUpdate });
-                return res.status(200).json({ success: true, message: "Aset Digital berhasil diperbarui", data: updatedAsset });
+                return res.status(200).json(convertBigInt({ success: true, message: "Aset Digital berhasil diperbarui", data: updatedAsset }));
 
             } else {
-                return res.status(400).json({ success: false, message: "Kategori aset tidak valid" });
+                return res.status(400).json(convertBigInt({ success: false, message: "Kategori aset tidak valid" }));
             }
 
         } catch (error) {
@@ -561,7 +597,7 @@ class AsetController {
             const where = {};
 
             if (lokasi) {
-                where.lokasiId = String(lokasi); // pastikan string untuk UUID
+                where.lokasiId = String(lokasi); 
             }
 
             if (kategori) {
@@ -617,7 +653,10 @@ class AsetController {
                                 subAsetId: true,
                                 nameSubAset: true
                             }
-                        }
+                        },
+                        unit: true,
+                        jumlah: true,
+                        addedBy: true,
                     }
                 }),
                 prisma.aset.count({ where }),     
@@ -642,7 +681,7 @@ class AsetController {
                 totalStatusMaintenance: statusCounts.find(r => r.statusAset === 'maintenance')?._count.statusAset || 0
             };
 
-            return res.status(200).json({
+            return res.status(200).json(convertBigInt({
                 success: true,
                 message: 'Daftar aset berhasil diambil',
                 data: asets,
@@ -653,7 +692,7 @@ class AsetController {
                     pageSize: limit
                 },
                 summary
-            });
+            }));
 
         } catch (error) {
             console.error('Error saat mengambil daftar aset: ', error);
@@ -703,7 +742,10 @@ class AsetController {
                     masaBerlaku: true,
                     pic: true,
                     urlQR: true,
-                    urlFoto: true
+                    urlFoto: true,
+                    unit: true,
+                    jumlah: true,
+                    addedBy: true,
                 }
             });
 
@@ -739,13 +781,13 @@ class AsetController {
                 }
             });
 
-            return res.status(200).json({
+            return res.status(200).json(convertBigInt({
                 success: true,
                 message: 'Data detail Aset berhasil diambil',
                 data: aset,
                 historyPindahan,
                 historyMaintain
-            });
+            }));
         } catch(error) {
             console.error('Error saat mengambil detail aset: ', error);
             return res.status(500).json({

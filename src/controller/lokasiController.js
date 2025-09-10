@@ -121,10 +121,10 @@ class LokasiController {
     // Ambil semua lokasi + total aset
     static async getAllLokasi(req, res) {
         try {
-
-            //Hitung total lokasi
+            // Hitung total lokasi
             const totalLokasiCount = await prisma.lokasi.count();
 
+            // Ambil semua lokasi dan relasi aset
             const lokasiList = await prisma.lokasi.findMany({
                 include: {
                     aset: {
@@ -136,23 +136,74 @@ class LokasiController {
                 orderBy: { createdAt: 'desc' }
             });
 
-            // Mapping data
+            // Ambil data pengadaan dikelompokkan per lokasi
+            const pengadaanData = await prisma.pengadaan.findMany({
+                select: {
+                    lokasiId: true,
+                    jumlahAset: true,
+                    subKategoriAset: {
+                        select: {
+                            subAsetId: true,
+                            nameSubAset: true
+                        }
+                    }
+                }
+            });
+
+            // Map pengadaan per lokasi
+            const pengadaanMap = new Map();
+
+            pengadaanData.forEach(pengadaan => {
+                const lokasiId = pengadaan.lokasiId;
+                const jumlah = Number(pengadaan.jumlahAset) || 0;
+                const subKategori = pengadaan.subKategoriAset;
+
+                if (!pengadaanMap.has(lokasiId)) {
+                    pengadaanMap.set(lokasiId, {
+                        total: 0,
+                        subKategoriSet: new Map()
+                    });
+                }
+
+                const entry = pengadaanMap.get(lokasiId);
+                entry.total += jumlah;
+
+                if (subKategori && !entry.subKategoriSet.has(subKategori.subAsetId)) {
+                    entry.subKategoriSet.set(subKategori.subAsetId, subKategori);
+                }
+            });
+
+            // Mapping akhir data per lokasi
             const dataWithTotal = lokasiList.map(lokasi => {
-                const subKategoriMap = new Map();
+                const asetSubKategoriMap = new Map();
 
                 lokasi.aset.forEach(aset => {
                     const sub = aset.subKategoriAset;
-                    if (sub && !subKategoriMap.has(sub.subAsetId)) {
-                        subKategoriMap.set(sub.subAsetId, sub);
+                    if (sub && !asetSubKategoriMap.has(sub.subAsetId)) {
+                        asetSubKategoriMap.set(sub.subAsetId, sub);
                     }
                 });
+
+                const pengadaanEntry = pengadaanMap.get(lokasi.idLokasi) || {
+                    total: 0,
+                    subKategoriSet: new Map()
+                };
+
+                // Gabungkan subkategori dari aset + pengadaan
+                const combinedSubKategoriMap = new Map([
+                    ...asetSubKategoriMap,
+                    ...pengadaanEntry.subKategoriSet
+                ]);
+
+                const totalAsetDariAset = lokasi.aset.length;
+                const totalAsetDariPengadaan = pengadaanEntry.total;
 
                 return {
                     idLokasi: lokasi.idLokasi,
                     lokasi: lokasi.lokasi,
                     kategoriAset: lokasi.kategoriAset,
-                    totalAset: lokasi.aset.length,
-                    subKategoriAset: Array.from(subKategoriMap.values())
+                    totalAset: totalAsetDariAset + totalAsetDariPengadaan,
+                    subKategoriAset: Array.from(combinedSubKategoriMap.values())
                 };
             });
 
@@ -171,6 +222,7 @@ class LokasiController {
             });
         }
     }
+
 
     static async getDetailLokasi(req, res) {
         try {

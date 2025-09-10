@@ -36,13 +36,15 @@ model Aset {
   createdAt         DateTime         @default(now())
   pic               String?
   kategoriAset      AsetKategori
-  unit              String?
-  jumlah            String?
+  unit              String
+  jumlah            BigInt
+  addedBy           String
   subKategoriAsetId String?
   lokasi            Lokasi?          @relation(fields: [lokasiId], references: [idLokasi])
   subKategoriAset   SubAsetKategori? @relation("AsetToSubKategori", fields: [subKategoriAsetId], references: [subAsetId])
   maintenances      Maintenance[]
   perpindahan       Perpindahan[]
+  pengeluaran       Pengeluaran[]
 }
 
 model Maintenance {
@@ -76,7 +78,7 @@ model Perpindahan {
   tanggalPindah DateTime
   createdAt     DateTime @default(now())
   tempatLama    String
-  aset          Aset     @relation(fields: [idAset], references: [asetId])
+  aset          Aset     @relation(fields: [idAset], references: [asetId], onDelete: Cascade)
   lokasi        Lokasi   @relation(fields: [lokasiId], references: [idLokasi])
 }
 
@@ -84,10 +86,12 @@ model Pengadaan {
   pengadaanId  String       @id @default(uuid())
   tanggalBeli  DateTime
   lokasiId     String
+  kategoriAset String
   subKategoriAsetId String?
   subKategoriAset   SubAsetKategori? @relation(fields: [subKategoriAsetId], references: [subAsetId])
   namaAset     String
   jumlahAset   Int
+  unit         String
   hargaSatuan  BigInt
   totalHarga   BigInt
   vendor       String
@@ -113,6 +117,7 @@ model Request {
 
   requestBy     String
   approvedBy    String?
+  createdAt     DateTime @default(now())
 }
 
 model Notifikasi {
@@ -133,6 +138,16 @@ model UserRole {
   nameRole   String
   createdAt  DateTime @default(now())
   users      User[]   @relation("UserToRole")
+}
+
+model Pengeluaran {
+  pengeluaranId   String  @id @default(uuid())
+  idAset          String
+  aset              Aset                     @relation(fields: [idAset], references: [asetId], onDelete: Cascade)
+  jumlahKeluar     BigInt
+  deskripsi       String
+  addedBy         String
+  createdAt    DateTime     @default(now())
 }
 
 enum MaintenanceRequestStatus {

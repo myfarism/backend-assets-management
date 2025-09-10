@@ -63,6 +63,11 @@ export type SubAsetKategori = $Result.DefaultSelection<Prisma.$SubAsetKategoriPa
  * 
  */
 export type UserRole = $Result.DefaultSelection<Prisma.$UserRolePayload>
+/**
+ * Model Pengeluaran
+ * 
+ */
+export type Pengeluaran = $Result.DefaultSelection<Prisma.$PengeluaranPayload>
 
 /**
  * Enums
@@ -369,6 +374,16 @@ export class PrismaClient<
     * ```
     */
   get userRole(): Prisma.UserRoleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.pengeluaran`: Exposes CRUD operations for the **Pengeluaran** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Pengeluarans
+    * const pengeluarans = await prisma.pengeluaran.findMany()
+    * ```
+    */
+  get pengeluaran(): Prisma.PengeluaranDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -818,7 +833,8 @@ export namespace Prisma {
     Request: 'Request',
     Notifikasi: 'Notifikasi',
     SubAsetKategori: 'SubAsetKategori',
-    UserRole: 'UserRole'
+    UserRole: 'UserRole',
+    Pengeluaran: 'Pengeluaran'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -837,7 +853,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "aset" | "maintenance" | "lokasi" | "perpindahan" | "pengadaan" | "request" | "notifikasi" | "subAsetKategori" | "userRole"
+      modelProps: "user" | "aset" | "maintenance" | "lokasi" | "perpindahan" | "pengadaan" | "request" | "notifikasi" | "subAsetKategori" | "userRole" | "pengeluaran"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1581,6 +1597,80 @@ export namespace Prisma {
           }
         }
       }
+      Pengeluaran: {
+        payload: Prisma.$PengeluaranPayload<ExtArgs>
+        fields: Prisma.PengeluaranFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PengeluaranFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengeluaranPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PengeluaranFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengeluaranPayload>
+          }
+          findFirst: {
+            args: Prisma.PengeluaranFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengeluaranPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PengeluaranFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengeluaranPayload>
+          }
+          findMany: {
+            args: Prisma.PengeluaranFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengeluaranPayload>[]
+          }
+          create: {
+            args: Prisma.PengeluaranCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengeluaranPayload>
+          }
+          createMany: {
+            args: Prisma.PengeluaranCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PengeluaranCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengeluaranPayload>[]
+          }
+          delete: {
+            args: Prisma.PengeluaranDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengeluaranPayload>
+          }
+          update: {
+            args: Prisma.PengeluaranUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengeluaranPayload>
+          }
+          deleteMany: {
+            args: Prisma.PengeluaranDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PengeluaranUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PengeluaranUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengeluaranPayload>[]
+          }
+          upsert: {
+            args: Prisma.PengeluaranUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengeluaranPayload>
+          }
+          aggregate: {
+            args: Prisma.PengeluaranAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePengeluaran>
+          }
+          groupBy: {
+            args: Prisma.PengeluaranGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PengeluaranGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PengeluaranCountArgs<ExtArgs>
+            result: $Utils.Optional<PengeluaranCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1683,6 +1773,7 @@ export namespace Prisma {
     notifikasi?: NotifikasiOmit
     subAsetKategori?: SubAsetKategoriOmit
     userRole?: UserRoleOmit
+    pengeluaran?: PengeluaranOmit
   }
 
   /* Types for Logging */
@@ -1815,11 +1906,13 @@ export namespace Prisma {
   export type AsetCountOutputType = {
     maintenances: number
     perpindahan: number
+    pengeluaran: number
   }
 
   export type AsetCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     maintenances?: boolean | AsetCountOutputTypeCountMaintenancesArgs
     perpindahan?: boolean | AsetCountOutputTypeCountPerpindahanArgs
+    pengeluaran?: boolean | AsetCountOutputTypeCountPengeluaranArgs
   }
 
   // Custom InputTypes
@@ -1845,6 +1938,13 @@ export namespace Prisma {
    */
   export type AsetCountOutputTypeCountPerpindahanArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PerpindahanWhereInput
+  }
+
+  /**
+   * AsetCountOutputType without action
+   */
+  export type AsetCountOutputTypeCountPengeluaranArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PengeluaranWhereInput
   }
 
 
@@ -3131,10 +3231,12 @@ export namespace Prisma {
 
   export type AsetAvgAggregateOutputType = {
     tahun: number | null
+    jumlah: number | null
   }
 
   export type AsetSumAggregateOutputType = {
     tahun: number | null
+    jumlah: bigint | null
   }
 
   export type AsetMinAggregateOutputType = {
@@ -3151,6 +3253,9 @@ export namespace Prisma {
     createdAt: Date | null
     pic: string | null
     kategoriAset: $Enums.AsetKategori | null
+    unit: string | null
+    jumlah: bigint | null
+    addedBy: string | null
     subKategoriAsetId: string | null
   }
 
@@ -3168,6 +3273,9 @@ export namespace Prisma {
     createdAt: Date | null
     pic: string | null
     kategoriAset: $Enums.AsetKategori | null
+    unit: string | null
+    jumlah: bigint | null
+    addedBy: string | null
     subKategoriAsetId: string | null
   }
 
@@ -3186,6 +3294,9 @@ export namespace Prisma {
     createdAt: number
     pic: number
     kategoriAset: number
+    unit: number
+    jumlah: number
+    addedBy: number
     subKategoriAsetId: number
     _all: number
   }
@@ -3193,10 +3304,12 @@ export namespace Prisma {
 
   export type AsetAvgAggregateInputType = {
     tahun?: true
+    jumlah?: true
   }
 
   export type AsetSumAggregateInputType = {
     tahun?: true
+    jumlah?: true
   }
 
   export type AsetMinAggregateInputType = {
@@ -3213,6 +3326,9 @@ export namespace Prisma {
     createdAt?: true
     pic?: true
     kategoriAset?: true
+    unit?: true
+    jumlah?: true
+    addedBy?: true
     subKategoriAsetId?: true
   }
 
@@ -3230,6 +3346,9 @@ export namespace Prisma {
     createdAt?: true
     pic?: true
     kategoriAset?: true
+    unit?: true
+    jumlah?: true
+    addedBy?: true
     subKategoriAsetId?: true
   }
 
@@ -3248,6 +3367,9 @@ export namespace Prisma {
     createdAt?: true
     pic?: true
     kategoriAset?: true
+    unit?: true
+    jumlah?: true
+    addedBy?: true
     subKategoriAsetId?: true
     _all?: true
   }
@@ -3353,6 +3475,9 @@ export namespace Prisma {
     createdAt: Date
     pic: string | null
     kategoriAset: $Enums.AsetKategori
+    unit: string
+    jumlah: bigint
+    addedBy: string
     subKategoriAsetId: string | null
     _count: AsetCountAggregateOutputType | null
     _avg: AsetAvgAggregateOutputType | null
@@ -3390,11 +3515,15 @@ export namespace Prisma {
     createdAt?: boolean
     pic?: boolean
     kategoriAset?: boolean
+    unit?: boolean
+    jumlah?: boolean
+    addedBy?: boolean
     subKategoriAsetId?: boolean
     lokasi?: boolean | Aset$lokasiArgs<ExtArgs>
     subKategoriAset?: boolean | Aset$subKategoriAsetArgs<ExtArgs>
     maintenances?: boolean | Aset$maintenancesArgs<ExtArgs>
     perpindahan?: boolean | Aset$perpindahanArgs<ExtArgs>
+    pengeluaran?: boolean | Aset$pengeluaranArgs<ExtArgs>
     _count?: boolean | AsetCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["aset"]>
 
@@ -3413,6 +3542,9 @@ export namespace Prisma {
     createdAt?: boolean
     pic?: boolean
     kategoriAset?: boolean
+    unit?: boolean
+    jumlah?: boolean
+    addedBy?: boolean
     subKategoriAsetId?: boolean
     lokasi?: boolean | Aset$lokasiArgs<ExtArgs>
     subKategoriAset?: boolean | Aset$subKategoriAsetArgs<ExtArgs>
@@ -3433,6 +3565,9 @@ export namespace Prisma {
     createdAt?: boolean
     pic?: boolean
     kategoriAset?: boolean
+    unit?: boolean
+    jumlah?: boolean
+    addedBy?: boolean
     subKategoriAsetId?: boolean
     lokasi?: boolean | Aset$lokasiArgs<ExtArgs>
     subKategoriAset?: boolean | Aset$subKategoriAsetArgs<ExtArgs>
@@ -3453,15 +3588,19 @@ export namespace Prisma {
     createdAt?: boolean
     pic?: boolean
     kategoriAset?: boolean
+    unit?: boolean
+    jumlah?: boolean
+    addedBy?: boolean
     subKategoriAsetId?: boolean
   }
 
-  export type AsetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"asetId" | "merkDanTipe" | "tahun" | "kondisiAset" | "masaBerlaku" | "nomorSeri" | "statusAset" | "statusKepemilikan" | "lokasiId" | "urlQR" | "urlFoto" | "createdAt" | "pic" | "kategoriAset" | "subKategoriAsetId", ExtArgs["result"]["aset"]>
+  export type AsetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"asetId" | "merkDanTipe" | "tahun" | "kondisiAset" | "masaBerlaku" | "nomorSeri" | "statusAset" | "statusKepemilikan" | "lokasiId" | "urlQR" | "urlFoto" | "createdAt" | "pic" | "kategoriAset" | "unit" | "jumlah" | "addedBy" | "subKategoriAsetId", ExtArgs["result"]["aset"]>
   export type AsetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     lokasi?: boolean | Aset$lokasiArgs<ExtArgs>
     subKategoriAset?: boolean | Aset$subKategoriAsetArgs<ExtArgs>
     maintenances?: boolean | Aset$maintenancesArgs<ExtArgs>
     perpindahan?: boolean | Aset$perpindahanArgs<ExtArgs>
+    pengeluaran?: boolean | Aset$pengeluaranArgs<ExtArgs>
     _count?: boolean | AsetCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AsetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3480,6 +3619,7 @@ export namespace Prisma {
       subKategoriAset: Prisma.$SubAsetKategoriPayload<ExtArgs> | null
       maintenances: Prisma.$MaintenancePayload<ExtArgs>[]
       perpindahan: Prisma.$PerpindahanPayload<ExtArgs>[]
+      pengeluaran: Prisma.$PengeluaranPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       asetId: string
@@ -3496,6 +3636,9 @@ export namespace Prisma {
       createdAt: Date
       pic: string | null
       kategoriAset: $Enums.AsetKategori
+      unit: string
+      jumlah: bigint
+      addedBy: string
       subKategoriAsetId: string | null
     }, ExtArgs["result"]["aset"]>
     composites: {}
@@ -3895,6 +4038,7 @@ export namespace Prisma {
     subKategoriAset<T extends Aset$subKategoriAsetArgs<ExtArgs> = {}>(args?: Subset<T, Aset$subKategoriAsetArgs<ExtArgs>>): Prisma__SubAsetKategoriClient<$Result.GetResult<Prisma.$SubAsetKategoriPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     maintenances<T extends Aset$maintenancesArgs<ExtArgs> = {}>(args?: Subset<T, Aset$maintenancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     perpindahan<T extends Aset$perpindahanArgs<ExtArgs> = {}>(args?: Subset<T, Aset$perpindahanArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PerpindahanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    pengeluaran<T extends Aset$pengeluaranArgs<ExtArgs> = {}>(args?: Subset<T, Aset$pengeluaranArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PengeluaranPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3938,6 +4082,9 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Aset", 'DateTime'>
     readonly pic: FieldRef<"Aset", 'String'>
     readonly kategoriAset: FieldRef<"Aset", 'AsetKategori'>
+    readonly unit: FieldRef<"Aset", 'String'>
+    readonly jumlah: FieldRef<"Aset", 'BigInt'>
+    readonly addedBy: FieldRef<"Aset", 'String'>
     readonly subKategoriAsetId: FieldRef<"Aset", 'String'>
   }
     
@@ -4418,6 +4565,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PerpindahanScalarFieldEnum | PerpindahanScalarFieldEnum[]
+  }
+
+  /**
+   * Aset.pengeluaran
+   */
+  export type Aset$pengeluaranArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengeluaran
+     */
+    select?: PengeluaranSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengeluaran
+     */
+    omit?: PengeluaranOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengeluaranInclude<ExtArgs> | null
+    where?: PengeluaranWhereInput
+    orderBy?: PengeluaranOrderByWithRelationInput | PengeluaranOrderByWithRelationInput[]
+    cursor?: PengeluaranWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PengeluaranScalarFieldEnum | PengeluaranScalarFieldEnum[]
   }
 
   /**
@@ -7797,9 +7968,11 @@ export namespace Prisma {
     pengadaanId: string | null
     tanggalBeli: Date | null
     lokasiId: string | null
+    kategoriAset: string | null
     subKategoriAsetId: string | null
     namaAset: string | null
     jumlahAset: number | null
+    unit: string | null
     hargaSatuan: bigint | null
     totalHarga: bigint | null
     vendor: string | null
@@ -7810,9 +7983,11 @@ export namespace Prisma {
     pengadaanId: string | null
     tanggalBeli: Date | null
     lokasiId: string | null
+    kategoriAset: string | null
     subKategoriAsetId: string | null
     namaAset: string | null
     jumlahAset: number | null
+    unit: string | null
     hargaSatuan: bigint | null
     totalHarga: bigint | null
     vendor: string | null
@@ -7823,9 +7998,11 @@ export namespace Prisma {
     pengadaanId: number
     tanggalBeli: number
     lokasiId: number
+    kategoriAset: number
     subKategoriAsetId: number
     namaAset: number
     jumlahAset: number
+    unit: number
     hargaSatuan: number
     totalHarga: number
     vendor: number
@@ -7850,9 +8027,11 @@ export namespace Prisma {
     pengadaanId?: true
     tanggalBeli?: true
     lokasiId?: true
+    kategoriAset?: true
     subKategoriAsetId?: true
     namaAset?: true
     jumlahAset?: true
+    unit?: true
     hargaSatuan?: true
     totalHarga?: true
     vendor?: true
@@ -7863,9 +8042,11 @@ export namespace Prisma {
     pengadaanId?: true
     tanggalBeli?: true
     lokasiId?: true
+    kategoriAset?: true
     subKategoriAsetId?: true
     namaAset?: true
     jumlahAset?: true
+    unit?: true
     hargaSatuan?: true
     totalHarga?: true
     vendor?: true
@@ -7876,9 +8057,11 @@ export namespace Prisma {
     pengadaanId?: true
     tanggalBeli?: true
     lokasiId?: true
+    kategoriAset?: true
     subKategoriAsetId?: true
     namaAset?: true
     jumlahAset?: true
+    unit?: true
     hargaSatuan?: true
     totalHarga?: true
     vendor?: true
@@ -7976,9 +8159,11 @@ export namespace Prisma {
     pengadaanId: string
     tanggalBeli: Date
     lokasiId: string
+    kategoriAset: string
     subKategoriAsetId: string | null
     namaAset: string
     jumlahAset: number
+    unit: string
     hargaSatuan: bigint
     totalHarga: bigint
     vendor: string
@@ -8008,9 +8193,11 @@ export namespace Prisma {
     pengadaanId?: boolean
     tanggalBeli?: boolean
     lokasiId?: boolean
+    kategoriAset?: boolean
     subKategoriAsetId?: boolean
     namaAset?: boolean
     jumlahAset?: boolean
+    unit?: boolean
     hargaSatuan?: boolean
     totalHarga?: boolean
     vendor?: boolean
@@ -8023,9 +8210,11 @@ export namespace Prisma {
     pengadaanId?: boolean
     tanggalBeli?: boolean
     lokasiId?: boolean
+    kategoriAset?: boolean
     subKategoriAsetId?: boolean
     namaAset?: boolean
     jumlahAset?: boolean
+    unit?: boolean
     hargaSatuan?: boolean
     totalHarga?: boolean
     vendor?: boolean
@@ -8038,9 +8227,11 @@ export namespace Prisma {
     pengadaanId?: boolean
     tanggalBeli?: boolean
     lokasiId?: boolean
+    kategoriAset?: boolean
     subKategoriAsetId?: boolean
     namaAset?: boolean
     jumlahAset?: boolean
+    unit?: boolean
     hargaSatuan?: boolean
     totalHarga?: boolean
     vendor?: boolean
@@ -8053,16 +8244,18 @@ export namespace Prisma {
     pengadaanId?: boolean
     tanggalBeli?: boolean
     lokasiId?: boolean
+    kategoriAset?: boolean
     subKategoriAsetId?: boolean
     namaAset?: boolean
     jumlahAset?: boolean
+    unit?: boolean
     hargaSatuan?: boolean
     totalHarga?: boolean
     vendor?: boolean
     createdAt?: boolean
   }
 
-  export type PengadaanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"pengadaanId" | "tanggalBeli" | "lokasiId" | "subKategoriAsetId" | "namaAset" | "jumlahAset" | "hargaSatuan" | "totalHarga" | "vendor" | "createdAt", ExtArgs["result"]["pengadaan"]>
+  export type PengadaanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"pengadaanId" | "tanggalBeli" | "lokasiId" | "kategoriAset" | "subKategoriAsetId" | "namaAset" | "jumlahAset" | "unit" | "hargaSatuan" | "totalHarga" | "vendor" | "createdAt", ExtArgs["result"]["pengadaan"]>
   export type PengadaanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     subKategoriAset?: boolean | Pengadaan$subKategoriAsetArgs<ExtArgs>
     lokasi?: boolean | LokasiDefaultArgs<ExtArgs>
@@ -8086,9 +8279,11 @@ export namespace Prisma {
       pengadaanId: string
       tanggalBeli: Date
       lokasiId: string
+      kategoriAset: string
       subKategoriAsetId: string | null
       namaAset: string
       jumlahAset: number
+      unit: string
       hargaSatuan: bigint
       totalHarga: bigint
       vendor: string
@@ -8521,9 +8716,11 @@ export namespace Prisma {
     readonly pengadaanId: FieldRef<"Pengadaan", 'String'>
     readonly tanggalBeli: FieldRef<"Pengadaan", 'DateTime'>
     readonly lokasiId: FieldRef<"Pengadaan", 'String'>
+    readonly kategoriAset: FieldRef<"Pengadaan", 'String'>
     readonly subKategoriAsetId: FieldRef<"Pengadaan", 'String'>
     readonly namaAset: FieldRef<"Pengadaan", 'String'>
     readonly jumlahAset: FieldRef<"Pengadaan", 'Int'>
+    readonly unit: FieldRef<"Pengadaan", 'String'>
     readonly hargaSatuan: FieldRef<"Pengadaan", 'BigInt'>
     readonly totalHarga: FieldRef<"Pengadaan", 'BigInt'>
     readonly vendor: FieldRef<"Pengadaan", 'String'>
@@ -8999,6 +9196,7 @@ export namespace Prisma {
     idUser: string | null
     requestBy: string | null
     approvedBy: string | null
+    createdAt: Date | null
   }
 
   export type RequestMaxAggregateOutputType = {
@@ -9017,6 +9215,7 @@ export namespace Prisma {
     idUser: string | null
     requestBy: string | null
     approvedBy: string | null
+    createdAt: Date | null
   }
 
   export type RequestCountAggregateOutputType = {
@@ -9035,6 +9234,7 @@ export namespace Prisma {
     idUser: number
     requestBy: number
     approvedBy: number
+    createdAt: number
     _all: number
   }
 
@@ -9065,6 +9265,7 @@ export namespace Prisma {
     idUser?: true
     requestBy?: true
     approvedBy?: true
+    createdAt?: true
   }
 
   export type RequestMaxAggregateInputType = {
@@ -9083,6 +9284,7 @@ export namespace Prisma {
     idUser?: true
     requestBy?: true
     approvedBy?: true
+    createdAt?: true
   }
 
   export type RequestCountAggregateInputType = {
@@ -9101,6 +9303,7 @@ export namespace Prisma {
     idUser?: true
     requestBy?: true
     approvedBy?: true
+    createdAt?: true
     _all?: true
   }
 
@@ -9206,6 +9409,7 @@ export namespace Prisma {
     idUser: string
     requestBy: string
     approvedBy: string | null
+    createdAt: Date
     _count: RequestCountAggregateOutputType | null
     _avg: RequestAvgAggregateOutputType | null
     _sum: RequestSumAggregateOutputType | null
@@ -9243,6 +9447,7 @@ export namespace Prisma {
     idUser?: boolean
     requestBy?: boolean
     approvedBy?: boolean
+    createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["request"]>
 
@@ -9262,6 +9467,7 @@ export namespace Prisma {
     idUser?: boolean
     requestBy?: boolean
     approvedBy?: boolean
+    createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["request"]>
 
@@ -9281,6 +9487,7 @@ export namespace Prisma {
     idUser?: boolean
     requestBy?: boolean
     approvedBy?: boolean
+    createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["request"]>
 
@@ -9300,9 +9507,10 @@ export namespace Prisma {
     idUser?: boolean
     requestBy?: boolean
     approvedBy?: boolean
+    createdAt?: boolean
   }
 
-  export type RequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"requestId" | "namaAset" | "jumlah" | "kategoriAset" | "tipeKebutuhan" | "tanggalButuh" | "deskripsi" | "status" | "vendor" | "unit" | "langganan" | "durasi" | "idUser" | "requestBy" | "approvedBy", ExtArgs["result"]["request"]>
+  export type RequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"requestId" | "namaAset" | "jumlah" | "kategoriAset" | "tipeKebutuhan" | "tanggalButuh" | "deskripsi" | "status" | "vendor" | "unit" | "langganan" | "durasi" | "idUser" | "requestBy" | "approvedBy" | "createdAt", ExtArgs["result"]["request"]>
   export type RequestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -9334,6 +9542,7 @@ export namespace Prisma {
       idUser: string
       requestBy: string
       approvedBy: string | null
+      createdAt: Date
     }, ExtArgs["result"]["request"]>
     composites: {}
   }
@@ -9773,6 +9982,7 @@ export namespace Prisma {
     readonly idUser: FieldRef<"Request", 'String'>
     readonly requestBy: FieldRef<"Request", 'String'>
     readonly approvedBy: FieldRef<"Request", 'String'>
+    readonly createdAt: FieldRef<"Request", 'DateTime'>
   }
     
 
@@ -13309,6 +13519,1111 @@ export namespace Prisma {
 
 
   /**
+   * Model Pengeluaran
+   */
+
+  export type AggregatePengeluaran = {
+    _count: PengeluaranCountAggregateOutputType | null
+    _avg: PengeluaranAvgAggregateOutputType | null
+    _sum: PengeluaranSumAggregateOutputType | null
+    _min: PengeluaranMinAggregateOutputType | null
+    _max: PengeluaranMaxAggregateOutputType | null
+  }
+
+  export type PengeluaranAvgAggregateOutputType = {
+    jumlahKeluar: number | null
+  }
+
+  export type PengeluaranSumAggregateOutputType = {
+    jumlahKeluar: bigint | null
+  }
+
+  export type PengeluaranMinAggregateOutputType = {
+    pengeluaranId: string | null
+    idAset: string | null
+    jumlahKeluar: bigint | null
+    deskripsi: string | null
+    addedBy: string | null
+    createdAt: Date | null
+  }
+
+  export type PengeluaranMaxAggregateOutputType = {
+    pengeluaranId: string | null
+    idAset: string | null
+    jumlahKeluar: bigint | null
+    deskripsi: string | null
+    addedBy: string | null
+    createdAt: Date | null
+  }
+
+  export type PengeluaranCountAggregateOutputType = {
+    pengeluaranId: number
+    idAset: number
+    jumlahKeluar: number
+    deskripsi: number
+    addedBy: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type PengeluaranAvgAggregateInputType = {
+    jumlahKeluar?: true
+  }
+
+  export type PengeluaranSumAggregateInputType = {
+    jumlahKeluar?: true
+  }
+
+  export type PengeluaranMinAggregateInputType = {
+    pengeluaranId?: true
+    idAset?: true
+    jumlahKeluar?: true
+    deskripsi?: true
+    addedBy?: true
+    createdAt?: true
+  }
+
+  export type PengeluaranMaxAggregateInputType = {
+    pengeluaranId?: true
+    idAset?: true
+    jumlahKeluar?: true
+    deskripsi?: true
+    addedBy?: true
+    createdAt?: true
+  }
+
+  export type PengeluaranCountAggregateInputType = {
+    pengeluaranId?: true
+    idAset?: true
+    jumlahKeluar?: true
+    deskripsi?: true
+    addedBy?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type PengeluaranAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Pengeluaran to aggregate.
+     */
+    where?: PengeluaranWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Pengeluarans to fetch.
+     */
+    orderBy?: PengeluaranOrderByWithRelationInput | PengeluaranOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PengeluaranWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Pengeluarans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Pengeluarans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Pengeluarans
+    **/
+    _count?: true | PengeluaranCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PengeluaranAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PengeluaranSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PengeluaranMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PengeluaranMaxAggregateInputType
+  }
+
+  export type GetPengeluaranAggregateType<T extends PengeluaranAggregateArgs> = {
+        [P in keyof T & keyof AggregatePengeluaran]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePengeluaran[P]>
+      : GetScalarType<T[P], AggregatePengeluaran[P]>
+  }
+
+
+
+
+  export type PengeluaranGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PengeluaranWhereInput
+    orderBy?: PengeluaranOrderByWithAggregationInput | PengeluaranOrderByWithAggregationInput[]
+    by: PengeluaranScalarFieldEnum[] | PengeluaranScalarFieldEnum
+    having?: PengeluaranScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PengeluaranCountAggregateInputType | true
+    _avg?: PengeluaranAvgAggregateInputType
+    _sum?: PengeluaranSumAggregateInputType
+    _min?: PengeluaranMinAggregateInputType
+    _max?: PengeluaranMaxAggregateInputType
+  }
+
+  export type PengeluaranGroupByOutputType = {
+    pengeluaranId: string
+    idAset: string
+    jumlahKeluar: bigint
+    deskripsi: string
+    addedBy: string
+    createdAt: Date
+    _count: PengeluaranCountAggregateOutputType | null
+    _avg: PengeluaranAvgAggregateOutputType | null
+    _sum: PengeluaranSumAggregateOutputType | null
+    _min: PengeluaranMinAggregateOutputType | null
+    _max: PengeluaranMaxAggregateOutputType | null
+  }
+
+  type GetPengeluaranGroupByPayload<T extends PengeluaranGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PengeluaranGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PengeluaranGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PengeluaranGroupByOutputType[P]>
+            : GetScalarType<T[P], PengeluaranGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PengeluaranSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    pengeluaranId?: boolean
+    idAset?: boolean
+    jumlahKeluar?: boolean
+    deskripsi?: boolean
+    addedBy?: boolean
+    createdAt?: boolean
+    aset?: boolean | AsetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pengeluaran"]>
+
+  export type PengeluaranSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    pengeluaranId?: boolean
+    idAset?: boolean
+    jumlahKeluar?: boolean
+    deskripsi?: boolean
+    addedBy?: boolean
+    createdAt?: boolean
+    aset?: boolean | AsetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pengeluaran"]>
+
+  export type PengeluaranSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    pengeluaranId?: boolean
+    idAset?: boolean
+    jumlahKeluar?: boolean
+    deskripsi?: boolean
+    addedBy?: boolean
+    createdAt?: boolean
+    aset?: boolean | AsetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pengeluaran"]>
+
+  export type PengeluaranSelectScalar = {
+    pengeluaranId?: boolean
+    idAset?: boolean
+    jumlahKeluar?: boolean
+    deskripsi?: boolean
+    addedBy?: boolean
+    createdAt?: boolean
+  }
+
+  export type PengeluaranOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"pengeluaranId" | "idAset" | "jumlahKeluar" | "deskripsi" | "addedBy" | "createdAt", ExtArgs["result"]["pengeluaran"]>
+  export type PengeluaranInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    aset?: boolean | AsetDefaultArgs<ExtArgs>
+  }
+  export type PengeluaranIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    aset?: boolean | AsetDefaultArgs<ExtArgs>
+  }
+  export type PengeluaranIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    aset?: boolean | AsetDefaultArgs<ExtArgs>
+  }
+
+  export type $PengeluaranPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Pengeluaran"
+    objects: {
+      aset: Prisma.$AsetPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      pengeluaranId: string
+      idAset: string
+      jumlahKeluar: bigint
+      deskripsi: string
+      addedBy: string
+      createdAt: Date
+    }, ExtArgs["result"]["pengeluaran"]>
+    composites: {}
+  }
+
+  type PengeluaranGetPayload<S extends boolean | null | undefined | PengeluaranDefaultArgs> = $Result.GetResult<Prisma.$PengeluaranPayload, S>
+
+  type PengeluaranCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PengeluaranFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PengeluaranCountAggregateInputType | true
+    }
+
+  export interface PengeluaranDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Pengeluaran'], meta: { name: 'Pengeluaran' } }
+    /**
+     * Find zero or one Pengeluaran that matches the filter.
+     * @param {PengeluaranFindUniqueArgs} args - Arguments to find a Pengeluaran
+     * @example
+     * // Get one Pengeluaran
+     * const pengeluaran = await prisma.pengeluaran.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PengeluaranFindUniqueArgs>(args: SelectSubset<T, PengeluaranFindUniqueArgs<ExtArgs>>): Prisma__PengeluaranClient<$Result.GetResult<Prisma.$PengeluaranPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Pengeluaran that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PengeluaranFindUniqueOrThrowArgs} args - Arguments to find a Pengeluaran
+     * @example
+     * // Get one Pengeluaran
+     * const pengeluaran = await prisma.pengeluaran.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PengeluaranFindUniqueOrThrowArgs>(args: SelectSubset<T, PengeluaranFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PengeluaranClient<$Result.GetResult<Prisma.$PengeluaranPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Pengeluaran that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PengeluaranFindFirstArgs} args - Arguments to find a Pengeluaran
+     * @example
+     * // Get one Pengeluaran
+     * const pengeluaran = await prisma.pengeluaran.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PengeluaranFindFirstArgs>(args?: SelectSubset<T, PengeluaranFindFirstArgs<ExtArgs>>): Prisma__PengeluaranClient<$Result.GetResult<Prisma.$PengeluaranPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Pengeluaran that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PengeluaranFindFirstOrThrowArgs} args - Arguments to find a Pengeluaran
+     * @example
+     * // Get one Pengeluaran
+     * const pengeluaran = await prisma.pengeluaran.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PengeluaranFindFirstOrThrowArgs>(args?: SelectSubset<T, PengeluaranFindFirstOrThrowArgs<ExtArgs>>): Prisma__PengeluaranClient<$Result.GetResult<Prisma.$PengeluaranPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Pengeluarans that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PengeluaranFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Pengeluarans
+     * const pengeluarans = await prisma.pengeluaran.findMany()
+     * 
+     * // Get first 10 Pengeluarans
+     * const pengeluarans = await prisma.pengeluaran.findMany({ take: 10 })
+     * 
+     * // Only select the `pengeluaranId`
+     * const pengeluaranWithPengeluaranIdOnly = await prisma.pengeluaran.findMany({ select: { pengeluaranId: true } })
+     * 
+     */
+    findMany<T extends PengeluaranFindManyArgs>(args?: SelectSubset<T, PengeluaranFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PengeluaranPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Pengeluaran.
+     * @param {PengeluaranCreateArgs} args - Arguments to create a Pengeluaran.
+     * @example
+     * // Create one Pengeluaran
+     * const Pengeluaran = await prisma.pengeluaran.create({
+     *   data: {
+     *     // ... data to create a Pengeluaran
+     *   }
+     * })
+     * 
+     */
+    create<T extends PengeluaranCreateArgs>(args: SelectSubset<T, PengeluaranCreateArgs<ExtArgs>>): Prisma__PengeluaranClient<$Result.GetResult<Prisma.$PengeluaranPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Pengeluarans.
+     * @param {PengeluaranCreateManyArgs} args - Arguments to create many Pengeluarans.
+     * @example
+     * // Create many Pengeluarans
+     * const pengeluaran = await prisma.pengeluaran.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PengeluaranCreateManyArgs>(args?: SelectSubset<T, PengeluaranCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Pengeluarans and returns the data saved in the database.
+     * @param {PengeluaranCreateManyAndReturnArgs} args - Arguments to create many Pengeluarans.
+     * @example
+     * // Create many Pengeluarans
+     * const pengeluaran = await prisma.pengeluaran.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Pengeluarans and only return the `pengeluaranId`
+     * const pengeluaranWithPengeluaranIdOnly = await prisma.pengeluaran.createManyAndReturn({
+     *   select: { pengeluaranId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PengeluaranCreateManyAndReturnArgs>(args?: SelectSubset<T, PengeluaranCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PengeluaranPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Pengeluaran.
+     * @param {PengeluaranDeleteArgs} args - Arguments to delete one Pengeluaran.
+     * @example
+     * // Delete one Pengeluaran
+     * const Pengeluaran = await prisma.pengeluaran.delete({
+     *   where: {
+     *     // ... filter to delete one Pengeluaran
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PengeluaranDeleteArgs>(args: SelectSubset<T, PengeluaranDeleteArgs<ExtArgs>>): Prisma__PengeluaranClient<$Result.GetResult<Prisma.$PengeluaranPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Pengeluaran.
+     * @param {PengeluaranUpdateArgs} args - Arguments to update one Pengeluaran.
+     * @example
+     * // Update one Pengeluaran
+     * const pengeluaran = await prisma.pengeluaran.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PengeluaranUpdateArgs>(args: SelectSubset<T, PengeluaranUpdateArgs<ExtArgs>>): Prisma__PengeluaranClient<$Result.GetResult<Prisma.$PengeluaranPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Pengeluarans.
+     * @param {PengeluaranDeleteManyArgs} args - Arguments to filter Pengeluarans to delete.
+     * @example
+     * // Delete a few Pengeluarans
+     * const { count } = await prisma.pengeluaran.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PengeluaranDeleteManyArgs>(args?: SelectSubset<T, PengeluaranDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Pengeluarans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PengeluaranUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Pengeluarans
+     * const pengeluaran = await prisma.pengeluaran.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PengeluaranUpdateManyArgs>(args: SelectSubset<T, PengeluaranUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Pengeluarans and returns the data updated in the database.
+     * @param {PengeluaranUpdateManyAndReturnArgs} args - Arguments to update many Pengeluarans.
+     * @example
+     * // Update many Pengeluarans
+     * const pengeluaran = await prisma.pengeluaran.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Pengeluarans and only return the `pengeluaranId`
+     * const pengeluaranWithPengeluaranIdOnly = await prisma.pengeluaran.updateManyAndReturn({
+     *   select: { pengeluaranId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PengeluaranUpdateManyAndReturnArgs>(args: SelectSubset<T, PengeluaranUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PengeluaranPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Pengeluaran.
+     * @param {PengeluaranUpsertArgs} args - Arguments to update or create a Pengeluaran.
+     * @example
+     * // Update or create a Pengeluaran
+     * const pengeluaran = await prisma.pengeluaran.upsert({
+     *   create: {
+     *     // ... data to create a Pengeluaran
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Pengeluaran we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PengeluaranUpsertArgs>(args: SelectSubset<T, PengeluaranUpsertArgs<ExtArgs>>): Prisma__PengeluaranClient<$Result.GetResult<Prisma.$PengeluaranPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Pengeluarans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PengeluaranCountArgs} args - Arguments to filter Pengeluarans to count.
+     * @example
+     * // Count the number of Pengeluarans
+     * const count = await prisma.pengeluaran.count({
+     *   where: {
+     *     // ... the filter for the Pengeluarans we want to count
+     *   }
+     * })
+    **/
+    count<T extends PengeluaranCountArgs>(
+      args?: Subset<T, PengeluaranCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PengeluaranCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Pengeluaran.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PengeluaranAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PengeluaranAggregateArgs>(args: Subset<T, PengeluaranAggregateArgs>): Prisma.PrismaPromise<GetPengeluaranAggregateType<T>>
+
+    /**
+     * Group by Pengeluaran.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PengeluaranGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PengeluaranGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PengeluaranGroupByArgs['orderBy'] }
+        : { orderBy?: PengeluaranGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PengeluaranGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPengeluaranGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Pengeluaran model
+   */
+  readonly fields: PengeluaranFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Pengeluaran.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PengeluaranClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    aset<T extends AsetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AsetDefaultArgs<ExtArgs>>): Prisma__AsetClient<$Result.GetResult<Prisma.$AsetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Pengeluaran model
+   */
+  interface PengeluaranFieldRefs {
+    readonly pengeluaranId: FieldRef<"Pengeluaran", 'String'>
+    readonly idAset: FieldRef<"Pengeluaran", 'String'>
+    readonly jumlahKeluar: FieldRef<"Pengeluaran", 'BigInt'>
+    readonly deskripsi: FieldRef<"Pengeluaran", 'String'>
+    readonly addedBy: FieldRef<"Pengeluaran", 'String'>
+    readonly createdAt: FieldRef<"Pengeluaran", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Pengeluaran findUnique
+   */
+  export type PengeluaranFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengeluaran
+     */
+    select?: PengeluaranSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengeluaran
+     */
+    omit?: PengeluaranOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengeluaranInclude<ExtArgs> | null
+    /**
+     * Filter, which Pengeluaran to fetch.
+     */
+    where: PengeluaranWhereUniqueInput
+  }
+
+  /**
+   * Pengeluaran findUniqueOrThrow
+   */
+  export type PengeluaranFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengeluaran
+     */
+    select?: PengeluaranSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengeluaran
+     */
+    omit?: PengeluaranOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengeluaranInclude<ExtArgs> | null
+    /**
+     * Filter, which Pengeluaran to fetch.
+     */
+    where: PengeluaranWhereUniqueInput
+  }
+
+  /**
+   * Pengeluaran findFirst
+   */
+  export type PengeluaranFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengeluaran
+     */
+    select?: PengeluaranSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengeluaran
+     */
+    omit?: PengeluaranOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengeluaranInclude<ExtArgs> | null
+    /**
+     * Filter, which Pengeluaran to fetch.
+     */
+    where?: PengeluaranWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Pengeluarans to fetch.
+     */
+    orderBy?: PengeluaranOrderByWithRelationInput | PengeluaranOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Pengeluarans.
+     */
+    cursor?: PengeluaranWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Pengeluarans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Pengeluarans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Pengeluarans.
+     */
+    distinct?: PengeluaranScalarFieldEnum | PengeluaranScalarFieldEnum[]
+  }
+
+  /**
+   * Pengeluaran findFirstOrThrow
+   */
+  export type PengeluaranFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengeluaran
+     */
+    select?: PengeluaranSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengeluaran
+     */
+    omit?: PengeluaranOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengeluaranInclude<ExtArgs> | null
+    /**
+     * Filter, which Pengeluaran to fetch.
+     */
+    where?: PengeluaranWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Pengeluarans to fetch.
+     */
+    orderBy?: PengeluaranOrderByWithRelationInput | PengeluaranOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Pengeluarans.
+     */
+    cursor?: PengeluaranWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Pengeluarans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Pengeluarans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Pengeluarans.
+     */
+    distinct?: PengeluaranScalarFieldEnum | PengeluaranScalarFieldEnum[]
+  }
+
+  /**
+   * Pengeluaran findMany
+   */
+  export type PengeluaranFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengeluaran
+     */
+    select?: PengeluaranSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengeluaran
+     */
+    omit?: PengeluaranOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengeluaranInclude<ExtArgs> | null
+    /**
+     * Filter, which Pengeluarans to fetch.
+     */
+    where?: PengeluaranWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Pengeluarans to fetch.
+     */
+    orderBy?: PengeluaranOrderByWithRelationInput | PengeluaranOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Pengeluarans.
+     */
+    cursor?: PengeluaranWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Pengeluarans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Pengeluarans.
+     */
+    skip?: number
+    distinct?: PengeluaranScalarFieldEnum | PengeluaranScalarFieldEnum[]
+  }
+
+  /**
+   * Pengeluaran create
+   */
+  export type PengeluaranCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengeluaran
+     */
+    select?: PengeluaranSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengeluaran
+     */
+    omit?: PengeluaranOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengeluaranInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Pengeluaran.
+     */
+    data: XOR<PengeluaranCreateInput, PengeluaranUncheckedCreateInput>
+  }
+
+  /**
+   * Pengeluaran createMany
+   */
+  export type PengeluaranCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Pengeluarans.
+     */
+    data: PengeluaranCreateManyInput | PengeluaranCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Pengeluaran createManyAndReturn
+   */
+  export type PengeluaranCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengeluaran
+     */
+    select?: PengeluaranSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengeluaran
+     */
+    omit?: PengeluaranOmit<ExtArgs> | null
+    /**
+     * The data used to create many Pengeluarans.
+     */
+    data: PengeluaranCreateManyInput | PengeluaranCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengeluaranIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Pengeluaran update
+   */
+  export type PengeluaranUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengeluaran
+     */
+    select?: PengeluaranSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengeluaran
+     */
+    omit?: PengeluaranOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengeluaranInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Pengeluaran.
+     */
+    data: XOR<PengeluaranUpdateInput, PengeluaranUncheckedUpdateInput>
+    /**
+     * Choose, which Pengeluaran to update.
+     */
+    where: PengeluaranWhereUniqueInput
+  }
+
+  /**
+   * Pengeluaran updateMany
+   */
+  export type PengeluaranUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Pengeluarans.
+     */
+    data: XOR<PengeluaranUpdateManyMutationInput, PengeluaranUncheckedUpdateManyInput>
+    /**
+     * Filter which Pengeluarans to update
+     */
+    where?: PengeluaranWhereInput
+    /**
+     * Limit how many Pengeluarans to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Pengeluaran updateManyAndReturn
+   */
+  export type PengeluaranUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengeluaran
+     */
+    select?: PengeluaranSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengeluaran
+     */
+    omit?: PengeluaranOmit<ExtArgs> | null
+    /**
+     * The data used to update Pengeluarans.
+     */
+    data: XOR<PengeluaranUpdateManyMutationInput, PengeluaranUncheckedUpdateManyInput>
+    /**
+     * Filter which Pengeluarans to update
+     */
+    where?: PengeluaranWhereInput
+    /**
+     * Limit how many Pengeluarans to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengeluaranIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Pengeluaran upsert
+   */
+  export type PengeluaranUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengeluaran
+     */
+    select?: PengeluaranSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengeluaran
+     */
+    omit?: PengeluaranOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengeluaranInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Pengeluaran to update in case it exists.
+     */
+    where: PengeluaranWhereUniqueInput
+    /**
+     * In case the Pengeluaran found by the `where` argument doesn't exist, create a new Pengeluaran with this data.
+     */
+    create: XOR<PengeluaranCreateInput, PengeluaranUncheckedCreateInput>
+    /**
+     * In case the Pengeluaran was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PengeluaranUpdateInput, PengeluaranUncheckedUpdateInput>
+  }
+
+  /**
+   * Pengeluaran delete
+   */
+  export type PengeluaranDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengeluaran
+     */
+    select?: PengeluaranSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengeluaran
+     */
+    omit?: PengeluaranOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengeluaranInclude<ExtArgs> | null
+    /**
+     * Filter which Pengeluaran to delete.
+     */
+    where: PengeluaranWhereUniqueInput
+  }
+
+  /**
+   * Pengeluaran deleteMany
+   */
+  export type PengeluaranDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Pengeluarans to delete
+     */
+    where?: PengeluaranWhereInput
+    /**
+     * Limit how many Pengeluarans to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Pengeluaran without action
+   */
+  export type PengeluaranDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengeluaran
+     */
+    select?: PengeluaranSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengeluaran
+     */
+    omit?: PengeluaranOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengeluaranInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -13351,6 +14666,9 @@ export namespace Prisma {
     createdAt: 'createdAt',
     pic: 'pic',
     kategoriAset: 'kategoriAset',
+    unit: 'unit',
+    jumlah: 'jumlah',
+    addedBy: 'addedBy',
     subKategoriAsetId: 'subKategoriAsetId'
   };
 
@@ -13398,9 +14716,11 @@ export namespace Prisma {
     pengadaanId: 'pengadaanId',
     tanggalBeli: 'tanggalBeli',
     lokasiId: 'lokasiId',
+    kategoriAset: 'kategoriAset',
     subKategoriAsetId: 'subKategoriAsetId',
     namaAset: 'namaAset',
     jumlahAset: 'jumlahAset',
+    unit: 'unit',
     hargaSatuan: 'hargaSatuan',
     totalHarga: 'totalHarga',
     vendor: 'vendor',
@@ -13425,7 +14745,8 @@ export namespace Prisma {
     durasi: 'durasi',
     idUser: 'idUser',
     requestBy: 'requestBy',
-    approvedBy: 'approvedBy'
+    approvedBy: 'approvedBy',
+    createdAt: 'createdAt'
   };
 
   export type RequestScalarFieldEnum = (typeof RequestScalarFieldEnum)[keyof typeof RequestScalarFieldEnum]
@@ -13454,6 +14775,18 @@ export namespace Prisma {
   };
 
   export type UserRoleScalarFieldEnum = (typeof UserRoleScalarFieldEnum)[keyof typeof UserRoleScalarFieldEnum]
+
+
+  export const PengeluaranScalarFieldEnum: {
+    pengeluaranId: 'pengeluaranId',
+    idAset: 'idAset',
+    jumlahKeluar: 'jumlahKeluar',
+    deskripsi: 'deskripsi',
+    addedBy: 'addedBy',
+    createdAt: 'createdAt'
+  };
+
+  export type PengeluaranScalarFieldEnum = (typeof PengeluaranScalarFieldEnum)[keyof typeof PengeluaranScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -13584,20 +14917,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'MaintenanceRequestStatus'
-   */
-  export type EnumMaintenanceRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MaintenanceRequestStatus'>
-    
-
-
-  /**
-   * Reference to a field of type 'MaintenanceRequestStatus[]'
-   */
-  export type ListEnumMaintenanceRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MaintenanceRequestStatus[]'>
-    
-
-
-  /**
    * Reference to a field of type 'BigInt'
    */
   export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
@@ -13608,6 +14927,20 @@ export namespace Prisma {
    * Reference to a field of type 'BigInt[]'
    */
   export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'MaintenanceRequestStatus'
+   */
+  export type EnumMaintenanceRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MaintenanceRequestStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'MaintenanceRequestStatus[]'
+   */
+  export type ListEnumMaintenanceRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MaintenanceRequestStatus[]'>
     
 
 
@@ -13719,11 +15052,15 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Aset"> | Date | string
     pic?: StringNullableFilter<"Aset"> | string | null
     kategoriAset?: EnumAsetKategoriFilter<"Aset"> | $Enums.AsetKategori
+    unit?: StringFilter<"Aset"> | string
+    jumlah?: BigIntFilter<"Aset"> | bigint | number
+    addedBy?: StringFilter<"Aset"> | string
     subKategoriAsetId?: StringNullableFilter<"Aset"> | string | null
     lokasi?: XOR<LokasiNullableScalarRelationFilter, LokasiWhereInput> | null
     subKategoriAset?: XOR<SubAsetKategoriNullableScalarRelationFilter, SubAsetKategoriWhereInput> | null
     maintenances?: MaintenanceListRelationFilter
     perpindahan?: PerpindahanListRelationFilter
+    pengeluaran?: PengeluaranListRelationFilter
   }
 
   export type AsetOrderByWithRelationInput = {
@@ -13741,11 +15078,15 @@ export namespace Prisma {
     createdAt?: SortOrder
     pic?: SortOrderInput | SortOrder
     kategoriAset?: SortOrder
+    unit?: SortOrder
+    jumlah?: SortOrder
+    addedBy?: SortOrder
     subKategoriAsetId?: SortOrderInput | SortOrder
     lokasi?: LokasiOrderByWithRelationInput
     subKategoriAset?: SubAsetKategoriOrderByWithRelationInput
     maintenances?: MaintenanceOrderByRelationAggregateInput
     perpindahan?: PerpindahanOrderByRelationAggregateInput
+    pengeluaran?: PengeluaranOrderByRelationAggregateInput
   }
 
   export type AsetWhereUniqueInput = Prisma.AtLeast<{
@@ -13766,11 +15107,15 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Aset"> | Date | string
     pic?: StringNullableFilter<"Aset"> | string | null
     kategoriAset?: EnumAsetKategoriFilter<"Aset"> | $Enums.AsetKategori
+    unit?: StringFilter<"Aset"> | string
+    jumlah?: BigIntFilter<"Aset"> | bigint | number
+    addedBy?: StringFilter<"Aset"> | string
     subKategoriAsetId?: StringNullableFilter<"Aset"> | string | null
     lokasi?: XOR<LokasiNullableScalarRelationFilter, LokasiWhereInput> | null
     subKategoriAset?: XOR<SubAsetKategoriNullableScalarRelationFilter, SubAsetKategoriWhereInput> | null
     maintenances?: MaintenanceListRelationFilter
     perpindahan?: PerpindahanListRelationFilter
+    pengeluaran?: PengeluaranListRelationFilter
   }, "asetId">
 
   export type AsetOrderByWithAggregationInput = {
@@ -13788,6 +15133,9 @@ export namespace Prisma {
     createdAt?: SortOrder
     pic?: SortOrderInput | SortOrder
     kategoriAset?: SortOrder
+    unit?: SortOrder
+    jumlah?: SortOrder
+    addedBy?: SortOrder
     subKategoriAsetId?: SortOrderInput | SortOrder
     _count?: AsetCountOrderByAggregateInput
     _avg?: AsetAvgOrderByAggregateInput
@@ -13814,6 +15162,9 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Aset"> | Date | string
     pic?: StringNullableWithAggregatesFilter<"Aset"> | string | null
     kategoriAset?: EnumAsetKategoriWithAggregatesFilter<"Aset"> | $Enums.AsetKategori
+    unit?: StringWithAggregatesFilter<"Aset"> | string
+    jumlah?: BigIntWithAggregatesFilter<"Aset"> | bigint | number
+    addedBy?: StringWithAggregatesFilter<"Aset"> | string
     subKategoriAsetId?: StringNullableWithAggregatesFilter<"Aset"> | string | null
   }
 
@@ -14021,9 +15372,11 @@ export namespace Prisma {
     pengadaanId?: StringFilter<"Pengadaan"> | string
     tanggalBeli?: DateTimeFilter<"Pengadaan"> | Date | string
     lokasiId?: StringFilter<"Pengadaan"> | string
+    kategoriAset?: StringFilter<"Pengadaan"> | string
     subKategoriAsetId?: StringNullableFilter<"Pengadaan"> | string | null
     namaAset?: StringFilter<"Pengadaan"> | string
     jumlahAset?: IntFilter<"Pengadaan"> | number
+    unit?: StringFilter<"Pengadaan"> | string
     hargaSatuan?: BigIntFilter<"Pengadaan"> | bigint | number
     totalHarga?: BigIntFilter<"Pengadaan"> | bigint | number
     vendor?: StringFilter<"Pengadaan"> | string
@@ -14036,9 +15389,11 @@ export namespace Prisma {
     pengadaanId?: SortOrder
     tanggalBeli?: SortOrder
     lokasiId?: SortOrder
+    kategoriAset?: SortOrder
     subKategoriAsetId?: SortOrderInput | SortOrder
     namaAset?: SortOrder
     jumlahAset?: SortOrder
+    unit?: SortOrder
     hargaSatuan?: SortOrder
     totalHarga?: SortOrder
     vendor?: SortOrder
@@ -14054,9 +15409,11 @@ export namespace Prisma {
     NOT?: PengadaanWhereInput | PengadaanWhereInput[]
     tanggalBeli?: DateTimeFilter<"Pengadaan"> | Date | string
     lokasiId?: StringFilter<"Pengadaan"> | string
+    kategoriAset?: StringFilter<"Pengadaan"> | string
     subKategoriAsetId?: StringNullableFilter<"Pengadaan"> | string | null
     namaAset?: StringFilter<"Pengadaan"> | string
     jumlahAset?: IntFilter<"Pengadaan"> | number
+    unit?: StringFilter<"Pengadaan"> | string
     hargaSatuan?: BigIntFilter<"Pengadaan"> | bigint | number
     totalHarga?: BigIntFilter<"Pengadaan"> | bigint | number
     vendor?: StringFilter<"Pengadaan"> | string
@@ -14069,9 +15426,11 @@ export namespace Prisma {
     pengadaanId?: SortOrder
     tanggalBeli?: SortOrder
     lokasiId?: SortOrder
+    kategoriAset?: SortOrder
     subKategoriAsetId?: SortOrderInput | SortOrder
     namaAset?: SortOrder
     jumlahAset?: SortOrder
+    unit?: SortOrder
     hargaSatuan?: SortOrder
     totalHarga?: SortOrder
     vendor?: SortOrder
@@ -14090,9 +15449,11 @@ export namespace Prisma {
     pengadaanId?: StringWithAggregatesFilter<"Pengadaan"> | string
     tanggalBeli?: DateTimeWithAggregatesFilter<"Pengadaan"> | Date | string
     lokasiId?: StringWithAggregatesFilter<"Pengadaan"> | string
+    kategoriAset?: StringWithAggregatesFilter<"Pengadaan"> | string
     subKategoriAsetId?: StringNullableWithAggregatesFilter<"Pengadaan"> | string | null
     namaAset?: StringWithAggregatesFilter<"Pengadaan"> | string
     jumlahAset?: IntWithAggregatesFilter<"Pengadaan"> | number
+    unit?: StringWithAggregatesFilter<"Pengadaan"> | string
     hargaSatuan?: BigIntWithAggregatesFilter<"Pengadaan"> | bigint | number
     totalHarga?: BigIntWithAggregatesFilter<"Pengadaan"> | bigint | number
     vendor?: StringWithAggregatesFilter<"Pengadaan"> | string
@@ -14118,6 +15479,7 @@ export namespace Prisma {
     idUser?: StringFilter<"Request"> | string
     requestBy?: StringFilter<"Request"> | string
     approvedBy?: StringNullableFilter<"Request"> | string | null
+    createdAt?: DateTimeFilter<"Request"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
@@ -14137,6 +15499,7 @@ export namespace Prisma {
     idUser?: SortOrder
     requestBy?: SortOrder
     approvedBy?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
   }
 
@@ -14159,6 +15522,7 @@ export namespace Prisma {
     idUser?: StringFilter<"Request"> | string
     requestBy?: StringFilter<"Request"> | string
     approvedBy?: StringNullableFilter<"Request"> | string | null
+    createdAt?: DateTimeFilter<"Request"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "requestId">
 
@@ -14178,6 +15542,7 @@ export namespace Prisma {
     idUser?: SortOrder
     requestBy?: SortOrder
     approvedBy?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
     _count?: RequestCountOrderByAggregateInput
     _avg?: RequestAvgOrderByAggregateInput
     _max?: RequestMaxOrderByAggregateInput
@@ -14204,6 +15569,7 @@ export namespace Prisma {
     idUser?: StringWithAggregatesFilter<"Request"> | string
     requestBy?: StringWithAggregatesFilter<"Request"> | string
     approvedBy?: StringNullableWithAggregatesFilter<"Request"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Request"> | Date | string
   }
 
   export type NotifikasiWhereInput = {
@@ -14336,6 +15702,68 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"UserRole"> | Date | string
   }
 
+  export type PengeluaranWhereInput = {
+    AND?: PengeluaranWhereInput | PengeluaranWhereInput[]
+    OR?: PengeluaranWhereInput[]
+    NOT?: PengeluaranWhereInput | PengeluaranWhereInput[]
+    pengeluaranId?: StringFilter<"Pengeluaran"> | string
+    idAset?: StringFilter<"Pengeluaran"> | string
+    jumlahKeluar?: BigIntFilter<"Pengeluaran"> | bigint | number
+    deskripsi?: StringFilter<"Pengeluaran"> | string
+    addedBy?: StringFilter<"Pengeluaran"> | string
+    createdAt?: DateTimeFilter<"Pengeluaran"> | Date | string
+    aset?: XOR<AsetScalarRelationFilter, AsetWhereInput>
+  }
+
+  export type PengeluaranOrderByWithRelationInput = {
+    pengeluaranId?: SortOrder
+    idAset?: SortOrder
+    jumlahKeluar?: SortOrder
+    deskripsi?: SortOrder
+    addedBy?: SortOrder
+    createdAt?: SortOrder
+    aset?: AsetOrderByWithRelationInput
+  }
+
+  export type PengeluaranWhereUniqueInput = Prisma.AtLeast<{
+    pengeluaranId?: string
+    AND?: PengeluaranWhereInput | PengeluaranWhereInput[]
+    OR?: PengeluaranWhereInput[]
+    NOT?: PengeluaranWhereInput | PengeluaranWhereInput[]
+    idAset?: StringFilter<"Pengeluaran"> | string
+    jumlahKeluar?: BigIntFilter<"Pengeluaran"> | bigint | number
+    deskripsi?: StringFilter<"Pengeluaran"> | string
+    addedBy?: StringFilter<"Pengeluaran"> | string
+    createdAt?: DateTimeFilter<"Pengeluaran"> | Date | string
+    aset?: XOR<AsetScalarRelationFilter, AsetWhereInput>
+  }, "pengeluaranId">
+
+  export type PengeluaranOrderByWithAggregationInput = {
+    pengeluaranId?: SortOrder
+    idAset?: SortOrder
+    jumlahKeluar?: SortOrder
+    deskripsi?: SortOrder
+    addedBy?: SortOrder
+    createdAt?: SortOrder
+    _count?: PengeluaranCountOrderByAggregateInput
+    _avg?: PengeluaranAvgOrderByAggregateInput
+    _max?: PengeluaranMaxOrderByAggregateInput
+    _min?: PengeluaranMinOrderByAggregateInput
+    _sum?: PengeluaranSumOrderByAggregateInput
+  }
+
+  export type PengeluaranScalarWhereWithAggregatesInput = {
+    AND?: PengeluaranScalarWhereWithAggregatesInput | PengeluaranScalarWhereWithAggregatesInput[]
+    OR?: PengeluaranScalarWhereWithAggregatesInput[]
+    NOT?: PengeluaranScalarWhereWithAggregatesInput | PengeluaranScalarWhereWithAggregatesInput[]
+    pengeluaranId?: StringWithAggregatesFilter<"Pengeluaran"> | string
+    idAset?: StringWithAggregatesFilter<"Pengeluaran"> | string
+    jumlahKeluar?: BigIntWithAggregatesFilter<"Pengeluaran"> | bigint | number
+    deskripsi?: StringWithAggregatesFilter<"Pengeluaran"> | string
+    addedBy?: StringWithAggregatesFilter<"Pengeluaran"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Pengeluaran"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -14430,10 +15858,14 @@ export namespace Prisma {
     createdAt?: Date | string
     pic?: string | null
     kategoriAset: $Enums.AsetKategori
+    unit: string
+    jumlah: bigint | number
+    addedBy: string
     lokasi?: LokasiCreateNestedOneWithoutAsetInput
     subKategoriAset?: SubAsetKategoriCreateNestedOneWithoutAsetsInput
     maintenances?: MaintenanceCreateNestedManyWithoutAsetInput
     perpindahan?: PerpindahanCreateNestedManyWithoutAsetInput
+    pengeluaran?: PengeluaranCreateNestedManyWithoutAsetInput
   }
 
   export type AsetUncheckedCreateInput = {
@@ -14451,9 +15883,13 @@ export namespace Prisma {
     createdAt?: Date | string
     pic?: string | null
     kategoriAset: $Enums.AsetKategori
+    unit: string
+    jumlah: bigint | number
+    addedBy: string
     subKategoriAsetId?: string | null
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAsetInput
     perpindahan?: PerpindahanUncheckedCreateNestedManyWithoutAsetInput
+    pengeluaran?: PengeluaranUncheckedCreateNestedManyWithoutAsetInput
   }
 
   export type AsetUpdateInput = {
@@ -14470,10 +15906,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
     kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    unit?: StringFieldUpdateOperationsInput | string
+    jumlah?: BigIntFieldUpdateOperationsInput | bigint | number
+    addedBy?: StringFieldUpdateOperationsInput | string
     lokasi?: LokasiUpdateOneWithoutAsetNestedInput
     subKategoriAset?: SubAsetKategoriUpdateOneWithoutAsetsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutAsetNestedInput
     perpindahan?: PerpindahanUpdateManyWithoutAsetNestedInput
+    pengeluaran?: PengeluaranUpdateManyWithoutAsetNestedInput
   }
 
   export type AsetUncheckedUpdateInput = {
@@ -14491,9 +15931,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
     kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    unit?: StringFieldUpdateOperationsInput | string
+    jumlah?: BigIntFieldUpdateOperationsInput | bigint | number
+    addedBy?: StringFieldUpdateOperationsInput | string
     subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
     maintenances?: MaintenanceUncheckedUpdateManyWithoutAsetNestedInput
     perpindahan?: PerpindahanUncheckedUpdateManyWithoutAsetNestedInput
+    pengeluaran?: PengeluaranUncheckedUpdateManyWithoutAsetNestedInput
   }
 
   export type AsetCreateManyInput = {
@@ -14511,6 +15955,9 @@ export namespace Prisma {
     createdAt?: Date | string
     pic?: string | null
     kategoriAset: $Enums.AsetKategori
+    unit: string
+    jumlah: bigint | number
+    addedBy: string
     subKategoriAsetId?: string | null
   }
 
@@ -14528,6 +15975,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
     kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    unit?: StringFieldUpdateOperationsInput | string
+    jumlah?: BigIntFieldUpdateOperationsInput | bigint | number
+    addedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type AsetUncheckedUpdateManyInput = {
@@ -14545,6 +15995,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
     kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    unit?: StringFieldUpdateOperationsInput | string
+    jumlah?: BigIntFieldUpdateOperationsInput | bigint | number
+    addedBy?: StringFieldUpdateOperationsInput | string
     subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -14760,8 +16213,10 @@ export namespace Prisma {
   export type PengadaanCreateInput = {
     pengadaanId?: string
     tanggalBeli: Date | string
+    kategoriAset: string
     namaAset: string
     jumlahAset: number
+    unit: string
     hargaSatuan: bigint | number
     totalHarga: bigint | number
     vendor: string
@@ -14774,9 +16229,11 @@ export namespace Prisma {
     pengadaanId?: string
     tanggalBeli: Date | string
     lokasiId: string
+    kategoriAset: string
     subKategoriAsetId?: string | null
     namaAset: string
     jumlahAset: number
+    unit: string
     hargaSatuan: bigint | number
     totalHarga: bigint | number
     vendor: string
@@ -14786,8 +16243,10 @@ export namespace Prisma {
   export type PengadaanUpdateInput = {
     pengadaanId?: StringFieldUpdateOperationsInput | string
     tanggalBeli?: DateTimeFieldUpdateOperationsInput | Date | string
+    kategoriAset?: StringFieldUpdateOperationsInput | string
     namaAset?: StringFieldUpdateOperationsInput | string
     jumlahAset?: IntFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
     totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
     vendor?: StringFieldUpdateOperationsInput | string
@@ -14800,9 +16259,11 @@ export namespace Prisma {
     pengadaanId?: StringFieldUpdateOperationsInput | string
     tanggalBeli?: DateTimeFieldUpdateOperationsInput | Date | string
     lokasiId?: StringFieldUpdateOperationsInput | string
+    kategoriAset?: StringFieldUpdateOperationsInput | string
     subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
     namaAset?: StringFieldUpdateOperationsInput | string
     jumlahAset?: IntFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
     totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
     vendor?: StringFieldUpdateOperationsInput | string
@@ -14813,9 +16274,11 @@ export namespace Prisma {
     pengadaanId?: string
     tanggalBeli: Date | string
     lokasiId: string
+    kategoriAset: string
     subKategoriAsetId?: string | null
     namaAset: string
     jumlahAset: number
+    unit: string
     hargaSatuan: bigint | number
     totalHarga: bigint | number
     vendor: string
@@ -14825,8 +16288,10 @@ export namespace Prisma {
   export type PengadaanUpdateManyMutationInput = {
     pengadaanId?: StringFieldUpdateOperationsInput | string
     tanggalBeli?: DateTimeFieldUpdateOperationsInput | Date | string
+    kategoriAset?: StringFieldUpdateOperationsInput | string
     namaAset?: StringFieldUpdateOperationsInput | string
     jumlahAset?: IntFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
     totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
     vendor?: StringFieldUpdateOperationsInput | string
@@ -14837,9 +16302,11 @@ export namespace Prisma {
     pengadaanId?: StringFieldUpdateOperationsInput | string
     tanggalBeli?: DateTimeFieldUpdateOperationsInput | Date | string
     lokasiId?: StringFieldUpdateOperationsInput | string
+    kategoriAset?: StringFieldUpdateOperationsInput | string
     subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
     namaAset?: StringFieldUpdateOperationsInput | string
     jumlahAset?: IntFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
     totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
     vendor?: StringFieldUpdateOperationsInput | string
@@ -14861,6 +16328,7 @@ export namespace Prisma {
     durasi?: string | null
     requestBy: string
     approvedBy?: string | null
+    createdAt?: Date | string
     user: UserCreateNestedOneWithoutRequestInput
   }
 
@@ -14880,6 +16348,7 @@ export namespace Prisma {
     idUser: string
     requestBy: string
     approvedBy?: string | null
+    createdAt?: Date | string
   }
 
   export type RequestUpdateInput = {
@@ -14897,6 +16366,7 @@ export namespace Prisma {
     durasi?: NullableStringFieldUpdateOperationsInput | string | null
     requestBy?: StringFieldUpdateOperationsInput | string
     approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutRequestNestedInput
   }
 
@@ -14916,6 +16386,7 @@ export namespace Prisma {
     idUser?: StringFieldUpdateOperationsInput | string
     requestBy?: StringFieldUpdateOperationsInput | string
     approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RequestCreateManyInput = {
@@ -14934,6 +16405,7 @@ export namespace Prisma {
     idUser: string
     requestBy: string
     approvedBy?: string | null
+    createdAt?: Date | string
   }
 
   export type RequestUpdateManyMutationInput = {
@@ -14951,6 +16423,7 @@ export namespace Prisma {
     durasi?: NullableStringFieldUpdateOperationsInput | string | null
     requestBy?: StringFieldUpdateOperationsInput | string
     approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RequestUncheckedUpdateManyInput = {
@@ -14969,6 +16442,7 @@ export namespace Prisma {
     idUser?: StringFieldUpdateOperationsInput | string
     requestBy?: StringFieldUpdateOperationsInput | string
     approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NotifikasiCreateInput = {
@@ -15096,6 +16570,68 @@ export namespace Prisma {
   export type UserRoleUncheckedUpdateManyInput = {
     userRoleId?: StringFieldUpdateOperationsInput | string
     nameRole?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PengeluaranCreateInput = {
+    pengeluaranId?: string
+    jumlahKeluar: bigint | number
+    deskripsi: string
+    addedBy: string
+    createdAt?: Date | string
+    aset: AsetCreateNestedOneWithoutPengeluaranInput
+  }
+
+  export type PengeluaranUncheckedCreateInput = {
+    pengeluaranId?: string
+    idAset: string
+    jumlahKeluar: bigint | number
+    deskripsi: string
+    addedBy: string
+    createdAt?: Date | string
+  }
+
+  export type PengeluaranUpdateInput = {
+    pengeluaranId?: StringFieldUpdateOperationsInput | string
+    jumlahKeluar?: BigIntFieldUpdateOperationsInput | bigint | number
+    deskripsi?: StringFieldUpdateOperationsInput | string
+    addedBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aset?: AsetUpdateOneRequiredWithoutPengeluaranNestedInput
+  }
+
+  export type PengeluaranUncheckedUpdateInput = {
+    pengeluaranId?: StringFieldUpdateOperationsInput | string
+    idAset?: StringFieldUpdateOperationsInput | string
+    jumlahKeluar?: BigIntFieldUpdateOperationsInput | bigint | number
+    deskripsi?: StringFieldUpdateOperationsInput | string
+    addedBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PengeluaranCreateManyInput = {
+    pengeluaranId?: string
+    idAset: string
+    jumlahKeluar: bigint | number
+    deskripsi: string
+    addedBy: string
+    createdAt?: Date | string
+  }
+
+  export type PengeluaranUpdateManyMutationInput = {
+    pengeluaranId?: StringFieldUpdateOperationsInput | string
+    jumlahKeluar?: BigIntFieldUpdateOperationsInput | bigint | number
+    deskripsi?: StringFieldUpdateOperationsInput | string
+    addedBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PengeluaranUncheckedUpdateManyInput = {
+    pengeluaranId?: StringFieldUpdateOperationsInput | string
+    idAset?: StringFieldUpdateOperationsInput | string
+    jumlahKeluar?: BigIntFieldUpdateOperationsInput | bigint | number
+    deskripsi?: StringFieldUpdateOperationsInput | string
+    addedBy?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -15307,6 +16843,17 @@ export namespace Prisma {
     not?: NestedEnumAsetKategoriFilter<$PrismaModel> | $Enums.AsetKategori
   }
 
+  export type BigIntFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
+  }
+
   export type LokasiNullableScalarRelationFilter = {
     is?: LokasiWhereInput | null
     isNot?: LokasiWhereInput | null
@@ -15329,11 +16876,21 @@ export namespace Prisma {
     none?: PerpindahanWhereInput
   }
 
+  export type PengeluaranListRelationFilter = {
+    every?: PengeluaranWhereInput
+    some?: PengeluaranWhereInput
+    none?: PengeluaranWhereInput
+  }
+
   export type MaintenanceOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type PerpindahanOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PengeluaranOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -15352,11 +16909,15 @@ export namespace Prisma {
     createdAt?: SortOrder
     pic?: SortOrder
     kategoriAset?: SortOrder
+    unit?: SortOrder
+    jumlah?: SortOrder
+    addedBy?: SortOrder
     subKategoriAsetId?: SortOrder
   }
 
   export type AsetAvgOrderByAggregateInput = {
     tahun?: SortOrder
+    jumlah?: SortOrder
   }
 
   export type AsetMaxOrderByAggregateInput = {
@@ -15373,6 +16934,9 @@ export namespace Prisma {
     createdAt?: SortOrder
     pic?: SortOrder
     kategoriAset?: SortOrder
+    unit?: SortOrder
+    jumlah?: SortOrder
+    addedBy?: SortOrder
     subKategoriAsetId?: SortOrder
   }
 
@@ -15390,11 +16954,15 @@ export namespace Prisma {
     createdAt?: SortOrder
     pic?: SortOrder
     kategoriAset?: SortOrder
+    unit?: SortOrder
+    jumlah?: SortOrder
+    addedBy?: SortOrder
     subKategoriAsetId?: SortOrder
   }
 
   export type AsetSumOrderByAggregateInput = {
     tahun?: SortOrder
+    jumlah?: SortOrder
   }
 
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -15459,6 +17027,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumAsetKategoriFilter<$PrismaModel>
     _max?: NestedEnumAsetKategoriFilter<$PrismaModel>
+  }
+
+  export type BigIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedBigIntFilter<$PrismaModel>
+    _max?: NestedBigIntFilter<$PrismaModel>
   }
 
   export type EnumMaintenanceRequestStatusFilter<$PrismaModel = never> = {
@@ -15613,24 +17197,15 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type BigIntFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
-  }
-
   export type PengadaanCountOrderByAggregateInput = {
     pengadaanId?: SortOrder
     tanggalBeli?: SortOrder
     lokasiId?: SortOrder
+    kategoriAset?: SortOrder
     subKategoriAsetId?: SortOrder
     namaAset?: SortOrder
     jumlahAset?: SortOrder
+    unit?: SortOrder
     hargaSatuan?: SortOrder
     totalHarga?: SortOrder
     vendor?: SortOrder
@@ -15647,9 +17222,11 @@ export namespace Prisma {
     pengadaanId?: SortOrder
     tanggalBeli?: SortOrder
     lokasiId?: SortOrder
+    kategoriAset?: SortOrder
     subKategoriAsetId?: SortOrder
     namaAset?: SortOrder
     jumlahAset?: SortOrder
+    unit?: SortOrder
     hargaSatuan?: SortOrder
     totalHarga?: SortOrder
     vendor?: SortOrder
@@ -15660,9 +17237,11 @@ export namespace Prisma {
     pengadaanId?: SortOrder
     tanggalBeli?: SortOrder
     lokasiId?: SortOrder
+    kategoriAset?: SortOrder
     subKategoriAsetId?: SortOrder
     namaAset?: SortOrder
     jumlahAset?: SortOrder
+    unit?: SortOrder
     hargaSatuan?: SortOrder
     totalHarga?: SortOrder
     vendor?: SortOrder
@@ -15691,22 +17270,6 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type BigIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedBigIntFilter<$PrismaModel>
-    _min?: NestedBigIntFilter<$PrismaModel>
-    _max?: NestedBigIntFilter<$PrismaModel>
-  }
-
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -15728,6 +17291,7 @@ export namespace Prisma {
     idUser?: SortOrder
     requestBy?: SortOrder
     approvedBy?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type RequestAvgOrderByAggregateInput = {
@@ -15751,6 +17315,7 @@ export namespace Prisma {
     idUser?: SortOrder
     requestBy?: SortOrder
     approvedBy?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type RequestMinOrderByAggregateInput = {
@@ -15769,6 +17334,7 @@ export namespace Prisma {
     idUser?: SortOrder
     requestBy?: SortOrder
     approvedBy?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type RequestSumOrderByAggregateInput = {
@@ -15850,6 +17416,41 @@ export namespace Prisma {
     userRoleId?: SortOrder
     nameRole?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type PengeluaranCountOrderByAggregateInput = {
+    pengeluaranId?: SortOrder
+    idAset?: SortOrder
+    jumlahKeluar?: SortOrder
+    deskripsi?: SortOrder
+    addedBy?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PengeluaranAvgOrderByAggregateInput = {
+    jumlahKeluar?: SortOrder
+  }
+
+  export type PengeluaranMaxOrderByAggregateInput = {
+    pengeluaranId?: SortOrder
+    idAset?: SortOrder
+    jumlahKeluar?: SortOrder
+    deskripsi?: SortOrder
+    addedBy?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PengeluaranMinOrderByAggregateInput = {
+    pengeluaranId?: SortOrder
+    idAset?: SortOrder
+    jumlahKeluar?: SortOrder
+    deskripsi?: SortOrder
+    addedBy?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PengeluaranSumOrderByAggregateInput = {
+    jumlahKeluar?: SortOrder
   }
 
   export type UserRoleCreateNestedOneWithoutUsersInput = {
@@ -15954,6 +17555,13 @@ export namespace Prisma {
     connect?: PerpindahanWhereUniqueInput | PerpindahanWhereUniqueInput[]
   }
 
+  export type PengeluaranCreateNestedManyWithoutAsetInput = {
+    create?: XOR<PengeluaranCreateWithoutAsetInput, PengeluaranUncheckedCreateWithoutAsetInput> | PengeluaranCreateWithoutAsetInput[] | PengeluaranUncheckedCreateWithoutAsetInput[]
+    connectOrCreate?: PengeluaranCreateOrConnectWithoutAsetInput | PengeluaranCreateOrConnectWithoutAsetInput[]
+    createMany?: PengeluaranCreateManyAsetInputEnvelope
+    connect?: PengeluaranWhereUniqueInput | PengeluaranWhereUniqueInput[]
+  }
+
   export type MaintenanceUncheckedCreateNestedManyWithoutAsetInput = {
     create?: XOR<MaintenanceCreateWithoutAsetInput, MaintenanceUncheckedCreateWithoutAsetInput> | MaintenanceCreateWithoutAsetInput[] | MaintenanceUncheckedCreateWithoutAsetInput[]
     connectOrCreate?: MaintenanceCreateOrConnectWithoutAsetInput | MaintenanceCreateOrConnectWithoutAsetInput[]
@@ -15966,6 +17574,13 @@ export namespace Prisma {
     connectOrCreate?: PerpindahanCreateOrConnectWithoutAsetInput | PerpindahanCreateOrConnectWithoutAsetInput[]
     createMany?: PerpindahanCreateManyAsetInputEnvelope
     connect?: PerpindahanWhereUniqueInput | PerpindahanWhereUniqueInput[]
+  }
+
+  export type PengeluaranUncheckedCreateNestedManyWithoutAsetInput = {
+    create?: XOR<PengeluaranCreateWithoutAsetInput, PengeluaranUncheckedCreateWithoutAsetInput> | PengeluaranCreateWithoutAsetInput[] | PengeluaranUncheckedCreateWithoutAsetInput[]
+    connectOrCreate?: PengeluaranCreateOrConnectWithoutAsetInput | PengeluaranCreateOrConnectWithoutAsetInput[]
+    createMany?: PengeluaranCreateManyAsetInputEnvelope
+    connect?: PengeluaranWhereUniqueInput | PengeluaranWhereUniqueInput[]
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -15995,6 +17610,14 @@ export namespace Prisma {
 
   export type EnumAsetKategoriFieldUpdateOperationsInput = {
     set?: $Enums.AsetKategori
+  }
+
+  export type BigIntFieldUpdateOperationsInput = {
+    set?: bigint | number
+    increment?: bigint | number
+    decrement?: bigint | number
+    multiply?: bigint | number
+    divide?: bigint | number
   }
 
   export type LokasiUpdateOneWithoutAsetNestedInput = {
@@ -16045,6 +17668,20 @@ export namespace Prisma {
     deleteMany?: PerpindahanScalarWhereInput | PerpindahanScalarWhereInput[]
   }
 
+  export type PengeluaranUpdateManyWithoutAsetNestedInput = {
+    create?: XOR<PengeluaranCreateWithoutAsetInput, PengeluaranUncheckedCreateWithoutAsetInput> | PengeluaranCreateWithoutAsetInput[] | PengeluaranUncheckedCreateWithoutAsetInput[]
+    connectOrCreate?: PengeluaranCreateOrConnectWithoutAsetInput | PengeluaranCreateOrConnectWithoutAsetInput[]
+    upsert?: PengeluaranUpsertWithWhereUniqueWithoutAsetInput | PengeluaranUpsertWithWhereUniqueWithoutAsetInput[]
+    createMany?: PengeluaranCreateManyAsetInputEnvelope
+    set?: PengeluaranWhereUniqueInput | PengeluaranWhereUniqueInput[]
+    disconnect?: PengeluaranWhereUniqueInput | PengeluaranWhereUniqueInput[]
+    delete?: PengeluaranWhereUniqueInput | PengeluaranWhereUniqueInput[]
+    connect?: PengeluaranWhereUniqueInput | PengeluaranWhereUniqueInput[]
+    update?: PengeluaranUpdateWithWhereUniqueWithoutAsetInput | PengeluaranUpdateWithWhereUniqueWithoutAsetInput[]
+    updateMany?: PengeluaranUpdateManyWithWhereWithoutAsetInput | PengeluaranUpdateManyWithWhereWithoutAsetInput[]
+    deleteMany?: PengeluaranScalarWhereInput | PengeluaranScalarWhereInput[]
+  }
+
   export type MaintenanceUncheckedUpdateManyWithoutAsetNestedInput = {
     create?: XOR<MaintenanceCreateWithoutAsetInput, MaintenanceUncheckedCreateWithoutAsetInput> | MaintenanceCreateWithoutAsetInput[] | MaintenanceUncheckedCreateWithoutAsetInput[]
     connectOrCreate?: MaintenanceCreateOrConnectWithoutAsetInput | MaintenanceCreateOrConnectWithoutAsetInput[]
@@ -16071,6 +17708,20 @@ export namespace Prisma {
     update?: PerpindahanUpdateWithWhereUniqueWithoutAsetInput | PerpindahanUpdateWithWhereUniqueWithoutAsetInput[]
     updateMany?: PerpindahanUpdateManyWithWhereWithoutAsetInput | PerpindahanUpdateManyWithWhereWithoutAsetInput[]
     deleteMany?: PerpindahanScalarWhereInput | PerpindahanScalarWhereInput[]
+  }
+
+  export type PengeluaranUncheckedUpdateManyWithoutAsetNestedInput = {
+    create?: XOR<PengeluaranCreateWithoutAsetInput, PengeluaranUncheckedCreateWithoutAsetInput> | PengeluaranCreateWithoutAsetInput[] | PengeluaranUncheckedCreateWithoutAsetInput[]
+    connectOrCreate?: PengeluaranCreateOrConnectWithoutAsetInput | PengeluaranCreateOrConnectWithoutAsetInput[]
+    upsert?: PengeluaranUpsertWithWhereUniqueWithoutAsetInput | PengeluaranUpsertWithWhereUniqueWithoutAsetInput[]
+    createMany?: PengeluaranCreateManyAsetInputEnvelope
+    set?: PengeluaranWhereUniqueInput | PengeluaranWhereUniqueInput[]
+    disconnect?: PengeluaranWhereUniqueInput | PengeluaranWhereUniqueInput[]
+    delete?: PengeluaranWhereUniqueInput | PengeluaranWhereUniqueInput[]
+    connect?: PengeluaranWhereUniqueInput | PengeluaranWhereUniqueInput[]
+    update?: PengeluaranUpdateWithWhereUniqueWithoutAsetInput | PengeluaranUpdateWithWhereUniqueWithoutAsetInput[]
+    updateMany?: PengeluaranUpdateManyWithWhereWithoutAsetInput | PengeluaranUpdateManyWithWhereWithoutAsetInput[]
+    deleteMany?: PengeluaranScalarWhereInput | PengeluaranScalarWhereInput[]
   }
 
   export type AsetCreateNestedOneWithoutMaintenancesInput = {
@@ -16303,14 +17954,6 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type BigIntFieldUpdateOperationsInput = {
-    set?: bigint | number
-    increment?: bigint | number
-    decrement?: bigint | number
-    multiply?: bigint | number
-    divide?: bigint | number
-  }
-
   export type SubAsetKategoriUpdateOneWithoutPengadaanNestedInput = {
     create?: XOR<SubAsetKategoriCreateWithoutPengadaanInput, SubAsetKategoriUncheckedCreateWithoutPengadaanInput>
     connectOrCreate?: SubAsetKategoriCreateOrConnectWithoutPengadaanInput
@@ -16507,6 +18150,20 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
+  export type AsetCreateNestedOneWithoutPengeluaranInput = {
+    create?: XOR<AsetCreateWithoutPengeluaranInput, AsetUncheckedCreateWithoutPengeluaranInput>
+    connectOrCreate?: AsetCreateOrConnectWithoutPengeluaranInput
+    connect?: AsetWhereUniqueInput
+  }
+
+  export type AsetUpdateOneRequiredWithoutPengeluaranNestedInput = {
+    create?: XOR<AsetCreateWithoutPengeluaranInput, AsetUncheckedCreateWithoutPengeluaranInput>
+    connectOrCreate?: AsetCreateOrConnectWithoutPengeluaranInput
+    upsert?: AsetUpsertWithoutPengeluaranInput
+    connect?: AsetWhereUniqueInput
+    update?: XOR<XOR<AsetUpdateToOneWithWhereWithoutPengeluaranInput, AsetUpdateWithoutPengeluaranInput>, AsetUncheckedUpdateWithoutPengeluaranInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -16662,6 +18319,17 @@ export namespace Prisma {
     not?: NestedEnumAsetKategoriFilter<$PrismaModel> | $Enums.AsetKategori
   }
 
+  export type NestedBigIntFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -16736,6 +18404,33 @@ export namespace Prisma {
     _max?: NestedEnumAsetKategoriFilter<$PrismaModel>
   }
 
+  export type NestedBigIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedBigIntFilter<$PrismaModel>
+    _max?: NestedBigIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedEnumMaintenanceRequestStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.MaintenanceRequestStatus | EnumMaintenanceRequestStatusFieldRefInput<$PrismaModel>
     in?: $Enums.MaintenanceRequestStatus[] | ListEnumMaintenanceRequestStatusFieldRefInput<$PrismaModel>
@@ -16753,17 +18448,6 @@ export namespace Prisma {
     _max?: NestedEnumMaintenanceRequestStatusFilter<$PrismaModel>
   }
 
-  export type NestedBigIntFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
-  }
-
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -16778,33 +18462,6 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type NestedBigIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedBigIntFilter<$PrismaModel>
-    _min?: NestedBigIntFilter<$PrismaModel>
-    _max?: NestedBigIntFilter<$PrismaModel>
   }
 
   export type UserRoleCreateWithoutUsersInput = {
@@ -16839,6 +18496,7 @@ export namespace Prisma {
     durasi?: string | null
     requestBy: string
     approvedBy?: string | null
+    createdAt?: Date | string
   }
 
   export type RequestUncheckedCreateWithoutUserInput = {
@@ -16856,6 +18514,7 @@ export namespace Prisma {
     durasi?: string | null
     requestBy: string
     approvedBy?: string | null
+    createdAt?: Date | string
   }
 
   export type RequestCreateOrConnectWithoutUserInput = {
@@ -16926,6 +18585,7 @@ export namespace Prisma {
     idUser?: StringFilter<"Request"> | string
     requestBy?: StringFilter<"Request"> | string
     approvedBy?: StringNullableFilter<"Request"> | string | null
+    createdAt?: DateTimeFilter<"Request"> | Date | string
   }
 
   export type LokasiCreateWithoutAsetInput = {
@@ -17029,6 +18689,32 @@ export namespace Prisma {
 
   export type PerpindahanCreateManyAsetInputEnvelope = {
     data: PerpindahanCreateManyAsetInput | PerpindahanCreateManyAsetInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PengeluaranCreateWithoutAsetInput = {
+    pengeluaranId?: string
+    jumlahKeluar: bigint | number
+    deskripsi: string
+    addedBy: string
+    createdAt?: Date | string
+  }
+
+  export type PengeluaranUncheckedCreateWithoutAsetInput = {
+    pengeluaranId?: string
+    jumlahKeluar: bigint | number
+    deskripsi: string
+    addedBy: string
+    createdAt?: Date | string
+  }
+
+  export type PengeluaranCreateOrConnectWithoutAsetInput = {
+    where: PengeluaranWhereUniqueInput
+    create: XOR<PengeluaranCreateWithoutAsetInput, PengeluaranUncheckedCreateWithoutAsetInput>
+  }
+
+  export type PengeluaranCreateManyAsetInputEnvelope = {
+    data: PengeluaranCreateManyAsetInput | PengeluaranCreateManyAsetInput[]
     skipDuplicates?: boolean
   }
 
@@ -17149,6 +18835,34 @@ export namespace Prisma {
     tempatLama?: StringFilter<"Perpindahan"> | string
   }
 
+  export type PengeluaranUpsertWithWhereUniqueWithoutAsetInput = {
+    where: PengeluaranWhereUniqueInput
+    update: XOR<PengeluaranUpdateWithoutAsetInput, PengeluaranUncheckedUpdateWithoutAsetInput>
+    create: XOR<PengeluaranCreateWithoutAsetInput, PengeluaranUncheckedCreateWithoutAsetInput>
+  }
+
+  export type PengeluaranUpdateWithWhereUniqueWithoutAsetInput = {
+    where: PengeluaranWhereUniqueInput
+    data: XOR<PengeluaranUpdateWithoutAsetInput, PengeluaranUncheckedUpdateWithoutAsetInput>
+  }
+
+  export type PengeluaranUpdateManyWithWhereWithoutAsetInput = {
+    where: PengeluaranScalarWhereInput
+    data: XOR<PengeluaranUpdateManyMutationInput, PengeluaranUncheckedUpdateManyWithoutAsetInput>
+  }
+
+  export type PengeluaranScalarWhereInput = {
+    AND?: PengeluaranScalarWhereInput | PengeluaranScalarWhereInput[]
+    OR?: PengeluaranScalarWhereInput[]
+    NOT?: PengeluaranScalarWhereInput | PengeluaranScalarWhereInput[]
+    pengeluaranId?: StringFilter<"Pengeluaran"> | string
+    idAset?: StringFilter<"Pengeluaran"> | string
+    jumlahKeluar?: BigIntFilter<"Pengeluaran"> | bigint | number
+    deskripsi?: StringFilter<"Pengeluaran"> | string
+    addedBy?: StringFilter<"Pengeluaran"> | string
+    createdAt?: DateTimeFilter<"Pengeluaran"> | Date | string
+  }
+
   export type AsetCreateWithoutMaintenancesInput = {
     asetId?: string
     merkDanTipe: string
@@ -17163,9 +18877,13 @@ export namespace Prisma {
     createdAt?: Date | string
     pic?: string | null
     kategoriAset: $Enums.AsetKategori
+    unit: string
+    jumlah: bigint | number
+    addedBy: string
     lokasi?: LokasiCreateNestedOneWithoutAsetInput
     subKategoriAset?: SubAsetKategoriCreateNestedOneWithoutAsetsInput
     perpindahan?: PerpindahanCreateNestedManyWithoutAsetInput
+    pengeluaran?: PengeluaranCreateNestedManyWithoutAsetInput
   }
 
   export type AsetUncheckedCreateWithoutMaintenancesInput = {
@@ -17183,8 +18901,12 @@ export namespace Prisma {
     createdAt?: Date | string
     pic?: string | null
     kategoriAset: $Enums.AsetKategori
+    unit: string
+    jumlah: bigint | number
+    addedBy: string
     subKategoriAsetId?: string | null
     perpindahan?: PerpindahanUncheckedCreateNestedManyWithoutAsetInput
+    pengeluaran?: PengeluaranUncheckedCreateNestedManyWithoutAsetInput
   }
 
   export type AsetCreateOrConnectWithoutMaintenancesInput = {
@@ -17217,9 +18939,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
     kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    unit?: StringFieldUpdateOperationsInput | string
+    jumlah?: BigIntFieldUpdateOperationsInput | bigint | number
+    addedBy?: StringFieldUpdateOperationsInput | string
     lokasi?: LokasiUpdateOneWithoutAsetNestedInput
     subKategoriAset?: SubAsetKategoriUpdateOneWithoutAsetsNestedInput
     perpindahan?: PerpindahanUpdateManyWithoutAsetNestedInput
+    pengeluaran?: PengeluaranUpdateManyWithoutAsetNestedInput
   }
 
   export type AsetUncheckedUpdateWithoutMaintenancesInput = {
@@ -17237,8 +18963,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
     kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    unit?: StringFieldUpdateOperationsInput | string
+    jumlah?: BigIntFieldUpdateOperationsInput | bigint | number
+    addedBy?: StringFieldUpdateOperationsInput | string
     subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
     perpindahan?: PerpindahanUncheckedUpdateManyWithoutAsetNestedInput
+    pengeluaran?: PengeluaranUncheckedUpdateManyWithoutAsetNestedInput
   }
 
   export type AsetCreateWithoutLokasiInput = {
@@ -17255,9 +18985,13 @@ export namespace Prisma {
     createdAt?: Date | string
     pic?: string | null
     kategoriAset: $Enums.AsetKategori
+    unit: string
+    jumlah: bigint | number
+    addedBy: string
     subKategoriAset?: SubAsetKategoriCreateNestedOneWithoutAsetsInput
     maintenances?: MaintenanceCreateNestedManyWithoutAsetInput
     perpindahan?: PerpindahanCreateNestedManyWithoutAsetInput
+    pengeluaran?: PengeluaranCreateNestedManyWithoutAsetInput
   }
 
   export type AsetUncheckedCreateWithoutLokasiInput = {
@@ -17274,9 +19008,13 @@ export namespace Prisma {
     createdAt?: Date | string
     pic?: string | null
     kategoriAset: $Enums.AsetKategori
+    unit: string
+    jumlah: bigint | number
+    addedBy: string
     subKategoriAsetId?: string | null
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAsetInput
     perpindahan?: PerpindahanUncheckedCreateNestedManyWithoutAsetInput
+    pengeluaran?: PengeluaranUncheckedCreateNestedManyWithoutAsetInput
   }
 
   export type AsetCreateOrConnectWithoutLokasiInput = {
@@ -17292,8 +19030,10 @@ export namespace Prisma {
   export type PengadaanCreateWithoutLokasiInput = {
     pengadaanId?: string
     tanggalBeli: Date | string
+    kategoriAset: string
     namaAset: string
     jumlahAset: number
+    unit: string
     hargaSatuan: bigint | number
     totalHarga: bigint | number
     vendor: string
@@ -17304,9 +19044,11 @@ export namespace Prisma {
   export type PengadaanUncheckedCreateWithoutLokasiInput = {
     pengadaanId?: string
     tanggalBeli: Date | string
+    kategoriAset: string
     subKategoriAsetId?: string | null
     namaAset: string
     jumlahAset: number
+    unit: string
     hargaSatuan: bigint | number
     totalHarga: bigint | number
     vendor: string
@@ -17406,6 +19148,9 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Aset"> | Date | string
     pic?: StringNullableFilter<"Aset"> | string | null
     kategoriAset?: EnumAsetKategoriFilter<"Aset"> | $Enums.AsetKategori
+    unit?: StringFilter<"Aset"> | string
+    jumlah?: BigIntFilter<"Aset"> | bigint | number
+    addedBy?: StringFilter<"Aset"> | string
     subKategoriAsetId?: StringNullableFilter<"Aset"> | string | null
   }
 
@@ -17432,9 +19177,11 @@ export namespace Prisma {
     pengadaanId?: StringFilter<"Pengadaan"> | string
     tanggalBeli?: DateTimeFilter<"Pengadaan"> | Date | string
     lokasiId?: StringFilter<"Pengadaan"> | string
+    kategoriAset?: StringFilter<"Pengadaan"> | string
     subKategoriAsetId?: StringNullableFilter<"Pengadaan"> | string | null
     namaAset?: StringFilter<"Pengadaan"> | string
     jumlahAset?: IntFilter<"Pengadaan"> | number
+    unit?: StringFilter<"Pengadaan"> | string
     hargaSatuan?: BigIntFilter<"Pengadaan"> | bigint | number
     totalHarga?: BigIntFilter<"Pengadaan"> | bigint | number
     vendor?: StringFilter<"Pengadaan"> | string
@@ -17496,9 +19243,13 @@ export namespace Prisma {
     createdAt?: Date | string
     pic?: string | null
     kategoriAset: $Enums.AsetKategori
+    unit: string
+    jumlah: bigint | number
+    addedBy: string
     lokasi?: LokasiCreateNestedOneWithoutAsetInput
     subKategoriAset?: SubAsetKategoriCreateNestedOneWithoutAsetsInput
     maintenances?: MaintenanceCreateNestedManyWithoutAsetInput
+    pengeluaran?: PengeluaranCreateNestedManyWithoutAsetInput
   }
 
   export type AsetUncheckedCreateWithoutPerpindahanInput = {
@@ -17516,8 +19267,12 @@ export namespace Prisma {
     createdAt?: Date | string
     pic?: string | null
     kategoriAset: $Enums.AsetKategori
+    unit: string
+    jumlah: bigint | number
+    addedBy: string
     subKategoriAsetId?: string | null
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAsetInput
+    pengeluaran?: PengeluaranUncheckedCreateNestedManyWithoutAsetInput
   }
 
   export type AsetCreateOrConnectWithoutPerpindahanInput = {
@@ -17575,9 +19330,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
     kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    unit?: StringFieldUpdateOperationsInput | string
+    jumlah?: BigIntFieldUpdateOperationsInput | bigint | number
+    addedBy?: StringFieldUpdateOperationsInput | string
     lokasi?: LokasiUpdateOneWithoutAsetNestedInput
     subKategoriAset?: SubAsetKategoriUpdateOneWithoutAsetsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutAsetNestedInput
+    pengeluaran?: PengeluaranUpdateManyWithoutAsetNestedInput
   }
 
   export type AsetUncheckedUpdateWithoutPerpindahanInput = {
@@ -17595,8 +19354,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
     kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    unit?: StringFieldUpdateOperationsInput | string
+    jumlah?: BigIntFieldUpdateOperationsInput | bigint | number
+    addedBy?: StringFieldUpdateOperationsInput | string
     subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
     maintenances?: MaintenanceUncheckedUpdateManyWithoutAsetNestedInput
+    pengeluaran?: PengeluaranUncheckedUpdateManyWithoutAsetNestedInput
   }
 
   export type LokasiUpsertWithoutPerpindahanInput = {
@@ -17808,9 +19571,13 @@ export namespace Prisma {
     createdAt?: Date | string
     pic?: string | null
     kategoriAset: $Enums.AsetKategori
+    unit: string
+    jumlah: bigint | number
+    addedBy: string
     lokasi?: LokasiCreateNestedOneWithoutAsetInput
     maintenances?: MaintenanceCreateNestedManyWithoutAsetInput
     perpindahan?: PerpindahanCreateNestedManyWithoutAsetInput
+    pengeluaran?: PengeluaranCreateNestedManyWithoutAsetInput
   }
 
   export type AsetUncheckedCreateWithoutSubKategoriAsetInput = {
@@ -17828,8 +19595,12 @@ export namespace Prisma {
     createdAt?: Date | string
     pic?: string | null
     kategoriAset: $Enums.AsetKategori
+    unit: string
+    jumlah: bigint | number
+    addedBy: string
     maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAsetInput
     perpindahan?: PerpindahanUncheckedCreateNestedManyWithoutAsetInput
+    pengeluaran?: PengeluaranUncheckedCreateNestedManyWithoutAsetInput
   }
 
   export type AsetCreateOrConnectWithoutSubKategoriAsetInput = {
@@ -17870,8 +19641,10 @@ export namespace Prisma {
   export type PengadaanCreateWithoutSubKategoriAsetInput = {
     pengadaanId?: string
     tanggalBeli: Date | string
+    kategoriAset: string
     namaAset: string
     jumlahAset: number
+    unit: string
     hargaSatuan: bigint | number
     totalHarga: bigint | number
     vendor: string
@@ -17883,8 +19656,10 @@ export namespace Prisma {
     pengadaanId?: string
     tanggalBeli: Date | string
     lokasiId: string
+    kategoriAset: string
     namaAset: string
     jumlahAset: number
+    unit: string
     hargaSatuan: bigint | number
     totalHarga: bigint | number
     vendor: string
@@ -18021,6 +19796,114 @@ export namespace Prisma {
     roleId?: StringFilter<"User"> | string
   }
 
+  export type AsetCreateWithoutPengeluaranInput = {
+    asetId?: string
+    merkDanTipe: string
+    tahun?: number | null
+    kondisiAset?: $Enums.AsetKondisi | null
+    masaBerlaku?: Date | string | null
+    nomorSeri?: string | null
+    statusAset: $Enums.AsetStatus
+    statusKepemilikan: string
+    urlQR?: string | null
+    urlFoto?: AsetCreateurlFotoInput | string[]
+    createdAt?: Date | string
+    pic?: string | null
+    kategoriAset: $Enums.AsetKategori
+    unit: string
+    jumlah: bigint | number
+    addedBy: string
+    lokasi?: LokasiCreateNestedOneWithoutAsetInput
+    subKategoriAset?: SubAsetKategoriCreateNestedOneWithoutAsetsInput
+    maintenances?: MaintenanceCreateNestedManyWithoutAsetInput
+    perpindahan?: PerpindahanCreateNestedManyWithoutAsetInput
+  }
+
+  export type AsetUncheckedCreateWithoutPengeluaranInput = {
+    asetId?: string
+    merkDanTipe: string
+    tahun?: number | null
+    kondisiAset?: $Enums.AsetKondisi | null
+    masaBerlaku?: Date | string | null
+    nomorSeri?: string | null
+    statusAset: $Enums.AsetStatus
+    statusKepemilikan: string
+    lokasiId?: string | null
+    urlQR?: string | null
+    urlFoto?: AsetCreateurlFotoInput | string[]
+    createdAt?: Date | string
+    pic?: string | null
+    kategoriAset: $Enums.AsetKategori
+    unit: string
+    jumlah: bigint | number
+    addedBy: string
+    subKategoriAsetId?: string | null
+    maintenances?: MaintenanceUncheckedCreateNestedManyWithoutAsetInput
+    perpindahan?: PerpindahanUncheckedCreateNestedManyWithoutAsetInput
+  }
+
+  export type AsetCreateOrConnectWithoutPengeluaranInput = {
+    where: AsetWhereUniqueInput
+    create: XOR<AsetCreateWithoutPengeluaranInput, AsetUncheckedCreateWithoutPengeluaranInput>
+  }
+
+  export type AsetUpsertWithoutPengeluaranInput = {
+    update: XOR<AsetUpdateWithoutPengeluaranInput, AsetUncheckedUpdateWithoutPengeluaranInput>
+    create: XOR<AsetCreateWithoutPengeluaranInput, AsetUncheckedCreateWithoutPengeluaranInput>
+    where?: AsetWhereInput
+  }
+
+  export type AsetUpdateToOneWithWhereWithoutPengeluaranInput = {
+    where?: AsetWhereInput
+    data: XOR<AsetUpdateWithoutPengeluaranInput, AsetUncheckedUpdateWithoutPengeluaranInput>
+  }
+
+  export type AsetUpdateWithoutPengeluaranInput = {
+    asetId?: StringFieldUpdateOperationsInput | string
+    merkDanTipe?: StringFieldUpdateOperationsInput | string
+    tahun?: NullableIntFieldUpdateOperationsInput | number | null
+    kondisiAset?: NullableEnumAsetKondisiFieldUpdateOperationsInput | $Enums.AsetKondisi | null
+    masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
+    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
+    statusKepemilikan?: StringFieldUpdateOperationsInput | string
+    urlQR?: NullableStringFieldUpdateOperationsInput | string | null
+    urlFoto?: AsetUpdateurlFotoInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pic?: NullableStringFieldUpdateOperationsInput | string | null
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    unit?: StringFieldUpdateOperationsInput | string
+    jumlah?: BigIntFieldUpdateOperationsInput | bigint | number
+    addedBy?: StringFieldUpdateOperationsInput | string
+    lokasi?: LokasiUpdateOneWithoutAsetNestedInput
+    subKategoriAset?: SubAsetKategoriUpdateOneWithoutAsetsNestedInput
+    maintenances?: MaintenanceUpdateManyWithoutAsetNestedInput
+    perpindahan?: PerpindahanUpdateManyWithoutAsetNestedInput
+  }
+
+  export type AsetUncheckedUpdateWithoutPengeluaranInput = {
+    asetId?: StringFieldUpdateOperationsInput | string
+    merkDanTipe?: StringFieldUpdateOperationsInput | string
+    tahun?: NullableIntFieldUpdateOperationsInput | number | null
+    kondisiAset?: NullableEnumAsetKondisiFieldUpdateOperationsInput | $Enums.AsetKondisi | null
+    masaBerlaku?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nomorSeri?: NullableStringFieldUpdateOperationsInput | string | null
+    statusAset?: EnumAsetStatusFieldUpdateOperationsInput | $Enums.AsetStatus
+    statusKepemilikan?: StringFieldUpdateOperationsInput | string
+    lokasiId?: NullableStringFieldUpdateOperationsInput | string | null
+    urlQR?: NullableStringFieldUpdateOperationsInput | string | null
+    urlFoto?: AsetUpdateurlFotoInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pic?: NullableStringFieldUpdateOperationsInput | string | null
+    kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    unit?: StringFieldUpdateOperationsInput | string
+    jumlah?: BigIntFieldUpdateOperationsInput | bigint | number
+    addedBy?: StringFieldUpdateOperationsInput | string
+    subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenances?: MaintenanceUncheckedUpdateManyWithoutAsetNestedInput
+    perpindahan?: PerpindahanUncheckedUpdateManyWithoutAsetNestedInput
+  }
+
   export type RequestCreateManyUserInput = {
     requestId: string
     namaAset: string
@@ -18036,6 +19919,7 @@ export namespace Prisma {
     durasi?: string | null
     requestBy: string
     approvedBy?: string | null
+    createdAt?: Date | string
   }
 
   export type RequestUpdateWithoutUserInput = {
@@ -18053,6 +19937,7 @@ export namespace Prisma {
     durasi?: NullableStringFieldUpdateOperationsInput | string | null
     requestBy?: StringFieldUpdateOperationsInput | string
     approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RequestUncheckedUpdateWithoutUserInput = {
@@ -18070,6 +19955,7 @@ export namespace Prisma {
     durasi?: NullableStringFieldUpdateOperationsInput | string | null
     requestBy?: StringFieldUpdateOperationsInput | string
     approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RequestUncheckedUpdateManyWithoutUserInput = {
@@ -18087,6 +19973,7 @@ export namespace Prisma {
     durasi?: NullableStringFieldUpdateOperationsInput | string | null
     requestBy?: StringFieldUpdateOperationsInput | string
     approvedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MaintenanceCreateManyAsetInput = {
@@ -18106,6 +19993,14 @@ export namespace Prisma {
     tanggalPindah: Date | string
     createdAt?: Date | string
     tempatLama: string
+  }
+
+  export type PengeluaranCreateManyAsetInput = {
+    pengeluaranId?: string
+    jumlahKeluar: bigint | number
+    deskripsi: string
+    addedBy: string
+    createdAt?: Date | string
   }
 
   export type MaintenanceUpdateWithoutAsetInput = {
@@ -18165,6 +20060,30 @@ export namespace Prisma {
     tempatLama?: StringFieldUpdateOperationsInput | string
   }
 
+  export type PengeluaranUpdateWithoutAsetInput = {
+    pengeluaranId?: StringFieldUpdateOperationsInput | string
+    jumlahKeluar?: BigIntFieldUpdateOperationsInput | bigint | number
+    deskripsi?: StringFieldUpdateOperationsInput | string
+    addedBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PengeluaranUncheckedUpdateWithoutAsetInput = {
+    pengeluaranId?: StringFieldUpdateOperationsInput | string
+    jumlahKeluar?: BigIntFieldUpdateOperationsInput | bigint | number
+    deskripsi?: StringFieldUpdateOperationsInput | string
+    addedBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PengeluaranUncheckedUpdateManyWithoutAsetInput = {
+    pengeluaranId?: StringFieldUpdateOperationsInput | string
+    jumlahKeluar?: BigIntFieldUpdateOperationsInput | bigint | number
+    deskripsi?: StringFieldUpdateOperationsInput | string
+    addedBy?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AsetCreateManyLokasiInput = {
     asetId?: string
     merkDanTipe: string
@@ -18179,15 +20098,20 @@ export namespace Prisma {
     createdAt?: Date | string
     pic?: string | null
     kategoriAset: $Enums.AsetKategori
+    unit: string
+    jumlah: bigint | number
+    addedBy: string
     subKategoriAsetId?: string | null
   }
 
   export type PengadaanCreateManyLokasiInput = {
     pengadaanId?: string
     tanggalBeli: Date | string
+    kategoriAset: string
     subKategoriAsetId?: string | null
     namaAset: string
     jumlahAset: number
+    unit: string
     hargaSatuan: bigint | number
     totalHarga: bigint | number
     vendor: string
@@ -18217,9 +20141,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
     kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    unit?: StringFieldUpdateOperationsInput | string
+    jumlah?: BigIntFieldUpdateOperationsInput | bigint | number
+    addedBy?: StringFieldUpdateOperationsInput | string
     subKategoriAset?: SubAsetKategoriUpdateOneWithoutAsetsNestedInput
     maintenances?: MaintenanceUpdateManyWithoutAsetNestedInput
     perpindahan?: PerpindahanUpdateManyWithoutAsetNestedInput
+    pengeluaran?: PengeluaranUpdateManyWithoutAsetNestedInput
   }
 
   export type AsetUncheckedUpdateWithoutLokasiInput = {
@@ -18236,9 +20164,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
     kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    unit?: StringFieldUpdateOperationsInput | string
+    jumlah?: BigIntFieldUpdateOperationsInput | bigint | number
+    addedBy?: StringFieldUpdateOperationsInput | string
     subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
     maintenances?: MaintenanceUncheckedUpdateManyWithoutAsetNestedInput
     perpindahan?: PerpindahanUncheckedUpdateManyWithoutAsetNestedInput
+    pengeluaran?: PengeluaranUncheckedUpdateManyWithoutAsetNestedInput
   }
 
   export type AsetUncheckedUpdateManyWithoutLokasiInput = {
@@ -18255,14 +20187,19 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
     kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    unit?: StringFieldUpdateOperationsInput | string
+    jumlah?: BigIntFieldUpdateOperationsInput | bigint | number
+    addedBy?: StringFieldUpdateOperationsInput | string
     subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PengadaanUpdateWithoutLokasiInput = {
     pengadaanId?: StringFieldUpdateOperationsInput | string
     tanggalBeli?: DateTimeFieldUpdateOperationsInput | Date | string
+    kategoriAset?: StringFieldUpdateOperationsInput | string
     namaAset?: StringFieldUpdateOperationsInput | string
     jumlahAset?: IntFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
     totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
     vendor?: StringFieldUpdateOperationsInput | string
@@ -18273,9 +20210,11 @@ export namespace Prisma {
   export type PengadaanUncheckedUpdateWithoutLokasiInput = {
     pengadaanId?: StringFieldUpdateOperationsInput | string
     tanggalBeli?: DateTimeFieldUpdateOperationsInput | Date | string
+    kategoriAset?: StringFieldUpdateOperationsInput | string
     subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
     namaAset?: StringFieldUpdateOperationsInput | string
     jumlahAset?: IntFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
     totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
     vendor?: StringFieldUpdateOperationsInput | string
@@ -18285,9 +20224,11 @@ export namespace Prisma {
   export type PengadaanUncheckedUpdateManyWithoutLokasiInput = {
     pengadaanId?: StringFieldUpdateOperationsInput | string
     tanggalBeli?: DateTimeFieldUpdateOperationsInput | Date | string
+    kategoriAset?: StringFieldUpdateOperationsInput | string
     subKategoriAsetId?: NullableStringFieldUpdateOperationsInput | string | null
     namaAset?: StringFieldUpdateOperationsInput | string
     jumlahAset?: IntFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
     totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
     vendor?: StringFieldUpdateOperationsInput | string
@@ -18358,14 +20299,19 @@ export namespace Prisma {
     createdAt?: Date | string
     pic?: string | null
     kategoriAset: $Enums.AsetKategori
+    unit: string
+    jumlah: bigint | number
+    addedBy: string
   }
 
   export type PengadaanCreateManySubKategoriAsetInput = {
     pengadaanId?: string
     tanggalBeli: Date | string
     lokasiId: string
+    kategoriAset: string
     namaAset: string
     jumlahAset: number
+    unit: string
     hargaSatuan: bigint | number
     totalHarga: bigint | number
     vendor: string
@@ -18386,9 +20332,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
     kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    unit?: StringFieldUpdateOperationsInput | string
+    jumlah?: BigIntFieldUpdateOperationsInput | bigint | number
+    addedBy?: StringFieldUpdateOperationsInput | string
     lokasi?: LokasiUpdateOneWithoutAsetNestedInput
     maintenances?: MaintenanceUpdateManyWithoutAsetNestedInput
     perpindahan?: PerpindahanUpdateManyWithoutAsetNestedInput
+    pengeluaran?: PengeluaranUpdateManyWithoutAsetNestedInput
   }
 
   export type AsetUncheckedUpdateWithoutSubKategoriAsetInput = {
@@ -18406,8 +20356,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
     kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    unit?: StringFieldUpdateOperationsInput | string
+    jumlah?: BigIntFieldUpdateOperationsInput | bigint | number
+    addedBy?: StringFieldUpdateOperationsInput | string
     maintenances?: MaintenanceUncheckedUpdateManyWithoutAsetNestedInput
     perpindahan?: PerpindahanUncheckedUpdateManyWithoutAsetNestedInput
+    pengeluaran?: PengeluaranUncheckedUpdateManyWithoutAsetNestedInput
   }
 
   export type AsetUncheckedUpdateManyWithoutSubKategoriAsetInput = {
@@ -18425,6 +20379,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pic?: NullableStringFieldUpdateOperationsInput | string | null
     kategoriAset?: EnumAsetKategoriFieldUpdateOperationsInput | $Enums.AsetKategori
+    unit?: StringFieldUpdateOperationsInput | string
+    jumlah?: BigIntFieldUpdateOperationsInput | bigint | number
+    addedBy?: StringFieldUpdateOperationsInput | string
   }
 
   export type LokasiUpdateWithoutSubKategoriAsetInput = {
@@ -18457,8 +20414,10 @@ export namespace Prisma {
   export type PengadaanUpdateWithoutSubKategoriAsetInput = {
     pengadaanId?: StringFieldUpdateOperationsInput | string
     tanggalBeli?: DateTimeFieldUpdateOperationsInput | Date | string
+    kategoriAset?: StringFieldUpdateOperationsInput | string
     namaAset?: StringFieldUpdateOperationsInput | string
     jumlahAset?: IntFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
     totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
     vendor?: StringFieldUpdateOperationsInput | string
@@ -18470,8 +20429,10 @@ export namespace Prisma {
     pengadaanId?: StringFieldUpdateOperationsInput | string
     tanggalBeli?: DateTimeFieldUpdateOperationsInput | Date | string
     lokasiId?: StringFieldUpdateOperationsInput | string
+    kategoriAset?: StringFieldUpdateOperationsInput | string
     namaAset?: StringFieldUpdateOperationsInput | string
     jumlahAset?: IntFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
     totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
     vendor?: StringFieldUpdateOperationsInput | string
@@ -18482,8 +20443,10 @@ export namespace Prisma {
     pengadaanId?: StringFieldUpdateOperationsInput | string
     tanggalBeli?: DateTimeFieldUpdateOperationsInput | Date | string
     lokasiId?: StringFieldUpdateOperationsInput | string
+    kategoriAset?: StringFieldUpdateOperationsInput | string
     namaAset?: StringFieldUpdateOperationsInput | string
     jumlahAset?: IntFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
     hargaSatuan?: BigIntFieldUpdateOperationsInput | bigint | number
     totalHarga?: BigIntFieldUpdateOperationsInput | bigint | number
     vendor?: StringFieldUpdateOperationsInput | string

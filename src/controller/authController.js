@@ -62,11 +62,12 @@ class AuthController {
             const role = roleResult?.role.nameRole;
 
 
-            console.log(role);
+            // console.log(role);
             
             res.status(200).json({
                 success: true,
                 data: {
+                    id: user.id,
                     email: user.email,
                     name: user.name,
                     role,

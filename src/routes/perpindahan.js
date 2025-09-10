@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const PerpindahanController = require('../controller/perpindahanController');
-const { verifyToken, isSuperAdmin, isAdmin } = require('../middleware/auth');
+const { verifyToken, allowRoles } = require('../middleware/auth');
 
 // Pindah aset 
-router.post('/pindah', verifyToken, (isSuperAdmin || isAdmin), PerpindahanController.pindahAsset);
+router.post('/pindah', verifyToken, allowRoles('1', '2'), PerpindahanController.pindahAsset);
 
 // Get data perpindahan 
-router.get('/', verifyToken, (isSuperAdmin || isAdmin), PerpindahanController.getDataPindah);
+router.get('/', verifyToken, allowRoles('1', '2'), PerpindahanController.getDataPindah);
 
 module.exports = router;

@@ -16,6 +16,7 @@ const notifRoutes = require('./routes/notif');
 const maintenanceRoutes = require('./routes/maintenance');
 const subKategoriRoutes = require('./routes/subAset');
 const requestRoutes = require('./routes/request');
+const pengeluaranRoutes = require('./routes/pengeluaran');
 
 // Initialize Express app
 const app = express();
@@ -37,6 +38,7 @@ app.use('/api/notif', notifRoutes);
 app.use('/api/maintenance', maintenanceRoutes);
 app.use('/api/subkategori', subKategoriRoutes);
 app.use('/api/request', requestRoutes);
+app.use('/api/pengeluaran', pengeluaranRoutes);
 
 
 

@@ -65,7 +65,42 @@ class RequestController {
 
     static async getAllRequests(req, res) {
         try {
+            let {
+                recent = 'desc',
+                page = 1,
+                limit = 5,
+                status,
+                tipeKebutuhan,
+                search
+
+            } = req.query
+
+            page = parseInt(page);
+            limit = parseInt(limit);
+            const skip = (page - 1) * limit;
+
+            const where = {};
+
+            if (status) {
+                where.request = { status: status}
+            }
+
+            if(tipeKebutuhan) {
+                where.request = { tipeKebutuhan: tipeKebutuhan}
+            }
+
+            if(search) {
+                where.OR = [
+                    { namaAset: { contains: search, mode: 'insensitive' } },
+                    { requestId: { contains: search, mode: 'insensitive' } }
+                ];
+            }
+
             const data = await prisma.request.findMany({
+                where,
+                skip,
+                take: limit,
+                orderBy: { createdAt: recent.toLowerCase() === 'asc' ? 'asc' : 'desc' },
                 include: {
                     user: {
                         select: {
@@ -76,10 +111,9 @@ class RequestController {
                         }
                     }
                 },
-                orderBy: { tanggalButuh: 'desc' }
             });
 
-            console.log(data);
+            // console.log(data);
 
             res.status(200).json(convertBigInt({
                 success: true,
@@ -96,8 +130,22 @@ class RequestController {
 
     static async getRequestsUser(req, res) {
         try {
+
+            let {
+                recent = 'desc',
+                page = 1,
+                limit = 5,
+                status,
+                tipeKebutuhan,
+                search
+
+            } = req.query
+
             const { idUser } = req.params;
             const currentUserId = req.user.id;
+
+            console.log(req.query);
+            console.log(req.params);
 
             if (idUser !== currentUserId) {
                 return res.status(403).json({
@@ -106,8 +154,32 @@ class RequestController {
                 });
             }
 
+            page = parseInt(page);
+            limit = parseInt(limit);
+            const skip = (page - 1) * limit;
+
+            const where = { idUser };
+
+            if (status) {
+                where.request = { status: status}
+            }
+
+            if(tipeKebutuhan) {
+                where.request = { tipeKebutuhan: tipeKebutuhan}
+            }
+
+            if(search) {
+                where.OR = [
+                    { namaAset: { contains: search, mode: 'insensitive' } },
+                    { requestId: { contains: search, mode: 'insensitive' } }
+                ];
+            }            
+
             const data = await prisma.request.findMany({
-                where: { idUser },
+                where,
+                skip,
+                take: limit,
+                orderBy: { createdAt: recent.toLowerCase() === 'asc' ? 'asc' : 'desc' },
                 include: {
                     user: {
                         select: {
@@ -118,10 +190,9 @@ class RequestController {
                         }
                     }
                 },
-                orderBy: { tanggalButuh: 'desc' }
             });
 
-            console.log(data);
+            // console.log(data);
 
             res.status(200).json(convertBigInt({
                 success: true,

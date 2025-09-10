@@ -146,6 +146,9 @@ exports.Prisma.AsetScalarFieldEnum = {
   createdAt: 'createdAt',
   pic: 'pic',
   kategoriAset: 'kategoriAset',
+  unit: 'unit',
+  jumlah: 'jumlah',
+  addedBy: 'addedBy',
   subKategoriAsetId: 'subKategoriAsetId'
 };
 
@@ -181,9 +184,11 @@ exports.Prisma.PengadaanScalarFieldEnum = {
   pengadaanId: 'pengadaanId',
   tanggalBeli: 'tanggalBeli',
   lokasiId: 'lokasiId',
+  kategoriAset: 'kategoriAset',
   subKategoriAsetId: 'subKategoriAsetId',
   namaAset: 'namaAset',
   jumlahAset: 'jumlahAset',
+  unit: 'unit',
   hargaSatuan: 'hargaSatuan',
   totalHarga: 'totalHarga',
   vendor: 'vendor',
@@ -205,7 +210,8 @@ exports.Prisma.RequestScalarFieldEnum = {
   durasi: 'durasi',
   idUser: 'idUser',
   requestBy: 'requestBy',
-  approvedBy: 'approvedBy'
+  approvedBy: 'approvedBy',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.NotifikasiScalarFieldEnum = {
@@ -221,6 +227,15 @@ exports.Prisma.SubAsetKategoriScalarFieldEnum = {
 exports.Prisma.UserRoleScalarFieldEnum = {
   userRoleId: 'userRoleId',
   nameRole: 'nameRole',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PengeluaranScalarFieldEnum = {
+  pengeluaranId: 'pengeluaranId',
+  idAset: 'idAset',
+  jumlahKeluar: 'jumlahKeluar',
+  deskripsi: 'deskripsi',
+  addedBy: 'addedBy',
   createdAt: 'createdAt'
 };
 
@@ -277,7 +292,8 @@ exports.Prisma.ModelName = {
   Request: 'Request',
   Notifikasi: 'Notifikasi',
   SubAsetKategori: 'SubAsetKategori',
-  UserRole: 'UserRole'
+  UserRole: 'UserRole',
+  Pengeluaran: 'Pengeluaran'
 };
 
 /**

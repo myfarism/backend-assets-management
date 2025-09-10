@@ -42,55 +42,23 @@ const verifyToken = async (req, res, next) => {
     }
 };
 
-const isSuperAdmin = (req, res, next) => {
-    if (req.user && req.user.roleId === '1') {
-        next(); // Lanjut ke controller
-    } else {
-        return res.status(403).json({ 
-            success: false, 
-            message: 'Akses ditolak. Hanya Super Admin yang diperbolehkan.' 
-        });
-    }
-};
+function allowRoles(...roles) {
+    return (req, res, next) => {
+        if (!roles.includes(req.user.roleId)) {
+            console.log(req.user.roleId);
+            console.log(req.user);
+            return res.status(403).json({
+                success: false,
+                message: 'Akses ditolak'
+            });
+        }
+        next();
+    };
+}
 
-const isAdmin = (req, res, next) => {
-    if (req.user && req.user.roleId === '2') {
-        next(); // Lanjut ke controller
-    } else {
-        return res.status(403).json({ 
-            success: false, 
-            message: 'Akses ditolak. Hanya admin yang diperbolehkan.' 
-        });
-    }
-};
-
-const isMaintenance = (req, res, next) => {
-    if (req.user && req.user.roleId === '3') {
-        next(); // Lanjut ke controller
-    } else {
-        return res.status(403).json({ 
-            success: false, 
-            message: 'Akses ditolak. Hanya maintenance yang diperbolehkan.' 
-        });
-    }
-};
-
-const isUser = (req, res, next) => {
-    if (req.user && req.user.roleId === '4') {
-        next(); // Lanjut ke controller
-    } else {
-        return res.status(403).json({ 
-            success: false, 
-            message: 'Akses ditolak. Hanya user yang diperbolehkan.' 
-        });
-    }
-};
 
 
 module.exports = {
     verifyToken,
-    isSuperAdmin,
-    isAdmin,
-    isMaintenance,
-    isUser
+    allowRoles
 };

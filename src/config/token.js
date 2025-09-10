@@ -124,6 +124,18 @@ function generateRequestId(length = 5) {
   return reqId;
 }
 
+function generatePengeluaranId(length = 5) {
+  let result = '';
+  const digits = '0123456789';
+  for (let i = 0; i < length; i++) {
+    result += digits.charAt(Math.floor(Math.random() * digits.length));
+  }
+
+  const keluarId = `OUT-${result}`;
+
+  return keluarId;
+}
+
 module.exports = {
     generateJWT,
     generateUserId,
@@ -133,5 +145,6 @@ module.exports = {
     generateLokasiId,
     generatePindahId,
     generateSubKategori,
-    generateRequestId
+    generateRequestId,
+    generatePengeluaranId
 };

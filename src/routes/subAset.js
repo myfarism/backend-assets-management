@@ -1,19 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const { verifyToken, isAdmin } = require('../middleware/auth');
+const { verifyToken, allowRoles } = require('../middleware/auth');
 const SubKategoriController = require('../controller/subkategoriController');
-const { subAsetKategori } = require('../config/database');
 
 // Add Sub Kategori
-router.post('/', verifyToken, isAdmin, SubKategoriController.addSubKategori);
+router.post('/', verifyToken, allowRoles('1'), SubKategoriController.addSubKategori);
 
 // Get Sub Kategori
-router.get('/', verifyToken, isAdmin, SubKategoriController.getSubKategori);
+router.get('/', verifyToken, allowRoles('1'), SubKategoriController.getSubKategori);
 
 // Delete Sub Kategori
-router.delete('/:subAsetId', verifyToken, isAdmin, SubKategoriController.deleteSubKategori);
+router.delete('/:subAsetId', verifyToken, allowRoles('1'), SubKategoriController.deleteSubKategori);
 
 // Update Sub Kategori
-router.post('/:subAsetId', verifyToken, isAdmin, SubKategoriController.updateSubKategori);
+router.post('/:subAsetId', verifyToken, allowRoles('1'), SubKategoriController.updateSubKategori);
 
 module.exports = router;
